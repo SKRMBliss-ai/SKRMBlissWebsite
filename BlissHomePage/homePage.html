@@ -112,7 +112,7 @@
             <p style="color:var(--muted)">Engaging simulators, quizzes, and gamified learning experiences for educational platforms and training modules.</p>
             <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
                <a href="#contact" class="btn">Discuss plan</a>
-               <a href="#" class="btn ghost" onclick="alert('Tools page coming soon.')">Try our tools</a>
+               
             </div>
           </div>
 
@@ -256,7 +256,7 @@
 
           <aside class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:12px">
             <strong style="font-size:16px">Contact us</strong>
-            <div class="muted" style="margin-top:4px">Email: <a href="mailto:skrmblissai@gmail.com">skrmblissai@gmail.com</a></div>
+            <div class="muted" style="margin-top:4px">Email: <a href="mailto:connect@skrmblissai.com">connect@skrmblissai.com</a></div>
             <div class="muted">Phone: +91 99022 36432</div>
             <div class="muted">Location: Bengaluru, India</div>
 
@@ -795,7 +795,7 @@ footer {
         if(!/^\S+@\S+\.\S+$/.test(email)){ if(status) status.textContent='Please enter a valid email.'; return; }
         if(!consent){ if(status) status.textContent='Please allow us to contact you.'; return; }
 
-        const targetEmail = 'skrmblissai@gmail.com';
+        const targetEmail = 'connect@skrmblissai.com';
         const subject = encodeURIComponent('Website enquiry from ' + name);
         const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message);
         const mailto = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
