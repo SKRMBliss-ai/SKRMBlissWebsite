@@ -1,662 +1,978 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SKRMBliss.ai - Build digital experiences that convert. Web apps, mobile solutions, and AI tools for creators and businesses worldwide.">
+<meta name="keywords" content="Web Development, AI Tools, PWA, Educational Tech, Startup Growth, Global Digital Services">
+<meta name="author" content="SKRM Bliss AI">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://skrmbliss.ai/">
+<meta property="og:title" content="SKRMBliss.ai | Build Digital Experiences That Convert">
+<meta property="og:description" content="Launch your AI apps, funnels, and educational platforms in days. Trusted by 120+ global projects.">
+<meta property="og:image" content="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png">
+
+<title>SKRMBliss.ai | Digital Excellence</title>
 <style>
-  /* --- 1. SYSTEME.IO & MOBILE CORE SAFEGUARDS --- */
-  #skrm-bliss-root {
-    width: 100%;
-    max-width: 100vw; 
-    overflow-x: hidden; 
-    position: relative;
-    
-    /* BRAND COLORS */
-    --lavender: #b8acd6;
-    --teal: #96c9c4;
-    --brand-400: #96c9c4;
-    --brand-500: #7db9b3;
-    --brand-600: #6aa8a2;
-    --accent: #b8acd6;
-    --muted: #6b7280;
-    --glass-strong: rgba(15, 23, 42, 0.06);
-    --shadow: 0 24px 60px rgba(2, 6, 23, 0.10);
-    --text: #071026;
-    
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color: var(--text);
-    background: radial-gradient(circle at 50% 0%, #f7f9fa 0%, #ffffff 60%, #f1f5f9 100%);
-    line-height: 1.5;
-  }
-
-  #skrm-bliss-root * { box-sizing: border-box; }
-  #skrm-bliss-root img { max-width: 100%; height: auto; display: block; }
+  /* --- 1. CORE VARIABLES & THEME CONFIG --- */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   
-  #skrm-bliss-root .wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    width: 100%;
+  :root {
+    /* --- COLOR PALETTE (CONSTANTS) --- */
+    --col-teal: #ABCEC9;    
+    --col-violet: #C3B8D5;  
+    --col-grey: #AABBCC;    
+    --col-lavender: #EDE8F8;
+    
+    /* LIGHT MODE */
+    --bg-body: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--col-lavender) 100%);
+    --bg-blob-1: rgba(171, 206, 201, 0.6); 
+    --bg-blob-2: rgba(195, 184, 213, 0.6); 
+    --bg-blob-3: rgba(170, 187, 204, 0.4); 
+    
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --text-on-brand: #000000; 
+    
+    --brand-primary: var(--col-teal);   
+    --brand-secondary: var(--col-violet); 
+    
+    /* PREMIUM GLASS SETTINGS (Light) */
+    --glass-surface: rgba(255, 255, 255, 0.55); /* More opacity for 'Matte' look */
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-blur: 40px; /* Heavy blur for depth */
+    --glass-shadow: 0 20px 40px rgba(170, 187, 204, 0.15);
+    --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.9), inset 0 0 20px rgba(255,255,255,0.2); /* 3D Edge */
+    
+    --glow-color: rgba(171, 206, 201, 0.6);
+    --glow-spread: 0 0 40px 5px;
+    
+    --card-hover-bg: rgba(255, 255, 255, 0.85);
+    --gradient-text: linear-gradient(135deg, #555, #ABCEC9); 
   }
 
-  /* --- 2. GLOBAL CARD & BENTO STYLES --- */
-  #skrm-bliss-root .card,
-  #skrm-bliss-root .bento-card {
-    background: #fff;
-    border-radius: 20px;
-    border: 1px solid var(--glass-strong);
-    padding: 24px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s ease, border-color 0.3s ease;
-    box-shadow: 0 4px 12px rgba(2, 6, 23, 0.04);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
+  /* DARK MODE */
+  [data-theme="dark"] {
+    --bg-body: linear-gradient(135deg, #050505 0%, #121214 50%, #050505 100%);
+    --bg-blob-1: rgba(171, 206, 201, 0.15); 
+    --bg-blob-2: rgba(195, 184, 213, 0.15); 
+    --bg-blob-3: rgba(170, 187, 204, 0.1);  
+    
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-on-brand: #000000; 
+    
+    --brand-primary: var(--col-teal);   
+    --brand-secondary: var(--col-violet);
+    
+    /* PREMIUM GLASS SETTINGS (Dark) */
+    --glass-surface: rgba(30, 30, 35, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-blur: 40px;
+    --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.02);
+    
+    --glow-color: rgba(171, 206, 201, 0.3); 
+    --glow-spread: 0 0 50px 10px;
+    
+    --card-hover-bg: rgba(45, 45, 50, 0.8);
+    --gradient-text: linear-gradient(135deg, #ffffff 30%, #ABCEC9 100%);
   }
 
-  #skrm-bliss-root .card:hover,
-  #skrm-bliss-root .bento-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(150, 201, 196, 0.15);
-    background: linear-gradient(135deg, #ffffff 30%, rgba(150, 201, 196, 0.15) 100%);
-    border-color: rgba(184, 172, 214, 0.4);
+  /* --- 2. GLOBAL STYLES --- */
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    overflow-x: hidden;
+    line-height: 1.6;
+    transition: background 0.5s ease, color 0.5s ease;
   }
+
+  html { scroll-behavior: smooth; }
+
+  .bg-gradient {
+    position: fixed; inset: 0;
+    background: 
+      radial-gradient(circle at 15% 50%, var(--bg-blob-1) 0%, transparent 50%),
+      radial-gradient(circle at 85% 80%, var(--bg-blob-2) 0%, transparent 50%),
+      radial-gradient(circle at 50% 20%, var(--bg-blob-3) 0%, transparent 50%);
+    animation: gradientShift 15s ease infinite;
+    pointer-events: none; z-index: -1;
+    transition: background 0.5s ease;
+  }
+  @keyframes gradientShift {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.9; }
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
   /* --- 3. NAVIGATION --- */
-  #skrm-bliss-root nav {
-    display: flex;
+  nav {
+    position: sticky; top: 1rem; z-index: 1000;
+    margin: 1rem auto 2rem; max-width: 1280px;
+    background: var(--glass-surface);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 0.8rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: var(--glass-shadow);
+    /* Inset shadow for 3D pill look */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05), var(--glass-inset);
+    transition: all 0.3s ease;
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 1.25rem; font-weight: 800; color: var(--text-main);
+    text-decoration: none; transition: color 0.3s;
+  }
+  .logo img { width: 36px; height: 36px; object-fit: contain; }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem;
+    transition: color 0.3s ease; position: relative;
+  }
+  .nav-links a:hover { color: var(--brand-primary); text-shadow: 0 0 20px var(--brand-primary); }
+  
+  .btn-primary {
+    padding: 0.8rem 2rem; border-radius: 12px;
+    background: var(--brand-primary);
+    color: var(--text-on-brand); 
+    font-weight: 700; text-decoration: none; border: none; cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 0 25px var(--brand-primary);
+  }
+
+  .btn-glass {
+    padding: 0.8rem 1.8rem; border-radius: 12px;
+    background: var(--glass-surface); border: 1px solid var(--glass-border);
+    color: var(--text-main); font-weight: 600; text-decoration: none;
+    transition: 0.3s ease;
+  }
+  .btn-glass:hover { 
+    background: var(--card-hover-bg); 
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 15px var(--glow-color);
+  }
+
+  .controls { display: flex; gap: 10px; align-items: center; }
+
+  .theme-toggle {
+    background: var(--glass-surface); border: 1px solid var(--glass-border);
+    border-radius: 50%; width: 40px; height: 40px;
+    display: grid; place-items: center; cursor: pointer;
+    font-size: 1.2rem; color: var(--text-main);
+    transition: 0.3s ease;
+  }
+  .theme-toggle:hover { 
+    background: var(--card-hover-bg); 
+    box-shadow: 0 0 15px var(--glow-color);
+    transform: rotate(15deg); 
+  }
+
+  .lang-select {
+    padding: 0.5rem 0.8rem; border-radius: 12px;
+    background: var(--glass-surface);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main); font-weight: 600;
+    cursor: pointer; outline: none;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+  }
+  .lang-select:hover { border-color: var(--brand-primary); background: var(--card-hover-bg); }
+  .lang-select option { background: var(--card-hover-bg); color: var(--text-main); }
+
+  .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-main); font-size: 1.5rem; cursor: pointer; }
+
+  /* --- 4. LAYOUT COMPONENTS --- */
+  .hero {
+    margin: 4rem 0 6rem;
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem;
     align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.98);
-    border: 1px solid var(--glass-strong);
-    box-shadow: var(--shadow);
-    position: sticky;
-    top: 10px;
-    z-index: 9999;
   }
+  .hero-content h1 {
+    font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem;
+    letter-spacing: -0.02em; color: var(--text-main);
+  }
+  .gradient-text {
+    background: var(--gradient-text);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    background-size: 200% auto; animation: gradientSlide 4s ease infinite;
+  }
+  @keyframes gradientSlide { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+  .hero-content p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 540px; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-  #skrm-bliss-root .brand { display: flex; gap: 10px; align-items: center; }
-  #skrm-bliss-root .logo-img {
-    width: 42px; height: 42px;
-    display: grid; place-items: center;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--brand-500), var(--lavender));
-    box-shadow: 0 8px 24px rgba(150, 201, 196, 0.28);
-  }
-  #skrm-bliss-root .brand-title { font-weight: 800; font-size: 16px; margin: 0; line-height: 1.2; }
-  #skrm-bliss-root .brand-sub { font-size: 11px; color: var(--muted); margin: 0; }
-
-  #skrm-bliss-root .nav-links { display: flex; gap: 6px; }
-  #skrm-bliss-root .nav-links a {
-    color: var(--muted); text-decoration: none;
-    padding: 8px 12px; border-radius: 8px;
-    font-size: 14px; font-weight: 600;
-    transition: 0.2s;
-  }
-  #skrm-bliss-root .nav-links a:hover { color: var(--text); background: rgba(15, 23, 42, 0.04); }
-
-  #skrm-bliss-root .controls { display: flex; gap: 8px; align-items: center; }
-  #skrm-bliss-root .btn {
-    padding: 10px 24px; border-radius: 30px;
-    background: linear-gradient(135deg, var(--brand-500), var(--lavender));
-    color: white; text-decoration: none; font-weight: 700;
-    border: none; cursor: pointer; font-size: 14px;
-    white-space: nowrap; transition: 0.2s;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  #skrm-bliss-root .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(150, 201, 196, 0.3); }
+  .hero-bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
   
-  #skrm-bliss-root .btn.ghost {
-    background: transparent; border: 1px solid var(--glass-strong); color: var(--text); box-shadow: none;
-  }
-  #skrm-bliss-root .btn.ghost:hover { background: rgba(255,255,255,0.8); border-color: var(--brand-500); }
-
-  #skrm-bliss-root .select {
-    padding: 6px 8px; border-radius: 8px; border: 1px solid var(--glass-strong);
-    background: transparent; outline: none; font-size: 13px;
-  }
-
-  #skrm-hamburger {
-    display: none; padding: 6px 10px; font-size: 20px;
-    background: transparent; border: 1px solid var(--glass-strong);
-    border-radius: 8px; cursor: pointer;
-  }
-  #skrm-mobile-menu {
-    display: none; position: absolute; top: 70px; right: 0; left: 0;
-    background: white; padding: 10px; z-index: 10000;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-radius: 12px; border: 1px solid var(--glass-strong);
+  /* --- 5. VISUALLY IMPROVED CARDS (The "Matte Glass" Look) --- */
+  .bento-card, .service-card, .timeline-content, .feature-banner, .glass-form, .modal-content, .cookie-banner {
+    background: var(--glass-surface);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 24px; 
+    
+    /* This combines the outer shadow with the inner highlight for the 3D matte effect */
+    box-shadow: var(--glass-shadow), var(--glass-inset);
+    
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative; overflow: hidden;
   }
 
-  /* --- 4. LAUNCH BANNER --- */
-  #skrm-bliss-root .launch-banner {
-    margin-top: 20px; padding: 16px 24px; border-radius: 16px;
-    background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(150, 201, 196, 0.05));
-    border: 1px solid var(--glass-strong);
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    box-shadow: 0 12px 40px rgba(150, 201, 196, 0.1);
-    text-decoration: none; color: inherit;
+  .bento-card:hover, .service-card:hover, .timeline-content:hover, .glass-form:hover {
+    transform: translateY(-6px) scale(1.01);
+    background: var(--card-hover-bg);
+    border-color: var(--brand-primary);
+    
+    /* Enhanced Glow on Hover */
+    box-shadow: var(--glow-spread) var(--glow-color), var(--glass-inset);
+    z-index: 10;
   }
-  #skrm-bliss-root .launch-banner:hover { transform: translateY(-2px); }
 
-  /* --- 5. HERO SECTION --- */
-  #skrm-bliss-root .hero {
-    margin-top: 32px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 20px 0 40px 0;
-    align-items: start; /* Ensure content aligns to the top */
-  }
-  #skrm-bliss-root .hero h1 {
-    font-size: 52px; margin: 0; line-height: 1.05; font-weight: 900; letter-spacing: -1.5px;
-  }
-  #skrm-bliss-root .hero h1 .accent {
-    background: linear-gradient(90deg, var(--brand-400), var(--lavender), var(--teal));
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  #skrm-bliss-root .hero p { color: var(--muted); margin-top: 20px; font-size: 17px; line-height: 1.6; }
-  #skrm-bliss-root .hero-ctas { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .bento-wide { grid-column: span 2; display: flex; align-items: center; justify-content: space-between; padding: 2rem; }
+  .bento-card { padding: 2rem; }
   
-  /* Hero Stats (Bento Styled) - Fixed overlap & width */
-  #skrm-bliss-root .hero-stats {
-    margin-top: 40px; /* Increased margin to prevent overlap */
-    width: 100%; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Softer shadow for bento look */
-  }
-  #skrm-bliss-root .stat-row {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%;
-  }
-  #skrm-bliss-root .stat .n { font-weight: 900; color: var(--brand-600); font-size: 28px; } /* Slightly larger number */
-  #skrm-bliss-root .stat .l { font-size: 14px; color: var(--muted); font-weight: 500; }
+  .stat-block { text-align: center; }
+  .stat-num { font-size: 2.5rem; font-weight: 900; color: var(--brand-primary); text-shadow: 0 0 20px rgba(171, 206, 201, 0.4); }
+  .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-  /* Hero Aside (Ready Packs) */
-  #skrm-bliss-root .ready-packs {
-    background: #fff; padding: 32px; border-radius: 24px;
-    box-shadow: var(--shadow); border: 1px solid var(--glass-strong);
-    height: auto; /* Changed from 100% to auto for better fit */
-    display: flex; flex-direction: column; justify-content: center;
-    position: sticky; /* Optional: keep it visible on scroll if parent allows */
-    top: 90px;
+  .bento-icon {
+    width: 50px; height: 50px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+    color: var(--text-on-brand);
+    display: grid; place-items: center; font-size: 1.5rem; margin-bottom: 1rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
   }
-  #skrm-bliss-root .features-list { list-style: none; padding: 0; margin: 20px 0; color: var(--muted); }
-  #skrm-bliss-root .features-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 15px; }
-  #skrm-bliss-root .features-list li::before {
-    content: "✓"; color: var(--brand-600); font-weight: 900;
-    background: rgba(150, 201, 196, 0.2); width: 22px; height: 22px;
-    border-radius: 50%; display: grid; place-items: center; font-size: 11px; flex-shrink: 0;
+  .bento-card h3 { color: var(--text-main); margin-bottom: 0.5rem; }
+  .bento-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+  .feature-banner { margin: 6rem 0; padding: 3rem; display: flex; align-items: center; gap: 4rem; }
+  .feature-visual { flex: 1; position: relative; height: 360px; display: flex; align-items: center; justify-content: center; }
+  .feature-img {
+    width: 100%; max-width: 400px; border-radius: 20px;
+    transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+    box-shadow: -20px 20px 60px rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+    transition: transform 0.5s ease;
+  }
+  .feature-banner:hover .feature-img { transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.05); }
+  .feature-content { flex: 1; z-index: 2; }
+  .badge {
+    display: inline-block; padding: 0.4rem 1rem; border-radius: 20px;
+    background: rgba(171, 206, 201, 0.2); color: var(--brand-primary);
+    font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem;
+    border: 1px solid var(--brand-secondary);
+  }
+  .feature-content h2 { font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.2; color: var(--text-main); }
+  .feature-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; color: var(--text-muted); }
+  .feature-list li::before {
+    content: '✓'; display: grid; place-items: center; width: 20px; height: 20px;
+    background: var(--brand-secondary); border-radius: 50%; color: var(--text-on-brand); font-size: 12px; font-weight: 900;
   }
 
-  /* --- 6. BENTO GRID (LAUGHTER APP SECTION) --- */
-  #skrm-bliss-root .bento-section { margin-top: 80px; } /* Increased top margin */
-  #skrm-bliss-root .bento-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto auto; 
-    gap: 24px; margin-top: 30px;
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-title { font-size: 3rem; font-weight: 900; margin-bottom: 1rem; color: var(--text-main); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+  .service-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: inline-block; }
+  .service-card:hover .service-icon { animation: pulse 1s infinite; text-shadow: 0 0 15px var(--brand-primary); }
+  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+  .service-card h3 { color: var(--text-main); margin-bottom: 0.5rem; }
+  .service-card p { color: var(--text-muted); }
+
+  .timeline { position: relative; max-width: 800px; margin: 4rem auto; }
+  .timeline::before {
+    content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--brand-primary), var(--brand-secondary));
+    transform: translateX(-50%);
+  }
+  .timeline-item { display: flex; justify-content: space-between; margin-bottom: 4rem; width: 100%; position: relative; }
+  .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+  .timeline-dot {
+    position: absolute; left: 50%; top: 0; transform: translate(-50%, 0);
+    width: 40px; height: 40px; background: var(--glass-surface); backdrop-filter: blur(10px);
+    border: 3px solid var(--brand-primary); border-radius: 50%;
+    display: grid; place-items: center; z-index: 2; color: var(--brand-primary); font-weight: 800;
+    box-shadow: 0 0 20px var(--glow-color);
+  }
+  .timeline-content { width: 45%; padding: 2rem; }
+  .timeline-step { font-size: 0.8rem; text-transform: uppercase; color: var(--brand-secondary); margin-bottom: 0.5rem; display: block; letter-spacing: 1px; }
+  .timeline-content h3 { color: var(--text-main); }
+  .timeline-content p { color: var(--text-muted); }
+
+  .contact-section { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 6rem 0; }
+  .glass-form { padding: 3rem; }
+  .glass-form h2 { color: var(--text-main); }
+  input, textarea {
+    width: 100%; padding: 1rem; margin-bottom: 1.2rem;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+    border-radius: 12px; color: var(--text-main); font-family: inherit; transition: 0.3s;
+  }
+  input:focus, textarea:focus { 
+    outline: none; border-color: var(--brand-primary); 
+    background: rgba(255,255,255,0.1); box-shadow: 0 0 15px var(--glow-color); 
   }
   
-  /* BENTO CELLS */
-  #skrm-bliss-root .bento-title-box {
-    grid-column: span 2;
-    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,248,255,0.9));
-    justify-content: center;
+  footer {
+    border-top: 1px solid var(--glass-border); padding: 4rem 0 2rem;
+    background: var(--glass-surface); box-shadow: 0 -10px 40px rgba(0,0,0,0.05); backdrop-filter: blur(20px);
   }
-  #skrm-bliss-root .bento-image-box {
-    grid-column: span 1; grid-row: span 2;
-    background: linear-gradient(135deg, rgba(124,58,237,0.04), rgba(150,201,196,0.1));
-    padding: 0; min-height: 400px;
-    align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  #skrm-bliss-root .bento-feat-box { grid-column: span 1; background: #fff; }
-  #skrm-bliss-root .bento-cta-box {
-    grid-column: span 2;
-    flex-direction: row; align-items: center; justify-content: space-between;
-    background: linear-gradient(135deg, rgba(150,201,196,0.15), rgba(184,172,214,0.2));
-  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+  .footer-links h4 { color: var(--text-main); margin-bottom: 1rem; }
+  .footer-links a { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 0.8rem; transition: 0.3s; }
+  .footer-links a:hover { color: var(--brand-primary); padding-left: 5px; text-shadow: 0 0 10px var(--brand-primary); }
 
-  #skrm-bliss-root .bento-icon {
-    width: 54px; height: 54px; border-radius: 16px;
-    background: linear-gradient(135deg, var(--brand-500), var(--lavender));
-    display: grid; place-items: center; font-size: 26px;
-    margin-bottom: 18px; color: white;
-    box-shadow: 0 8px 20px rgba(150, 201, 196, 0.2);
+  /* --- 10. FLOATING GLASS WIDGETS --- */
+  .fab-container { position: fixed; bottom: 2rem; right: 2rem; display: flex; flex-direction: column; gap: 1rem; z-index: 999; }
+  .fab {
+    width: 60px; height: 60px; border-radius: 50%;
+    display: grid; place-items: center; 
+    background: var(--glass-surface);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); color: var(--text-main);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2), var(--glass-inset); /* Pill Look */
+    transition: all 0.3s ease; cursor: pointer; text-decoration: none;
   }
-  #skrm-bliss-root .wl-img {
-    width: 92%; transform: rotate(3deg) translateY(20px); transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Smoother hover effect */
+  .fab:hover { 
+    transform: scale(1.15); border-color: var(--brand-primary);
+    box-shadow: 0 0 30px var(--brand-primary), inset 0 0 10px rgba(255,255,255,0.2); 
+    background: var(--glass-surface); 
   }
-  #skrm-bliss-root .bento-image-box:hover .wl-img {
-    transform: rotate(0deg) scale(1.08) translateY(5px);
-  }
+  .fab.whatsapp svg { fill: #25D366; filter: drop-shadow(0 0 2px #25D366); }
+  .fab.phone { font-size: 1.5rem; }
 
-  /* --- 7. SERVICES & PORTFOLIO GRIDS --- */
-  #skrm-bliss-root .section-title { font-size: 36px; font-weight: 900; color: var(--text); margin-bottom: 12px; }
-  #skrm-bliss-root .section-sub { color: var(--muted); margin-bottom: 32px; font-size: 18px; }
-
-  #skrm-bliss-root .grid-3,
-  #skrm-bliss-root .portfolio-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px;
+  /* --- BOOKING CALENDAR MODAL STYLES --- */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s ease;
   }
-
-  /* Card Inner Styling */
-  #skrm-bliss-root .card .icon {
-    width: 60px; height: 60px; border-radius: 18px;
-    display: grid; place-items: center;
-    background: linear-gradient(135deg, var(--brand-400), var(--lavender));
-    font-size: 26px; margin-bottom: 18px;
-    box-shadow: 0 8px 20px rgba(184, 172, 214, 0.2);
-  }
-  #skrm-bliss-root .card h3 { margin: 0 0 10px; font-size: 20px; font-weight: 800; color: var(--text); }
-  #skrm-bliss-root .card p { margin: 0; font-size: 15px; color: var(--muted); line-height: 1.6; }
-
-  /* --- 8. PROCESS --- */
-  #skrm-bliss-root .process {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 24px;
-  }
-  #skrm-bliss-root .process .num {
-    width: 48px; height: 48px; border-radius: 14px;
-    background: linear-gradient(135deg, var(--brand-500), var(--lavender));
-    color: white; font-weight: 900; font-size: 20px;
-    display: grid; place-items: center; margin-bottom: 14px;
-    box-shadow: 0 8px 20px rgba(150, 201, 196, 0.2);
-  }
-
-  /* --- 9. FINAL CTA (Bento Styled) --- */
-  #skrm-bliss-root .final-cta-section {
-    margin-top: 80px; /* Increased spacing above */
-    margin-bottom: 40px; /* Added spacing below */
-  }
-  #skrm-bliss-root .final-cta-inner {
-    display: flex; align-items: center; justify-content: space-between; gap: 30px; width: 100%;
-    padding: 40px; /* More padding for bento feel */
-    background: linear-gradient(135deg, #f8fafc, #f1f5f9); /* Subtle gradient bg */
-  }
-  #skrm-bliss-root .final-cta-inner h2 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
-  #skrm-bliss-root .final-cta-inner p { font-size: 18px; color: var(--muted); }
-
-
-  /* --- 10. CONTACT --- */
-  #skrm-bliss-root #contact { margin-top: 80px; }
-  #skrm-bliss-root .contact-grid {
-    display: grid; grid-template-columns: 1fr 380px; gap: 30px; margin-top: 30px;
-  }
-
-  #skrm-bliss-root .input, #skrm-bliss-root textarea {
-    width: 100%; padding: 14px; border-radius: 10px;
-    border: 1px solid #e2e8f0; background: #f8fafc;
-    font-size: 15px; margin-top: 6px; outline: none;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  #skrm-bliss-root .input:focus, #skrm-bliss-root textarea:focus {
-    border-color: var(--brand-500); background: #fff;
-  }
-  #skrm-bliss-root label { display: block; margin-bottom: 16px; font-size: 15px; font-weight: 600; }
+  .modal-overlay.active { display: flex; opacity: 1; }
   
-  #skrm-bliss-root .checkbox-group { display: flex; align-items: center; gap: 10px; }
-  #skrm-bliss-root .checkbox-group input[type="checkbox"] {
-    width: 18px; height: 18px; accent-color: var(--brand-500);
+  .modal-content {
+    width: 90%; max-width: 500px; padding: 2rem;
+    border: 1px solid var(--brand-primary);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    transform: scale(0.9); transition: transform 0.3s ease;
   }
-
-  /* --- 11. FOOTER & FLOATING --- */
-  #skrm-bliss-root footer {
-    background: white; padding: 50px; border-radius: 24px;
-    margin-top: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  .modal-overlay.active .modal-content { transform: scale(1); }
+  
+  .close-modal {
+    position: absolute; top: 1rem; right: 1rem;
+    background: transparent; border: none; font-size: 1.5rem;
+    color: var(--text-muted); cursor: pointer;
   }
-  #skrm-bliss-root .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
-  #skrm-bliss-root .footer-nav { display: flex; gap: 50px; }
-  #skrm-bliss-root .footer-nav a { text-decoration: none; color: var(--muted); font-weight: 500; transition: color 0.2s; }
-  #skrm-bliss-root .footer-nav a:hover { color: var(--text); }
-  #skrm-bliss-root .footer-bottom {
-    border-top: 1px solid #f1f5f9; padding-top: 24px; margin-top: 30px;
-    display: flex; justify-content: space-between; font-size: 14px; color: var(--muted);
+  
+  /* Calendar Grid */
+  .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .calendar-header h3 { font-size: 1.5rem; color: var(--text-main); }
+  
+  .calendar-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem;
+    text-align: center; margin-bottom: 1.5rem;
   }
-
-  #skrm-bliss-root .floating-widgets {
-    position: fixed; bottom: 24px; right: 24px;
-    display: flex; flex-direction: column; gap: 14px; z-index: 2147483647;
+  .day-name { font-weight: 700; color: var(--text-muted); font-size: 0.9rem; }
+  .calendar-day {
+    padding: 0.5rem; border-radius: 8px; cursor: pointer;
+    color: var(--text-main); font-weight: 500; transition: 0.2s;
   }
-  #skrm-bliss-root .widget-btn {
-    width: 54px; height: 54px; border-radius: 50%;
-    display: grid; place-items: center; background: white;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.12); border: none; cursor: pointer;
-    transition: transform 0.2s;
+  .calendar-day:hover:not(.disabled) { background: var(--brand-secondary); color: white; }
+  .calendar-day.selected { background: var(--brand-primary); color: var(--text-on-brand); }
+  .calendar-day.disabled { opacity: 0.3; cursor: not-allowed; }
+  
+  /* Time Slots */
+  .time-slots {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem;
+    max-height: 200px; overflow-y: auto; margin-bottom: 1.5rem;
+    padding-right: 5px;
   }
-  #skrm-bliss-root .widget-btn:hover { transform: scale(1.08); }
-  #skrm-bliss-root .widget-btn.whatsapp { background: #25D366; }
-  #skrm-bliss-root .widget-btn.call { background: linear-gradient(135deg, var(--brand-500), var(--lavender)); color:white;}
-
-  /* --- 12. MOBILE RESPONSIVE RULES --- */
-  @media (max-width: 980px) {
-    #skrm-bliss-root .hero { grid-template-columns: 1fr; gap: 40px; }
-    #skrm-bliss-root .hero-stats { margin-top: 30px; } /* Adjust for mobile */
-    #skrm-bliss-root .ready-packs { position: static; /* Not sticky on mobile */ }
-    #skrm-bliss-root .nav-links { display: none; }
-    #skrm-hamburger { display: block; }
-    
-    #skrm-bliss-root .grid-3, 
-    #skrm-bliss-root .portfolio-grid,
-    #skrm-bliss-root .process { grid-template-columns: 1fr 1fr; gap: 20px; }
-    
-    #skrm-bliss-root .bento-container { grid-template-columns: 1fr 1fr; gap: 20px; }
-    #skrm-bliss-root .bento-image-box { grid-column: span 1; grid-row: span 2; }
-    #skrm-bliss-root .bento-title-box, #skrm-bliss-root .bento-cta-box { grid-column: span 2; }
+  .time-slot {
+    padding: 0.6rem; border: 1px solid var(--glass-border);
+    border-radius: 8px; text-align: center; cursor: pointer;
+    font-size: 0.9rem; color: var(--text-main); transition: 0.2s;
   }
+  .time-slot:hover { border-color: var(--brand-primary); background: rgba(171, 206, 201, 0.1); }
+  .time-slot.selected { background: var(--brand-primary); color: var(--text-on-brand); border-color: var(--brand-primary); }
 
-  @media (max-width: 640px) {
-    #skrm-bliss-root .wrap { padding: 16px; }
-    #skrm-bliss-root .controls .btn { display: none; }
-    #skrm-bliss-root .brand-sub { display: none; }
-    #skrm-bliss-root .hero h1 { font-size: 38px; }
-    
-    #skrm-bliss-root .grid-3, 
-    #skrm-bliss-root .portfolio-grid,
-    #skrm-bliss-root .process,
-    #skrm-bliss-root .stat-row,
-    #skrm-bliss-root .contact-grid { grid-template-columns: 1fr; gap: 20px; }
+  /* --- 2. GDPR COOKIE BANNER --- */
+  .cookie-banner {
+    position: fixed; bottom: 2rem; left: 2rem; max-width: 360px;
+    z-index: 9998; padding: 1.5rem; 
+    display: flex; flex-direction: column; gap: 1rem;
+    transform: translateY(150%); transition: transform 0.5s ease;
+  }
+  .cookie-banner.show { transform: translateY(0); }
+  .cookie-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+  .cookie-btns { display: flex; gap: 1rem; }
+  .btn-small {
+    padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: 0.2s;
+  }
+  .btn-accept { background: var(--brand-primary); color: var(--text-on-brand); border: none; }
+  .btn-decline { background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); }
 
-    #skrm-bliss-root .bento-container { display: flex; flex-direction: column; gap: 20px; }
-    #skrm-bliss-root .bento-image-box { min-height: 280px; order: -1; }
-    #skrm-bliss-root .bento-title-box { order: -2; }
-    #skrm-bliss-root .bento-cta-box { flex-direction: column; text-align: center; padding: 30px; }
-    #skrm-bliss-root .bento-cta-box .btn { width: 100%; text-align: center; margin-top: 20px; }
-
-    #skrm-bliss-root .final-cta-inner { flex-direction: column; align-items: flex-start; padding: 30px; }
-    #skrm-bliss-root .final-cta-inner .btn { width: 100%; text-align: center; margin-top: 20px; }
-    #skrm-bliss-root .final-cta-inner h2 { font-size: 26px; }
-    
-    #skrm-bliss-root .footer-content { flex-direction: column; gap: 30px; }
-    #skrm-bliss-root .footer-nav { flex-wrap: wrap; gap: 30px; }
-    #skrm-bliss-root .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
-
-    #skrm-bliss-root .floating-widgets { right: 16px; bottom: 16px; }
+  /* --- RESPONSIVE --- */
+  @media (max-width: 968px) {
+    .hero { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+    .hero-content p { margin: 0 auto 2rem; }
+    .hero-btns { justify-content: center; }
+    .hero-bento { margin-top: 2rem; }
+    .feature-banner { flex-direction: column; text-align: center; }
+    .feature-list li { justify-content: center; }
+    .contact-section { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cookie-banner { left: 1rem; right: 1rem; bottom: 1rem; width: auto; max-width: none; }
+  }
+  @media (max-width: 768px) {
+    h1 { font-size: 2.8rem; }
+    .timeline::before { left: 20px; }
+    .timeline-dot { left: 20px; }
+    .timeline-item { flex-direction: column; padding-left: 60px; margin-bottom: 3rem; }
+    .timeline-item:nth-child(even) { flex-direction: column; }
+    .timeline-content { width: 100%; }
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .hero-bento { grid-template-columns: 1fr; }
+    .bento-wide { grid-column: span 1; flex-direction: column; gap: 1rem; }
+    .footer-grid { grid-template-columns: 1fr; text-align: center; }
   }
 </style>
+</head>
+<body>
 
-<div id="skrm-bliss-root">
-  <div class="wrap">
+  <div class="bg-gradient"></div>
+
+  <nav>
+    <a href="#" class="logo">
+      <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png" alt="SKRM Bliss AI">
+      SKRMBliss.ai
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services" data-i18n="nav_services">Services</a></li>
+      <li><a href="#process" data-i18n="nav_process">Process</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="controls">
+      <select id="langSelect" class="lang-select">
+        <option value="en">EN</option>
+        <option value="hi">HI</option>
+        <option value="es">ES</option>
+        <option value="fr">FR</option>
+      </select>
+      <button class="theme-toggle" id="themeToggle" title="Switch Theme">
+        <span id="themeIcon">🌙</span>
+      </button>
+      <button class="btn-primary" style="padding:0.6rem 1.2rem; font-size:0.9rem;" onclick="openBooking()" data-i18n="nav_cta">Book a Call</button>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </nav>
+
+  <div class="container">
     
-    <nav>
-      <div class="brand">
-        <div class="logo-img"><img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png" alt="Logo"></div>
-        <div><div class="brand-title">SKRMBliss.ai</div><div class="brand-sub">Digital Solutions</div></div>
+    <header class="hero">
+      <div class="hero-content">
+        <h1>
+          <span data-i18n="hero_title_1">Build digital experiences</span> 
+          <span class="gradient-text" data-i18n="hero_title_2">that convert</span>
+        </h1>
+        <p data-i18n="hero_desc">We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.</p>
+        <div class="hero-btns">
+          <a href="#services" class="btn-primary" data-i18n="btn_explore">Explore Services</a>
+          <button onclick="openBooking()" class="btn-glass" data-i18n="btn_book">Book 1:1 Call</button>
+        </div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <div class="nav-links">
-          <a href="#white-label-app" style="color:var(--brand-600);">For Coaches</a>
-          <a href="#services">Services</a>
-          <a href="#portfolio">Portfolio</a>
+
+      <div class="hero-bento">
+        <div class="bento-card bento-wide">
+          <div class="stat-block">
+            <div class="stat-num">120+</div>
+            <div class="stat-label" data-i18n="stat_projects">Projects</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">40+</div>
+            <div class="stat-label" data-i18n="stat_clients">Clients</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">10k+</div>
+            <div class="stat-label" data-i18n="stat_users">Users</div>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon">📄</div>
+          <h3 data-i18n="card_packs_title">Ready Packs</h3>
+          <p data-i18n="card_packs_desc">Mock papers & marketing assets ready to use.</p>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon">⚡</div>
+          <h3 data-i18n="card_fast_title">Fast Deploy</h3>
+          <p data-i18n="card_fast_desc">Launch your MVP in days, not months.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="feature-banner">
+      <div class="feature-visual">
+        <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App Interface" class="feature-img" loading="lazy">
+      </div>
+      <div class="feature-content">
+        <span class="badge" data-i18n="feat_badge">✨ New for Coaches</span>
+        <h2>
+          <span data-i18n="feat_title_1">Launch Your Own</span> <br>
+          <span class="gradient-text" data-i18n="feat_title_2">AI Laughter App</span>
+        </h2>
+        <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;" data-i18n="feat_desc">
+          Rebrand our proven AI Laughter Coach for your audience. No coding required.
+        </p>
+        <ul class="feature-list">
+          <li data-i18n="feat_li_1">PWA Ready (No App Store fees)</li>
+          <li data-i18n="feat_li_2">24/7 AI Coach for students</li>
+          <li data-i18n="feat_li_3">Your Logo & Brand Colors</li>
+        </ul>
+        <a href="https://www.skrmblissai.in/laughterapp" class="btn-primary" style="display:inline-block; margin-top:1rem;" data-i18n="feat_cta">Claim Your App →</a>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="srv_title">Our Services</h2>
+        <p style="color:var(--text-muted); font-size:1.2rem;" data-i18n="srv_sub">Complete digital growth solutions tailored for you.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">💻</div>
+          <h3 data-i18n="srv_web">Web Apps</h3>
+          <p>Interactive modern webapps and dashboards tailored to business needs.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🧩</div>
+          <h3 data-i18n="srv_tools">Interactive Tools</h3>
+          <p>Simulators, quizzes, and gamified learning experiences.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚀</div>
+          <h3 data-i18n="srv_funnels">Funnels</h3>
+          <p>High-converting lead capture pages and email sequences.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎨</div>
+          <h3 data-i18n="srv_design">Design</h3>
+          <p>Social templates, branding kits, and marketing collateral.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎓</div>
+          <h3 data-i18n="srv_portals">Course Portals</h3>
+          <p>Custom LMS platforms with video hosting and tracking.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📱</div>
+          <h3 data-i18n="srv_mobile">Mobile Solutions</h3>
+          <p>PWA and native mobile app development for creators.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="section-header" style="margin-top:8rem;">
+        <h2 class="section-title" data-i18n="proc_title">How We Work</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">1</div>
+          <div class="timeline-content">
+            <span class="timeline-step">Discovery</span>
+            <h3 data-i18n="proc_1_title">Brief & Strategy</h3>
+            <p data-i18n="proc_1_desc">We understand your goals and audience through a deep-dive discovery call.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-content">
+            <span class="timeline-step">Planning</span>
+            <h3 data-i18n="proc_2_title">Wireframes & Roadmap</h3>
+            <p data-i18n="proc_2_desc">Project mapping so expectations are clear.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-content">
+            <span class="timeline-step">Production</span>
+            <h3 data-i18n="proc_3_title">Design & Develop</h3>
+            <p data-i18n="proc_3_desc">Coding and design with regular review loops.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">4</div>
+          <div class="timeline-content">
+            <span class="timeline-step">Launch</span>
+            <h3 data-i18n="proc_4_title">Deploy & Support</h3>
+            <p data-i18n="proc_4_desc">Handover files and provide ongoing maintenance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="glass-form">
+        <h2 style="margin-bottom:1.5rem;" data-i18n="contact_title">Let's Build Something</h2>
+        <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
+          <label data-i18n="lbl_name">Name</label>
+          <input type="text" name="name" required placeholder="John Doe">
+          <label data-i18n="lbl_email">Email</label>
+          <input type="email" name="email" required placeholder="john@example.com">
+          <label data-i18n="lbl_msg">Message</label>
+          <textarea name="message" rows="4" required placeholder="Tell us about your project..."></textarea>
+          
+          <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer;" data-i18n="btn_send">Send Message</button>
+          <div id="formStatus" style="margin-top:1rem; font-weight:600; color:var(--brand-primary);"></div>
+        </form>
+      </div>
+      
+      <div style="display:flex; flex-direction:column; justify-content:center; gap:2rem;">
+        <div class="service-card">
+          <h3 data-i18n="info_title">Contact Info</h3>
+          <p>
+            <strong>Email:</strong> connect@skrmblissai.in<br>
+            <strong>Phone:</strong> +91 82175 81238<br>
+            <strong>Location:</strong> Bengaluru, India
+          </p>
+        </div>
+        <div class="service-card" style="background: var(--card-hover-bg);">
+          <h3 data-i18n="ready_title">Ready to start?</h3>
+          <p data-i18n="ready_desc">Our typical response time is within 24 hours.</p>
+        </div>
+      </div>
+    </section>
+
+  </div> <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#" class="logo" style="margin-bottom:1rem;">SKRMBliss.ai</a>
+          <p style="color:var(--text-muted);" data-i18n="footer_desc">Helping creators and businesses build better digital products with cutting-edge tech and design.</p>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav_services">Services</h4>
+          <a href="#services">Web Apps</a>
+          <a href="#services">Tools</a>
+          <a href="#services">Funnels</a>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="nav_company">Company</h4>
+          <a href="#process">Process</a>
           <a href="#contact">Contact</a>
         </div>
-        <div class="controls">
-          <select id="skrm-lang" class="select"><option>EN</option><option>HI</option></select>
-          <a href="#contact" class="btn">Get Started</a>
-          <button id="skrm-hamburger">☰</button>
+        <div class="footer-links">
+          <h4 data-i18n="nav_social">Social</h4>
+          <a href="https://facebook.com/skrmbliss" target="_blank">Facebook</a>
+          <a href="#" target="_blank">Discord</a>
+          <a href="https://wa.me/+918217581238" target="_blank">WhatsApp</a>
         </div>
       </div>
-      <div id="skrm-mobile-menu">
-        <a href="#white-label-app" style="display:block;padding:12px;border-bottom:1px solid #eee;color:var(--brand-600);font-weight:700;text-decoration:none;">For Coaches</a>
-        <a href="#services" style="display:block;padding:12px;border-bottom:1px solid #eee;color:var(--text);text-decoration:none;">Services</a>
-        <a href="#portfolio" style="display:block;padding:12px;border-bottom:1px solid #eee;color:var(--text);text-decoration:none;">Portfolio</a>
-        <a href="#contact" style="display:block;padding:12px;color:var(--text);text-decoration:none;">Contact</a>
+      <div style="text-align:center; color:var(--text-muted); border-top:1px solid var(--glass-border); padding-top:2rem;">
+        &copy; <span id="year"></span> SKRM Bliss AI — Built with Care in Bengaluru.
       </div>
-    </nav>
+    </div>
+  </footer>
 
-    <a href="https://www.skrmblissai.in/simulatorlab" class="launch-banner">
-      <div style="display:flex;align-items:center;gap:16px;">
-        <div class="launch-icon" style="font-size:24px;">🔬</div>
-        <div>
-          <h3 style="margin:0;font-size:15px;font-weight:700;">PhysicsVerse Interactive Lab</h3>
-          <p style="margin:4px 0 0;font-size:13px;color:var(--muted);">Simulators now live!</p>
-        </div>
-      </div>
-      <div class="btn" style="pointer-events:none;font-size:12px;padding:8px 16px;">Explore →</div>
-    </a>
-
-    <main>
-      <section class="hero">
-        <div>
-          <h1>Build digital experiences <span class="accent">that convert</span></h1>
-          <p>Interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.</p>
-          <div class="hero-ctas">
-            <a href="#services" class="btn">Explore Services</a>
-            <a href="#contact" class="btn ghost">Talk to us</a>
-          </div>
-          <div class="hero-stats bento-card">
-            <div style="font-weight:800;margin-bottom:16px;">Trusted by</div>
-            <div class="stat-row">
-              <div class="stat"><div class="n">120+</div><div class="l">Projects</div></div>
-              <div class="stat"><div class="n">40+</div><div class="l">Clients</div></div>
-              <div class="stat"><div class="n">10k+</div><div class="l">Users</div></div>
-            </div>
-          </div>
-        </div>
-        <aside>
-          <div class="ready-packs">
-            <h3 style="margin:0 0 8px;font-size:22px;font-weight:800;">Ready-made packs</h3>
-            <p style="color:var(--muted);margin:0 0 20px;">Mock papers & marketing banners.</p>
-            <ul class="features-list"><li>Editable files (Figma, PPTX)</li><li>Printable PDFs</li><li>School-branded</li></ul>
-            <a href="#contact" class="btn" style="width:100%;text-align:center;">Hire us</a>
-          </div>
-        </aside>
-      </section>
-
-      <section id="white-label-app" class="bento-section">
-        <div style="text-align:center;margin-bottom:20px;">
-          <div style="display:inline-block;padding:6px 16px;border-radius:50px;background:rgba(124,58,237,0.08);color:var(--brand-600);font-weight:700;font-size:12px;">✨ NEW FOR COACHES</div>
-        </div>
-        <div class="bento-container">
-          <div class="bento-card bento-title-box">
-            <h2 style="font-size:28px;font-weight:900;margin-bottom:12px;">Launch Your Own Laughter App</h2>
-            <p style="color:var(--muted);line-height:1.6;">Rebrand our AI Laughter Coach for <strong>YOU</strong>.</p>
-          </div>
-          <div class="bento-card bento-image-box">
-             <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="App" class="wl-img">
-          </div>
-          <div class="bento-card bento-feat-box">
-            <div class="bento-icon">📱</div>
-            <h4 style="font-weight:700;">PWA Ready</h4>
-            <p style="font-size:13px;color:var(--muted);">No App Store fees.</p>
-          </div>
-          <div class="bento-card bento-feat-box">
-            <div class="bento-icon">🤖</div>
-            <h4 style="font-weight:700;">AI Coach</h4>
-            <p style="font-size:13px;color:var(--muted);">Guides students 24/7.</p>
-          </div>
-          <div class="bento-card bento-feat-box">
-            <div class="bento-icon">🎨</div>
-            <h4 style="font-weight:700;">Your Brand</h4>
-            <p style="font-size:13px;color:var(--muted);">Your logo & colors.</p>
-          </div>
-          <div class="bento-card bento-cta-box">
-            <div><strong style="font-size:18px;">Ready to launch?</strong><div style="font-size:13px;color:var(--muted);">Limited spots.</div></div>
-            <a href="https://www.skrmblissai.in/laughterapp" class="btn">Claim Your App →</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="services" style="margin-top:80px;">
-        <h2 class="section-title">Services</h2>
-        <p class="section-sub">Complete digital growth solutions.</p>
-        <div class="grid-3">
-          <div class="card"><div class="icon">💻</div><h3>Web Apps</h3><p>Interactive webapps tailored to business.</p></div>
-          <div class="card"><div class="icon">🧩</div><h3>Tools</h3><p>Simulators and gamified learning.</p></div>
-          <div class="card"><div class="icon">🚀</div><h3>Funnel & Landing Pages</h3><p>Lead capture pages & sequences.</p></div>
-          <div class="card"><div class="icon">🎨</div><h3>Design</h3><p>Banners and social templates.</p></div>
-          <div class="card"><div class="icon">🎓</div><h3>Portals</h3><p>LMS platforms with video hosting.</p></div>
-          <div class="card"><div class="icon">📄</div><h3>Papers</h3><p>Question papers for coaching.</p></div>
-        </div>
-      </section>
-
-      <section id="portfolio" style="margin-top:80px;">
-        <h2 class="section-title">Portfolio</h2>
-        <div class="portfolio-grid">
-          <div class="card">
-            <div style="font-size:11px;font-weight:700;color:var(--brand-600);margin-bottom:8px;">WEB APP</div>
-            <h3>Biz Dashboard</h3><p>Inventory & Client management system.</p>
-          </div>
-          <div class="card">
-            <div style="font-size:11px;font-weight:700;color:var(--brand-600);margin-bottom:8px;">MOBILE</div>
-            <h3>Mind and Body Health apps</h3><p>Cross-platform apps with streaks.</p>
-          </div>
-          <div class="card">
-            <div style="font-size:11px;font-weight:700;color:var(--brand-600);margin-bottom:8px;">FUNNEL</div>
-            <h3>Lead Gen</h3><p>High-ticket sales funnel.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="process" style="margin-top:80px;">
-        <h2 class="section-title">Process</h2>
-        <div class="process">
-          <div class="card"><div class="num">1</div><strong>Brief</strong><p>Discovery call & goals.</p></div>
-          <div class="card"><div class="num">2</div><strong>Plan</strong><p>Wireframes & milestones.</p></div>
-          <div class="card"><div class="num">3</div><strong>Build</strong><p>Design & development.</p></div>
-          <div class="card"><div class="num">4</div><strong>Launch</strong><p>Deployment & support.</p></div>
-        </div>
-      </section>
-
-      <section class="final-cta-section">
-        <div class="bento-card final-cta-inner">
-          <div>
-            <h2>Transform your digital presence?</h2>
-            <p>Tell us about your app or content needs.</p>
-          </div>
-          <a href="#contact" class="btn">Request quote</a>
-        </div>
-      </section>
-
-      <section id="contact">
-        <h2 class="section-title">Contact</h2>
-        <div class="contact-grid">
-          <div class="card">
-            <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
-              <label>Name <input name="name" class="input" type="text" required></label>
-              <label>Email <input name="email" class="input" type="email" required></label>
-              <label>Message <textarea name="message" rows="4" required></textarea></label>
-              <div class="checkbox-group" style="margin-top:16px;">
-                <input type="checkbox" id="consent" checked required>
-                <label for="consent" style="margin:0;font-weight:400;font-size:14px;">I agree to be contacted.</label>
-              </div>
-              <button type="submit" class="btn" style="margin-top:20px;">Send Message</button>
-              <div id="formStatus" style="font-size:14px;font-weight:600;margin-top:12px;"></div>
-            </form>
-          </div>
-          <aside class="card" style="display:flex;flex-direction:column;gap:20px;">
-            <div><strong>Email</strong><div style="color:var(--muted);font-size:15px;">connect@skrmblissai.in</div></div>
-            <div><strong>Phone</strong><div style="color:var(--muted);font-size:15px;">+91 82175 81238</div></div>
-            <div style="display:flex;gap:16px;">
-              <a href="https://wa.me/+918217581238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:28px;"></a>
-              <a href="https://www.facebook.com/skrmbliss" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" style="width:28px;"></a>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <footer>
-        <div class="footer-content">
-          <div>
-            <h3 class="brand-name">SKRMBliss.ai</h3>
-            <p class="brand-desc" style="max-width:320px;">Helping creators and businesses build better digital products.</p>
-          </div>
-          <div class="footer-nav">
-            <div class="nav-column"><h4>Services</h4><a href="#services">Apps</a><a href="#services">Tools</a></div>
-            <div class="nav-column"><h4>Company</h4><a href="#portfolio">Work</a><a href="#contact">Contact</a></div>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <div>© <span id="year"></span> SKRM Bliss AI</div>
-          <div>Built with Care</div>
-        </div>
-      </footer>
-    </main>
+  <div id="cookieBanner" class="cookie-banner">
+    <div class="cookie-text">
+      We use cookies to enhance your experience and analyze traffic. By continuing, you agree to our use of cookies.
+    </div>
+    <div class="cookie-btns">
+      <button class="btn-small btn-accept" onclick="acceptCookies()">Accept</button>
+      <button class="btn-small btn-decline" onclick="hideCookieBanner()">Decline</button>
+    </div>
   </div>
 
-  <div class="floating-widgets">
-    <a class="widget-btn whatsapp" href="https://wa.me/+918217581238" target="_blank">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
+  <div class="fab-container">
+    <a href="https://wa.me/+918217581238" target="_blank" class="fab whatsapp" title="Chat on WhatsApp">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
     </a>
-    <button class="widget-btn call" id="skrm-call-btn">📞</button>
+    <button onclick="openBooking()" class="fab phone" title="Book a Call">
+      📞
+    </button>
   </div>
-</div>
 
-<script>
-  (function() {
-    const y = new Date().getFullYear();
-    const yearEl = document.getElementById('year');
-    if (yearEl) yearEl.textContent = y;
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeBooking()">&times;</button>
+      <h2 style="margin-bottom:0.5rem; text-align:center;" data-i18n="book_title">Book a Call</h2>
+      <p style="text-align:center; color:var(--text-muted); margin-bottom:1.5rem;" data-i18n="book_subtitle">Select a slot (IST 08:00 AM - 09:00 PM)</p>
+      
+      <div id="calendarView">
+        <div class="calendar-header">
+          <button onclick="changeMonth(-1)" class="btn-glass" style="padding:5px 10px;">&lt;</button>
+          <h3 id="currentMonthYear"></h3>
+          <button onclick="changeMonth(1)" class="btn-glass" style="padding:5px 10px;">&gt;</button>
+        </div>
+        <div class="calendar-grid" id="calendarDays"></div>
+        
+        <h4 style="margin:10px 0; display:none;" id="slotTitle" data-i18n="book_slots">Available Slots</h4>
+        <div class="time-slots" id="timeSlots"></div>
+        
+        <button id="confirmBtn" class="btn-primary" style="width:100%; display:none;" onclick="submitBooking()" data-i18n="book_confirm">Confirm Booking</button>
+      </div>
+    </div>
+  </div>
 
-    const hb = document.getElementById('skrm-hamburger');
-    const mm = document.getElementById('skrm-mobile-menu');
-    if (hb && mm) {
-      hb.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const expanded = mm.style.display === 'block';
-        mm.style.display = expanded ? 'none' : 'block';
+  <script>
+    // --- LANGUAGE DICTIONARY ---
+    const translations = {
+      en: {
+        nav_services: "Services", nav_portfolio: "Portfolio", nav_process: "Process", nav_contact: "Contact", nav_cta: "Book a Call",
+        nav_company: "Company", nav_social: "Social",
+        hero_title_1: "Build digital experiences", hero_title_2: "that convert",
+        hero_desc: "We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.",
+        btn_explore: "Explore Services", btn_talk: "Talk to Us", btn_book: "Book 1:1 Call",
+        stat_projects: "Projects", stat_clients: "Clients", stat_users: "Users",
+        card_packs_title: "Ready Packs", card_packs_desc: "Mock papers & marketing assets ready to use.",
+        card_fast_title: "Fast Deploy", card_fast_desc: "Launch your MVP in days, not months.",
+        feat_badge: "✨ New for Coaches", feat_title_1: "Launch Your Own", feat_title_2: "AI Laughter App",
+        feat_desc: "Rebrand our proven AI Laughter Coach for your audience. No coding required.",
+        feat_li_1: "PWA Ready (No App Store fees)", feat_li_2: "24/7 AI Coach for students", feat_li_3: "Your Logo & Brand Colors",
+        feat_cta: "Claim Your App →",
+        srv_title: "Our Services", srv_sub: "Complete digital growth solutions tailored for you.",
+        srv_web: "Web Apps", srv_tools: "Interactive Tools", srv_funnels: "Funnels", srv_design: "Design", srv_portals: "Course Portals", srv_mobile: "Mobile Solutions",
+        proc_title: "How We Work",
+        proc_1_title: "Brief & Strategy", proc_1_desc: "We understand your goals through a discovery call.",
+        proc_2_title: "Wireframes & Roadmap", proc_2_desc: "Project mapping so expectations are clear.",
+        proc_3_title: "Design & Develop", proc_3_desc: "Coding and design with regular review loops.",
+        proc_4_title: "Deploy & Support", proc_4_desc: "Handover files and provide ongoing maintenance.",
+        contact_title: "Let's Build Something", lbl_name: "Name", lbl_email: "Email", lbl_msg: "Message", btn_send: "Send Message",
+        info_title: "Contact Info", ready_title: "Ready to start?", ready_desc: "Typical response time: 24 hours.",
+        footer_desc: "Helping creators build better digital products with tech and design.",
+        book_title: "Book a Call", book_subtitle: "Select a slot (IST 08:00 AM - 09:00 PM)", book_slots: "Available Slots", book_confirm: "Confirm Booking"
+      },
+      hi: {
+        nav_services: "सेवाएं", nav_portfolio: "पोर्टफोलियो", nav_process: "प्रक्रिया", nav_contact: "संपर्क", nav_cta: "कॉल बुक करें",
+        hero_title_1: "डिजिटल अनुभव बनाएं", hero_title_2: "जो बदलते हैं",
+        btn_explore: "सेवाएं देखें", btn_talk: "बात करें", btn_book: "कॉल बुक करें",
+        book_title: "कॉल बुक करें", book_subtitle: "समय चुनें (IST 08:00 AM - 09:00 PM)", book_slots: "उपलब्ध समय", book_confirm: "बुकिंग कन्फर्म करें"
+      },
+      es: {
+        nav_services: "Servicios", nav_portfolio: "Portafolio", nav_process: "Proceso", nav_contact: "Contacto", nav_cta: "Reservar",
+        hero_title_1: "Crea experiencias digitales", hero_title_2: "que convierten",
+        btn_explore: "Explorar Servicios", btn_talk: "Hablemos", btn_book: "Reservar Llamada",
+        book_title: "Reservar Llamada", book_subtitle: "Selecciona hora (IST 08:00 AM - 09:00 PM)", book_slots: "Horarios Disponibles", book_confirm: "Confirmar Reserva"
+      },
+      fr: {
+        nav_services: "Services", nav_portfolio: "Portfolio", nav_process: "Processus", nav_contact: "Contact", nav_cta: "Réserver",
+        hero_title_1: "Créez des expériences", hero_title_2: "numériques qui convertissent",
+        btn_explore: "Explorer", btn_talk: "Discutons", btn_book: "Réserver un appel",
+        book_title: "Réserver un appel", book_subtitle: "Choisir un créneau (IST 08h00 - 21h00)", book_slots: "Créneaux disponibles", book_confirm: "Confirmer"
+      }
+    };
+
+    // --- LANGUAGE LOGIC ---
+    const langSelect = document.getElementById('langSelect');
+    
+    function updateLanguage(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
       });
-      document.addEventListener('click', (ev) => {
-        if (mm.style.display === 'block' && !mm.contains(ev.target) && ev.target !== hb) mm.style.display = 'none';
-      });
+      document.documentElement.lang = lang; // Set lang attribute for SEO
+      localStorage.setItem('skrm_lang', lang);
     }
 
-    const sel = document.getElementById('skrm-lang');
-    if(sel) {
-      sel.value = localStorage.getItem('skrm_lang') || 'en';
-      sel.addEventListener('change', (e) => localStorage.setItem('skrm_lang', e.target.value));
-    }
-
-    const callBtn = document.getElementById('skrm-call-btn');
-    if (callBtn) {
-      callBtn.addEventListener('click', () => {
-        const ph = '+918217581238';
-        if(navigator.clipboard) navigator.clipboard.writeText(ph).then(() => alert('Phone Copied: ' + ph));
-        else alert('Phone: ' + ph);
-      });
-    }
-
-    document.querySelectorAll('#skrm-bliss-root a[href^="#"]').forEach(a => {
-      a.addEventListener('click', function(ev) {
-        ev.preventDefault();
-        const t = document.querySelector(this.getAttribute('href'));
-        if(t) { t.scrollIntoView({behavior:'smooth'}); if(mm) mm.style.display='none'; }
-      });
+    langSelect.addEventListener('change', (e) => {
+      updateLanguage(e.target.value);
     });
 
-    // Form Handling with Formspree AJAX
-    const form = document.getElementById('contactForm');
-    if(form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const btn = form.querySelector('button');
-        const status = document.getElementById('formStatus');
-        const data = new FormData(form);
-        
-        btn.textContent = 'Sending...';
-        
-        fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: {
-              'Accept': 'application/json'
-          }
-        }).then(response => {
-          if (response.ok) {
-            status.textContent = 'Thanks! Message sent successfully.';
-            status.style.color = 'green';
-            form.reset();
-            btn.textContent = 'Send Message';
-          } else {
-            response.json().then(data => {
-              if (Object.hasOwn(data, 'errors')) {
-                status.textContent = data["errors"].map(error => error["message"]).join(", ");
-              } else {
-                status.textContent = "Oops! There was a problem submitting your form";
-              }
-              status.style.color = 'red';
-              btn.textContent = 'Send Message';
-            });
-          }
-        }).catch(error => {
-          status.textContent = "Oops! There was a problem submitting your form";
-          status.style.color = 'red';
-          btn.textContent = 'Send Message';
-        });
-      });
+    const savedLang = localStorage.getItem('skrm_lang') || 'en';
+    langSelect.value = savedLang;
+    updateLanguage(savedLang);
+
+    // --- THEME TOGGLE LOGIC ---
+    const themeBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme === 'dark') {
+      htmlEl.setAttribute('data-theme', 'dark');
+      themeIcon.textContent = '☀️';
     }
-  })();
-</script>
+
+    themeBtn.addEventListener('click', () => {
+      if(htmlEl.getAttribute('data-theme') === 'dark') {
+        htmlEl.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = '🌙';
+      } else {
+        htmlEl.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = '☀️';
+      }
+    });
+
+    // --- COOKIE BANNER LOGIC ---
+    const cookieBanner = document.getElementById('cookieBanner');
+    if(!localStorage.getItem('cookieConsent')) {
+      setTimeout(() => cookieBanner.classList.add('show'), 1500);
+    }
+
+    function acceptCookies() {
+      localStorage.setItem('cookieConsent', 'true');
+      hideCookieBanner();
+    }
+
+    function hideCookieBanner() {
+      cookieBanner.classList.remove('show');
+    }
+
+    // --- UTILITIES ---
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Form Handling
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const status = document.getElementById('formStatus');
+      const btn = form.querySelector('button');
+      const ogText = btn.textContent;
+      btn.textContent = '...';
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          status.textContent = "Message sent successfully!";
+          status.style.color = "#25D366";
+          form.reset();
+        } else {
+          status.textContent = "Oops! Problem sending message.";
+          status.style.color = "#ef4444";
+        }
+      } catch (err) {
+        status.textContent = "Error sending message.";
+        status.style.color = "#ef4444";
+      }
+      btn.textContent = ogText;
+    });
+
+    // --- BOOKING CALENDAR LOGIC (IST 8am-9pm) ---
+    const modal = document.getElementById('bookingModal');
+    const calendarDays = document.getElementById('calendarDays');
+    const timeSlots = document.getElementById('timeSlots');
+    const slotTitle = document.getElementById('slotTitle');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const monthYear = document.getElementById('currentMonthYear');
+    
+    let currentDate = new Date();
+    let selectedDate = null;
+    let selectedTime = null;
+
+    function openBooking() { modal.classList.add('active'); renderCalendar(); }
+    function closeBooking() { modal.classList.remove('active'); resetBooking(); }
+    function resetBooking() {
+      selectedDate = null; selectedTime = null;
+      timeSlots.innerHTML = ''; slotTitle.style.display = 'none'; confirmBtn.style.display = 'none';
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      monthYear.textContent = currentDate.toLocaleDateString('default', { month: 'long', year: 'numeric' });
+      
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      
+      calendarDays.innerHTML = '';
+      
+      const days = ['S','M','T','W','T','F','S'];
+      days.forEach(d => {
+        const div = document.createElement('div');
+        div.className = 'day-name'; div.innerText = d;
+        calendarDays.appendChild(div);
+      });
+
+      for(let i=0; i<firstDay; i++) {
+        calendarDays.appendChild(document.createElement('div'));
+      }
+
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      for(let i=1; i<=daysInMonth; i++) {
+        const div = document.createElement('div');
+        div.className = 'calendar-day';
+        div.innerText = i;
+        
+        const thisDate = new Date(year, month, i);
+        if(thisDate < today) div.classList.add('disabled');
+        else {
+          div.onclick = () => selectDate(thisDate, div);
+        }
+        
+        if(selectedDate && thisDate.toDateString() === selectedDate.toDateString()) {
+          div.classList.add('selected');
+        }
+        
+        calendarDays.appendChild(div);
+      }
+    }
+
+    function changeMonth(step) {
+      currentDate.setMonth(currentDate.getMonth() + step);
+      renderCalendar();
+    }
+
+    function selectDate(date, el) {
+      document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedDate = date;
+      generateTimeSlots();
+    }
+
+    function generateTimeSlots() {
+      slotTitle.style.display = 'block';
+      timeSlots.innerHTML = '';
+      // IST 8 AM to 9 PM (21:00)
+      for(let hour=8; hour<=21; hour++) {
+        const btn = document.createElement('div');
+        btn.className = 'time-slot';
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const displayHour = hour > 12 ? hour - 12 : hour;
+        btn.innerText = `${displayHour}:00 ${ampm}`;
+        btn.onclick = () => selectTime(btn);
+        timeSlots.appendChild(btn);
+      }
+    }
+
+    function selectTime(el) {
+      document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedTime = el.innerText;
+      confirmBtn.style.display = 'block';
+    }
+
+    function submitBooking() {
+      if(!selectedDate || !selectedTime) return;
+      const dateStr = selectedDate.toLocaleDateString();
+      const subject = `Booking Request: ${dateStr} at ${selectedTime}`;
+      const body = `Hi SKRMBliss,\n\nI would like to book a call on ${dateStr} at ${selectedTime} (IST).\n\nPlease confirm availability.`;
+      
+      window.location.href = `mailto:connect@skrmblissai.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      closeBooking();
+    }
+  </script>
+</body>
+</html>
