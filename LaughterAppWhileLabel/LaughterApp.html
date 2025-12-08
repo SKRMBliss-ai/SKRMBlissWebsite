@@ -295,27 +295,46 @@
 
   /* RESPONSIVE */
   @media (max-width: 980px) {
-    #skrm-bliss-wrapper .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 0; }
-    #skrm-bliss-wrapper .hero-visual { order: -1; }
+    #skrm-bliss-wrapper .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 0; text-align: center; }
+    #skrm-bliss-wrapper .hero-visual { order: -1; margin-bottom: 30px; }
     #skrm-bliss-wrapper .nav-links { display: none; }
-    #skrm-bliss-wrapper .grid-3, #skrm-bliss-wrapper .process { grid-template-columns: repeat(2, 1fr); }
+    #skrm-bliss-wrapper .hero-ctas { justify-content: center; }
+    #skrm-bliss-wrapper .hero p { margin: 0 auto 30px; }
   }
+
   @media (max-width: 640px) {
     #skrm-bliss-wrapper .hero h1 { font-size: 2.5rem; }
     #skrm-bliss-wrapper .grid-3, #skrm-bliss-wrapper .process, #skrm-bliss-wrapper .stat-row, #skrm-bliss-wrapper .contact-grid { grid-template-columns: 1fr; }
-    #skrm-bliss-wrapper .final-cta { flex-direction: column; text-align: center; }
+    #skrm-bliss-wrapper .final-cta { flex-direction: column; text-align: center; padding: 30px; }
     #skrm-bliss-wrapper .final-cta button { width: 100%; margin-top: 20px; }
-    #skrm-bliss-wrapper .footer-content { flex-direction: column; gap: 40px; }
+    #skrm-bliss-wrapper .footer-content { flex-direction: column; gap: 40px; text-align: center; }
     #skrm-bliss-wrapper .footer-nav { flex-direction: column; gap: 30px; }
     .roi-grid { grid-template-columns: 1fr; }
     .widgets { right: 20px; bottom: 80px; }
     .cookie-banner { flex-direction: column; text-align: center; gap: 10px; }
+    
+    /* MOBILE NAV FIX */
+    #skrm-bliss-wrapper nav { flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; }
+    #skrm-bliss-wrapper .brand { width: 100%; justify-content: center; margin-bottom: 5px; }
+    #skrm-bliss-wrapper .controls { width: 100%; justify-content: center; gap: 10px; }
+    
+    .app-mockup { 
+      max-width: 80%; 
+      margin: 0 auto; 
+      transform: none !important; /* Remove 3D skew on mobile for clarity */
+    }
   }
 </style>
 
 <script type="text/javascript">
   function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      // ONLY SHOW LIMITED LANGUAGES + ENGLISH FIRST
+      includedLanguages: 'en,fr,es,de,it,pt,ja,zh-CN',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
   }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
