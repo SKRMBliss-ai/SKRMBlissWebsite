@@ -146,8 +146,6 @@
       <section style="margin-top:60px">
         <div class="final-cta" role="region" style="background:linear-gradient(90deg, #fff, #f8fafc);">
           <div>
-            <!-- Replace with real chart image if needed -->
-            <!-- [Image of chart showing revenue growth] -->
             <h2>ROI: How this app pays for itself</h2>
             <p style="max-width:600px; margin-top:10px;">
                 <strong>1. Sell Subscriptions:</strong> Charge your students $5/month for app access.<br>
@@ -156,7 +154,10 @@
             </p>
           </div>
           <div style="display:flex;gap:12px;align-items:center">
-            <a href="#contact" class="btn">Calculate ROI</a>
+            <!-- This button opens the ROI modal -->
+            <button type="button" class="btn" id="openRoiCalculatorBtn">
+              Calculate ROI
+            </button>
           </div>
         </div>
       </section>
@@ -215,6 +216,213 @@
       </footer>
 
     </main>
+  </div>
+
+  <!-- ROI CALCULATOR MODAL (vanilla JS version of your React component) -->
+  <div id="roiModalOverlay" class="roi-modal-overlay" aria-hidden="true">
+    <div class="roi-modal" role="dialog" aria-modal="true" aria-labelledby="roiModalTitle">
+      <!-- Header -->
+      <div class="roi-modal-header">
+        <div>
+          <h2 id="roiModalTitle" class="roi-modal-title">ROI Calculator</h2>
+          <p class="roi-modal-sub">See how your white-label app pays for itself</p>
+        </div>
+        <button type="button" id="roiCloseBtn" class="roi-close-btn" aria-label="Close calculator">
+          ×
+        </button>
+      </div>
+
+      <div class="roi-modal-body">
+        <!-- Input Section -->
+        <div class="roi-grid-2 roi-section">
+          <div class="roi-col">
+            <h3 class="roi-section-title">👥 Subscription Model</h3>
+
+            <div class="roi-field">
+              <label class="roi-label">Number of Students</label>
+              <input
+                id="roiStudents"
+                type="range"
+                min="10"
+                max="500"
+                value="50"
+                class="roi-range"
+              />
+              <div class="roi-range-meta">
+                <span>10</span>
+                <span id="roiStudentsValue" class="roi-range-value">50 students</span>
+                <span>500</span>
+              </div>
+            </div>
+
+            <div class="roi-field">
+              <label class="roi-label">Monthly Fee per Student ($)</label>
+              <input
+                id="roiMonthlyFee"
+                type="range"
+                min="3"
+                max="20"
+                value="5"
+                class="roi-range"
+              />
+              <div class="roi-range-meta">
+                <span>$3</span>
+                <span id="roiMonthlyFeeValue" class="roi-range-value">$5/month</span>
+                <span>$20</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="roi-col">
+            <h3 class="roi-section-title">💰 Workshop Upsells</h3>
+
+            <div class="roi-field">
+              <label class="roi-label">Workshop Price ($)</label>
+              <input
+                id="roiWorkshopPrice"
+                type="range"
+                min="200"
+                max="2000"
+                step="100"
+                value="500"
+                class="roi-range"
+              />
+              <div class="roi-range-meta">
+                <span>$200</span>
+                <span id="roiWorkshopPriceValue" class="roi-range-value">$500</span>
+                <span>$2000</span>
+              </div>
+            </div>
+
+            <div class="roi-field">
+              <label class="roi-label">Workshops per Month</label>
+              <input
+                id="roiWorkshopsPerMonth"
+                type="range"
+                min="0"
+                max="10"
+                value="2"
+                class="roi-range"
+              />
+              <div class="roi-range-meta">
+                <span>0</span>
+                <span id="roiWorkshopsPerMonthValue" class="roi-range-value">2 workshops</span>
+                <span>10</span>
+              </div>
+            </div>
+
+            <p class="roi-note">
+              We estimate 25% conversion boost when bundling app with workshops.
+            </p>
+          </div>
+        </div>
+
+        <!-- Corporate Section -->
+        <div class="roi-section roi-corporate">
+          <h3 class="roi-section-title">📈 Corporate B2B Revenue</h3>
+          <div class="roi-grid-3">
+            <div class="roi-field">
+              <label class="roi-label">Corporate Deals/Month</label>
+              <input
+                id="roiCorporateDeals"
+                type="number"
+                min="0"
+                max="10"
+                value="1"
+                class="roi-input"
+              />
+            </div>
+            <div class="roi-field">
+              <label class="roi-label">Licenses per Deal</label>
+              <input
+                id="roiCorporateLicenses"
+                type="number"
+                min="10"
+                max="500"
+                value="50"
+                class="roi-input"
+              />
+            </div>
+            <div class="roi-field">
+              <label class="roi-label">Fee per User ($)</label>
+              <input
+                id="roiCorporateFeePerUser"
+                type="number"
+                min="1"
+                max="10"
+                value="3"
+                class="roi-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="roi-section roi-results">
+          <h3 class="roi-results-title">📊 Your Projected ROI</h3>
+
+          <div class="roi-grid-2 roi-results-grid">
+            <div class="roi-result-card">
+              <div class="roi-result-label">Monthly Revenue</div>
+              <div id="roiTotalMonthlyRevenue" class="roi-result-value">$0</div>
+              <div class="roi-result-meta">
+                Subscriptions: <span id="roiSubscriptionRevenue">$0</span> +
+                Workshops: <span id="roiWorkshopBoost">$0</span> +
+                Corporate: <span id="roiCorporateRevenue">$0</span>
+              </div>
+            </div>
+
+            <div class="roi-result-card">
+              <div class="roi-result-label">Monthly Profit</div>
+              <div id="roiMonthlyProfit" class="roi-result-value">$0</div>
+              <div class="roi-result-meta">
+                After $99/month hosting & maintenance
+              </div>
+            </div>
+
+            <div class="roi-result-card">
+              <div class="roi-result-label">Break-Even Point</div>
+              <div id="roiBreakEvenMonths" class="roi-result-value">–</div>
+              <div class="roi-result-meta">
+                Based on $1,999 setup cost
+              </div>
+            </div>
+
+            <div class="roi-result-card">
+              <div class="roi-result-label">Year 1 Profit</div>
+              <div id="roiYearOneProfit" class="roi-result-value">$0</div>
+              <div class="roi-result-meta">
+                Total profit after all costs
+              </div>
+            </div>
+          </div>
+
+          <div class="roi-tip-card">
+            <div class="roi-tip-label">💡 Pro Tip</div>
+            <p class="roi-tip-text">
+              Your app becomes profitable in just
+              <span id="roiBreakEvenInline">–</span>
+              months. After that, it's pure recurring revenue. Plus, owning your own
+              branded app positions you as a premium coach in your market.
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="roi-cta">
+          <button
+            type="button"
+            class="btn"
+            id="roiClaimBtn"
+          >
+            Claim Your App Now
+          </button>
+          <p class="roi-cta-sub">
+            Limited to 5 coaches per month • White-label setup in 7 days
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -371,11 +579,230 @@
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important;transition:none !important;transform:none !important;}
   }
+
+  /* ROI MODAL STYLES (matches your React design in spirit) */
+  .roi-modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:16px;
+    backdrop-filter:blur(6px);
+  }
+  .roi-modal-overlay.active{
+    display:flex;
+  }
+  .roi-modal{
+    background:#fff;
+    border-radius:24px;
+    box-shadow:0 30px 80px rgba(15,23,42,0.35);
+    max-width:960px;
+    width:100%;
+    max-height:90vh;
+    overflow-y:auto;
+  }
+  .roi-modal-header{
+    position:sticky;
+    top:0;
+    padding:20px 24px;
+    border-radius:24px 24px 0 0;
+    background:linear-gradient(135deg,var(--brand-500),var(--lavender));
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    z-index:10;
+  }
+  .roi-modal-title{
+    margin:0;
+    font-size:26px;
+    font-weight:800;
+  }
+  .roi-modal-sub{
+    margin:4px 0 0;
+    font-size:14px;
+    opacity:0.9;
+  }
+  .roi-close-btn{
+    width:32px;
+    height:32px;
+    border-radius:999px;
+    border:none;
+    background:rgba(255,255,255,0.15);
+    color:#fff;
+    font-size:20px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .roi-close-btn:hover{
+    background:rgba(255,255,255,0.28);
+  }
+  .roi-modal-body{
+    padding:28px;
+  }
+
+  .roi-section{
+    margin-bottom:28px;
+  }
+  .roi-section-title{
+    font-size:18px;
+    font-weight:700;
+    color:#0f172a;
+    margin:0 0 12px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .roi-grid-2{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:20px;
+  }
+  .roi-grid-3{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:16px;
+  }
+  .roi-col{
+    border-radius:18px;
+    padding:14px 10px 4px;
+  }
+
+  .roi-field{
+    margin-bottom:14px;
+  }
+  .roi-label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:#374151;
+    margin-bottom:6px;
+  }
+  .roi-range{
+    width:100%;
+    cursor:pointer;
+  }
+  .roi-range-meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#6b7280;
+    margin-top:4px;
+  }
+  .roi-range-value{
+    font-weight:700;
+    color:var(--brand-600);
+  }
+  .roi-note{
+    font-size:11px;
+    color:#6b7280;
+    font-style:italic;
+    margin-top:8px;
+  }
+
+  .roi-corporate{
+    border-radius:18px;
+    padding:18px;
+    background:linear-gradient(135deg,#ecfeff,#f5f3ff);
+  }
+  .roi-input{
+    width:100%;
+    padding:8px 10px;
+    border-radius:10px;
+    border:2px solid rgba(148,163,184,0.5);
+    font-size:14px;
+    outline:none;
+  }
+  .roi-input:focus{
+    border-color:var(--brand-500);
+  }
+
+  .roi-results{
+    border-radius:20px;
+    padding:18px;
+    background:linear-gradient(135deg,var(--brand-500),var(--lavender));
+    color:#fff;
+  }
+  .roi-results-title{
+    font-size:20px;
+    font-weight:800;
+    margin:0 0 16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .roi-results-grid{
+    margin-bottom:16px;
+    gap:16px;
+  }
+  .roi-result-card{
+    background:rgba(15,23,42,0.12);
+    border-radius:16px;
+    padding:12px 14px;
+    font-size:13px;
+  }
+  .roi-result-label{
+    font-size:12px;
+    opacity:0.88;
+    margin-bottom:2px;
+  }
+  .roi-result-value{
+    font-size:22px;
+    font-weight:800;
+  }
+  .roi-result-meta{
+    font-size:11px;
+    opacity:0.86;
+    margin-top:4px;
+  }
+  .roi-tip-card{
+    margin-top:6px;
+    background:rgba(15,23,42,0.14);
+    border-radius:14px;
+    padding:10px 12px;
+  }
+  .roi-tip-label{
+    font-size:12px;
+    margin-bottom:4px;
+  }
+  .roi-tip-text{
+    font-size:12px;
+    margin:0;
+    opacity:0.9;
+  }
+
+  .roi-cta{
+    text-align:center;
+    margin-top:18px;
+  }
+  .roi-cta-sub{
+    font-size:12px;
+    color:#6b7280;
+    margin-top:8px;
+  }
+
+  @media (max-width:768px){
+    .roi-grid-2{
+      grid-template-columns:1fr;
+    }
+    .roi-grid-3{
+      grid-template-columns:1fr;
+    }
+    .roi-modal{
+      max-height:100vh;
+    }
+  }
 </style>
 
 <script>
   (function(){
-    // Auto-update year (optional, you can also just leave 2025)
+    // Auto-update year
     var yearEl = document.getElementById('year');
     if (yearEl) {
       yearEl.textContent = new Date().getFullYear();
@@ -396,5 +823,155 @@
         window.location.href = "mailto:" + email + "?subject=" + subject + "&body=" + body;
       });
     }
+
+    // =========================
+    // ROI CALCULATOR LOGIC
+    // =========================
+    var appSetupCost = 1999; // one-time
+    var monthlyHosting = 99; // monthly maintenance
+
+    var overlay = document.getElementById('roiModalOverlay');
+    var openBtn = document.getElementById('openRoiCalculatorBtn');
+    var closeBtn = document.getElementById('roiCloseBtn');
+    var claimBtn = document.getElementById('roiClaimBtn');
+
+    function openModal(){
+      if(!overlay) return;
+      overlay.classList.add('active');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      if(!overlay) return;
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+    }
+
+    if(openBtn){
+      openBtn.addEventListener('click', openModal);
+    }
+    if(closeBtn){
+      closeBtn.addEventListener('click', closeModal);
+    }
+    if(overlay){
+      overlay.addEventListener('click', function(e){
+        if(e.target === overlay){
+          closeModal();
+        }
+      });
+    }
+
+    if(claimBtn){
+      claimBtn.addEventListener('click', function(){
+        closeModal();
+        var contact = document.getElementById('contact');
+        if(contact && contact.scrollIntoView){
+          contact.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    // Inputs
+    var studentsEl = document.getElementById('roiStudents');
+    var monthlyFeeEl = document.getElementById('roiMonthlyFee');
+    var workshopPriceEl = document.getElementById('roiWorkshopPrice');
+    var workshopsPerMonthEl = document.getElementById('roiWorkshopsPerMonth');
+    var corporateDealsEl = document.getElementById('roiCorporateDeals');
+    var corporateLicensesEl = document.getElementById('roiCorporateLicenses');
+    var corporateFeePerUserEl = document.getElementById('roiCorporateFeePerUser');
+
+    // Display spans
+    var studentsValueEl = document.getElementById('roiStudentsValue');
+    var monthlyFeeValueEl = document.getElementById('roiMonthlyFeeValue');
+    var workshopPriceValueEl = document.getElementById('roiWorkshopPriceValue');
+    var workshopsPerMonthValueEl = document.getElementById('roiWorkshopsPerMonthValue');
+
+    // Result elements
+    var totalMonthlyRevenueEl = document.getElementById('roiTotalMonthlyRevenue');
+    var subscriptionRevenueEl = document.getElementById('roiSubscriptionRevenue');
+    var workshopBoostEl = document.getElementById('roiWorkshopBoost');
+    var corporateRevenueEl = document.getElementById('roiCorporateRevenue');
+    var monthlyProfitEl = document.getElementById('roiMonthlyProfit');
+    var breakEvenMonthsEl = document.getElementById('roiBreakEvenMonths');
+    var yearOneProfitEl = document.getElementById('roiYearOneProfit');
+    var breakEvenInlineEl = document.getElementById('roiBreakEvenInline');
+
+    function toNumber(el, fallback){
+      var v = parseFloat(el && el.value ? el.value : fallback);
+      if(isNaN(v)) v = fallback || 0;
+      return v;
+    }
+
+    function fmtCurrency(num){
+      var n = Math.round(num);
+      return "$" + n.toLocaleString();
+    }
+
+    function recalc(){
+      if(!studentsEl) return;
+
+      var students = toNumber(studentsEl, 50);
+      var monthlyFee = toNumber(monthlyFeeEl, 5);
+      var workshopPrice = toNumber(workshopPriceEl, 500);
+      var workshopsPerMonth = toNumber(workshopsPerMonthEl, 2);
+      var corporateDeals = toNumber(corporateDealsEl, 1);
+      var corporateLicenses = toNumber(corporateLicensesEl, 50);
+      var corporateFeePerUser = toNumber(corporateFeePerUserEl, 3);
+
+      // Update slider labels
+      if(studentsValueEl) studentsValueEl.textContent = students + " students";
+      if(monthlyFeeValueEl) monthlyFeeValueEl.textContent = "$" + monthlyFee + "/month";
+      if(workshopPriceValueEl) workshopPriceValueEl.textContent = "$" + workshopPrice;
+      if(workshopsPerMonthValueEl) workshopsPerMonthValueEl.textContent = workshopsPerMonth + " workshops";
+
+      var subscriptionRevenue = students * monthlyFee;
+      var workshopBoost = workshopsPerMonth * workshopPrice * 0.25;
+      var corporateRevenue = corporateDeals * corporateLicenses * corporateFeePerUser;
+
+      var totalMonthlyRevenue = subscriptionRevenue + workshopBoost + corporateRevenue;
+      var monthlyProfit = totalMonthlyRevenue - monthlyHosting;
+
+      var breakEvenMonths = "N/A";
+      if(monthlyProfit > 0){
+        breakEvenMonths = Math.ceil(appSetupCost / monthlyProfit);
+      }
+
+      var yearOneProfit = (monthlyProfit * 12) - appSetupCost;
+
+      if(totalMonthlyRevenueEl) totalMonthlyRevenueEl.textContent = fmtCurrency(totalMonthlyRevenue);
+      if(subscriptionRevenueEl) subscriptionRevenueEl.textContent = fmtCurrency(subscriptionRevenue);
+      if(workshopBoostEl) workshopBoostEl.textContent = fmtCurrency(workshopBoost);
+      if(corporateRevenueEl) corporateRevenueEl.textContent = fmtCurrency(corporateRevenue);
+      if(monthlyProfitEl) monthlyProfitEl.textContent = fmtCurrency(monthlyProfit);
+      if(yearOneProfitEl) yearOneProfitEl.textContent = fmtCurrency(yearOneProfit);
+
+      if(breakEvenMonthsEl){
+        breakEvenMonthsEl.textContent = (breakEvenMonths === "N/A") ? "N/A" : breakEvenMonths + " months";
+      }
+      if(breakEvenInlineEl){
+        breakEvenInlineEl.textContent = (breakEvenMonths === "N/A") ? "a few" : breakEvenMonths;
+      }
+    }
+
+    var roiInputs = [
+      studentsEl,
+      monthlyFeeEl,
+      workshopPriceEl,
+      workshopsPerMonthEl,
+      corporateDealsEl,
+      corporateLicensesEl,
+      corporateFeePerUserEl
+    ];
+
+    roiInputs.forEach(function(el){
+      if(!el) return;
+      var evt = el.type === 'range' ? 'input' : 'input';
+      el.addEventListener(evt, recalc);
+    });
+
+    // initial calculation
+    recalc();
   })();
 </script>
+I don't know.
