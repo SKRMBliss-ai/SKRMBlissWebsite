@@ -52,7 +52,6 @@
     overflow: hidden;
   }
 
-  /* BRAND HUE GLOW ON HOVER */
   #skrm-bliss-root .card:hover,
   #skrm-bliss-root .bento-card:hover {
     transform: translateY(-6px);
@@ -142,6 +141,7 @@
   /* --- 5. HERO SECTION --- */
   #skrm-bliss-root .hero {
     margin-top: 32px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; padding: 20px 0 40px 0;
+    align-items: start; /* Ensure content aligns to the top */
   }
   #skrm-bliss-root .hero h1 {
     font-size: 52px; margin: 0; line-height: 1.05; font-weight: 900; letter-spacing: -1.5px;
@@ -153,53 +153,58 @@
   #skrm-bliss-root .hero p { color: var(--muted); margin-top: 20px; font-size: 17px; line-height: 1.6; }
   #skrm-bliss-root .hero-ctas { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
   
-  /* Hero Stats (Now using Bento Card Style) */
+  /* Hero Stats (Bento Styled) - Fixed overlap & width */
   #skrm-bliss-root .hero-stats {
-    margin-top: 32px;
-    width: 100%; /* Ensure full width inside grid cell */
+    margin-top: 40px; /* Increased margin to prevent overlap */
+    width: 100%; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Softer shadow for bento look */
   }
   #skrm-bliss-root .stat-row {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%;
   }
-  #skrm-bliss-root .stat .n { font-weight: 900; color: var(--brand-600); font-size: 24px; }
-  #skrm-bliss-root .stat .l { font-size: 13px; color: var(--muted); }
+  #skrm-bliss-root .stat .n { font-weight: 900; color: var(--brand-600); font-size: 28px; } /* Slightly larger number */
+  #skrm-bliss-root .stat .l { font-size: 14px; color: var(--muted); font-weight: 500; }
 
   /* Hero Aside (Ready Packs) */
   #skrm-bliss-root .ready-packs {
     background: #fff; padding: 32px; border-radius: 24px;
     box-shadow: var(--shadow); border: 1px solid var(--glass-strong);
-    height: 100%; display: flex; flex-direction: column; justify-content: center;
+    height: auto; /* Changed from 100% to auto for better fit */
+    display: flex; flex-direction: column; justify-content: center;
+    position: sticky; /* Optional: keep it visible on scroll if parent allows */
+    top: 90px;
   }
-  #skrm-bliss-root .features-list { list-style: none; padding: 0; margin: 16px 0; color: var(--muted); }
-  #skrm-bliss-root .features-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 15px; }
+  #skrm-bliss-root .features-list { list-style: none; padding: 0; margin: 20px 0; color: var(--muted); }
+  #skrm-bliss-root .features-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 15px; }
   #skrm-bliss-root .features-list li::before {
     content: "✓"; color: var(--brand-600); font-weight: 900;
-    background: rgba(150, 201, 196, 0.2); width: 20px; height: 20px;
-    border-radius: 50%; display: grid; place-items: center; font-size: 10px; flex-shrink: 0;
+    background: rgba(150, 201, 196, 0.2); width: 22px; height: 22px;
+    border-radius: 50%; display: grid; place-items: center; font-size: 11px; flex-shrink: 0;
   }
 
   /* --- 6. BENTO GRID (LAUGHTER APP SECTION) --- */
-  #skrm-bliss-root .bento-section { margin-top: 60px; }
+  #skrm-bliss-root .bento-section { margin-top: 80px; } /* Increased top margin */
   #skrm-bliss-root .bento-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto auto; 
-    gap: 20px; margin-top: 30px;
+    gap: 24px; margin-top: 30px;
   }
   
   /* BENTO CELLS */
   #skrm-bliss-root .bento-title-box {
     grid-column: span 2;
-    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(240,248,255,0.8));
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,248,255,0.9));
     justify-content: center;
   }
   #skrm-bliss-root .bento-image-box {
     grid-column: span 1; grid-row: span 2;
-    background: linear-gradient(135deg, rgba(124,58,237,0.03), rgba(150,201,196,0.08));
-    padding: 0; min-height: 380px;
+    background: linear-gradient(135deg, rgba(124,58,237,0.04), rgba(150,201,196,0.1));
+    padding: 0; min-height: 400px;
     align-items: center; justify-content: center;
+    overflow: hidden;
   }
-  #skrm-bliss-root .bento-feat-box { grid-column: span 1; }
+  #skrm-bliss-root .bento-feat-box { grid-column: span 1; background: #fff; }
   #skrm-bliss-root .bento-cta-box {
     grid-column: span 2;
     flex-direction: row; align-items: center; justify-content: space-between;
@@ -207,129 +212,159 @@
   }
 
   #skrm-bliss-root .bento-icon {
-    width: 50px; height: 50px; border-radius: 14px;
+    width: 54px; height: 54px; border-radius: 16px;
     background: linear-gradient(135deg, var(--brand-500), var(--lavender));
-    display: grid; place-items: center; font-size: 24px;
-    margin-bottom: 16px; color: white;
+    display: grid; place-items: center; font-size: 26px;
+    margin-bottom: 18px; color: white;
+    box-shadow: 0 8px 20px rgba(150, 201, 196, 0.2);
   }
   #skrm-bliss-root .wl-img {
-    width: 90%; transform: rotate(3deg) translateY(20px); transition: 0.5s;
+    width: 92%; transform: rotate(3deg) translateY(20px); transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* Smoother hover effect */
   }
   #skrm-bliss-root .bento-image-box:hover .wl-img {
-    transform: rotate(0deg) scale(1.05) translateY(10px);
+    transform: rotate(0deg) scale(1.08) translateY(5px);
   }
 
   /* --- 7. SERVICES & PORTFOLIO GRIDS --- */
-  #skrm-bliss-root .section-title { font-size: 32px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
-  #skrm-bliss-root .section-sub { color: var(--muted); margin-bottom: 28px; }
+  #skrm-bliss-root .section-title { font-size: 36px; font-weight: 900; color: var(--text); margin-bottom: 12px; }
+  #skrm-bliss-root .section-sub { color: var(--muted); margin-bottom: 32px; font-size: 18px; }
 
   #skrm-bliss-root .grid-3,
   #skrm-bliss-root .portfolio-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px;
   }
 
   /* Card Inner Styling */
   #skrm-bliss-root .card .icon {
-    width: 56px; height: 56px; border-radius: 16px;
+    width: 60px; height: 60px; border-radius: 18px;
     display: grid; place-items: center;
     background: linear-gradient(135deg, var(--brand-400), var(--lavender));
-    font-size: 24px; margin-bottom: 16px;
+    font-size: 26px; margin-bottom: 18px;
+    box-shadow: 0 8px 20px rgba(184, 172, 214, 0.2);
   }
-  #skrm-bliss-root .card h3 { margin: 0 0 8px; font-size: 18px; font-weight: 800; color: var(--text); }
-  #skrm-bliss-root .card p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  #skrm-bliss-root .card h3 { margin: 0 0 10px; font-size: 20px; font-weight: 800; color: var(--text); }
+  #skrm-bliss-root .card p { margin: 0; font-size: 15px; color: var(--muted); line-height: 1.6; }
 
   /* --- 8. PROCESS --- */
   #skrm-bliss-root .process {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 24px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 24px;
   }
   #skrm-bliss-root .process .num {
-    width: 44px; height: 44px; border-radius: 12px;
+    width: 48px; height: 48px; border-radius: 14px;
     background: linear-gradient(135deg, var(--brand-500), var(--lavender));
-    color: white; font-weight: 900; font-size: 18px;
-    display: grid; place-items: center; margin-bottom: 12px;
+    color: white; font-weight: 900; font-size: 20px;
+    display: grid; place-items: center; margin-bottom: 14px;
+    box-shadow: 0 8px 20px rgba(150, 201, 196, 0.2);
   }
 
   /* --- 9. FINAL CTA (Bento Styled) --- */
   #skrm-bliss-root .final-cta-section {
-    margin-top: 60px;
+    margin-top: 80px; /* Increased spacing above */
+    margin-bottom: 40px; /* Added spacing below */
   }
-  /* Applying bento-card class in HTML structure to give it the look */
   #skrm-bliss-root .final-cta-inner {
-    display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 30px; width: 100%;
+    padding: 40px; /* More padding for bento feel */
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9); /* Subtle gradient bg */
   }
+  #skrm-bliss-root .final-cta-inner h2 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
+  #skrm-bliss-root .final-cta-inner p { font-size: 18px; color: var(--muted); }
 
+
+  /* --- 10. CONTACT --- */
+  #skrm-bliss-root #contact { margin-top: 80px; }
   #skrm-bliss-root .contact-grid {
-    display: grid; grid-template-columns: 1fr 350px; gap: 30px; margin-top: 24px;
+    display: grid; grid-template-columns: 1fr 380px; gap: 30px; margin-top: 30px;
   }
 
   #skrm-bliss-root .input, #skrm-bliss-root textarea {
-    width: 100%; padding: 12px; border-radius: 8px;
-    border: 1px solid #e2e8f0; background: white;
-    font-size: 14px; margin-top: 6px; outline: none;
+    width: 100%; padding: 14px; border-radius: 10px;
+    border: 1px solid #e2e8f0; background: #f8fafc;
+    font-size: 15px; margin-top: 6px; outline: none;
+    transition: border-color 0.2s, background 0.2s;
   }
-  #skrm-bliss-root label { display: block; margin-bottom: 14px; font-size: 14px; font-weight: 600; }
+  #skrm-bliss-root .input:focus, #skrm-bliss-root textarea:focus {
+    border-color: var(--brand-500); background: #fff;
+  }
+  #skrm-bliss-root label { display: block; margin-bottom: 16px; font-size: 15px; font-weight: 600; }
+  
+  #skrm-bliss-root .checkbox-group { display: flex; align-items: center; gap: 10px; }
+  #skrm-bliss-root .checkbox-group input[type="checkbox"] {
+    width: 18px; height: 18px; accent-color: var(--brand-500);
+  }
 
-  /* --- 10. FOOTER & FLOATING --- */
+  /* --- 11. FOOTER & FLOATING --- */
   #skrm-bliss-root footer {
-    background: white; padding: 40px; border-radius: 24px;
-    margin-top: 80px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+    background: white; padding: 50px; border-radius: 24px;
+    margin-top: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
   }
-  #skrm-bliss-root .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; }
-  #skrm-bliss-root .footer-nav { display: flex; gap: 40px; }
+  #skrm-bliss-root .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+  #skrm-bliss-root .footer-nav { display: flex; gap: 50px; }
+  #skrm-bliss-root .footer-nav a { text-decoration: none; color: var(--muted); font-weight: 500; transition: color 0.2s; }
+  #skrm-bliss-root .footer-nav a:hover { color: var(--text); }
   #skrm-bliss-root .footer-bottom {
-    border-top: 1px solid #f1f5f9; padding-top: 20px; margin-top: 20px;
-    display: flex; justify-content: space-between; font-size: 13px; color: var(--muted);
+    border-top: 1px solid #f1f5f9; padding-top: 24px; margin-top: 30px;
+    display: flex; justify-content: space-between; font-size: 14px; color: var(--muted);
   }
 
   #skrm-bliss-root .floating-widgets {
-    position: fixed; bottom: 20px; right: 20px;
-    display: flex; flex-direction: column; gap: 12px; z-index: 2147483647;
+    position: fixed; bottom: 24px; right: 24px;
+    display: flex; flex-direction: column; gap: 14px; z-index: 2147483647;
   }
   #skrm-bliss-root .widget-btn {
-    width: 50px; height: 50px; border-radius: 50%;
+    width: 54px; height: 54px; border-radius: 50%;
     display: grid; place-items: center; background: white;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: none; cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12); border: none; cursor: pointer;
+    transition: transform 0.2s;
   }
+  #skrm-bliss-root .widget-btn:hover { transform: scale(1.08); }
   #skrm-bliss-root .widget-btn.whatsapp { background: #25D366; }
   #skrm-bliss-root .widget-btn.call { background: linear-gradient(135deg, var(--brand-500), var(--lavender)); color:white;}
 
-  /* --- 11. MOBILE RESPONSIVE RULES --- */
+  /* --- 12. MOBILE RESPONSIVE RULES --- */
   @media (max-width: 980px) {
-    #skrm-bliss-root .hero { grid-template-columns: 1fr; gap: 30px; }
+    #skrm-bliss-root .hero { grid-template-columns: 1fr; gap: 40px; }
+    #skrm-bliss-root .hero-stats { margin-top: 30px; } /* Adjust for mobile */
+    #skrm-bliss-root .ready-packs { position: static; /* Not sticky on mobile */ }
     #skrm-bliss-root .nav-links { display: none; }
     #skrm-hamburger { display: block; }
     
     #skrm-bliss-root .grid-3, 
     #skrm-bliss-root .portfolio-grid,
-    #skrm-bliss-root .process { grid-template-columns: 1fr 1fr; }
+    #skrm-bliss-root .process { grid-template-columns: 1fr 1fr; gap: 20px; }
     
-    #skrm-bliss-root .bento-container { grid-template-columns: 1fr 1fr; }
+    #skrm-bliss-root .bento-container { grid-template-columns: 1fr 1fr; gap: 20px; }
     #skrm-bliss-root .bento-image-box { grid-column: span 1; grid-row: span 2; }
     #skrm-bliss-root .bento-title-box, #skrm-bliss-root .bento-cta-box { grid-column: span 2; }
   }
 
   @media (max-width: 640px) {
-    #skrm-bliss-root .wrap { padding: 15px; }
+    #skrm-bliss-root .wrap { padding: 16px; }
     #skrm-bliss-root .controls .btn { display: none; }
     #skrm-bliss-root .brand-sub { display: none; }
-    #skrm-bliss-root .hero h1 { font-size: 36px; }
+    #skrm-bliss-root .hero h1 { font-size: 38px; }
     
     #skrm-bliss-root .grid-3, 
     #skrm-bliss-root .portfolio-grid,
     #skrm-bliss-root .process,
     #skrm-bliss-root .stat-row,
-    #skrm-bliss-root .contact-grid { grid-template-columns: 1fr; }
+    #skrm-bliss-root .contact-grid { grid-template-columns: 1fr; gap: 20px; }
 
-    #skrm-bliss-root .bento-container { display: flex; flex-direction: column; gap: 16px; }
-    #skrm-bliss-root .bento-image-box { min-height: 250px; order: -1; }
+    #skrm-bliss-root .bento-container { display: flex; flex-direction: column; gap: 20px; }
+    #skrm-bliss-root .bento-image-box { min-height: 280px; order: -1; }
     #skrm-bliss-root .bento-title-box { order: -2; }
-    #skrm-bliss-root .bento-cta-box { flex-direction: column; text-align: center; }
-    #skrm-bliss-root .bento-cta-box .btn { width: 100%; text-align: center; }
+    #skrm-bliss-root .bento-cta-box { flex-direction: column; text-align: center; padding: 30px; }
+    #skrm-bliss-root .bento-cta-box .btn { width: 100%; text-align: center; margin-top: 20px; }
 
-    #skrm-bliss-root .final-cta-inner { flex-direction: column; align-items: flex-start; }
-    #skrm-bliss-root .final-cta-inner .btn { width: 100%; text-align: center; margin-top: 16px; }
+    #skrm-bliss-root .final-cta-inner { flex-direction: column; align-items: flex-start; padding: 30px; }
+    #skrm-bliss-root .final-cta-inner .btn { width: 100%; text-align: center; margin-top: 20px; }
+    #skrm-bliss-root .final-cta-inner h2 { font-size: 26px; }
     
-    #skrm-bliss-root .floating-widgets { right: 12px; bottom: 12px; }
+    #skrm-bliss-root .footer-content { flex-direction: column; gap: 30px; }
+    #skrm-bliss-root .footer-nav { flex-wrap: wrap; gap: 30px; }
+    #skrm-bliss-root .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+
+    #skrm-bliss-root .floating-widgets { right: 16px; bottom: 16px; }
   }
 </style>
 
@@ -476,17 +511,17 @@
         </div>
       </section>
 
-      <section class="final-cta-section" style="margin-top:60px;">
+      <section class="final-cta-section">
         <div class="bento-card final-cta-inner">
           <div>
-            <h2 style="margin:0 0 8px;font-size:28px;">Transform your digital presence?</h2>
-            <p style="margin:0;color:var(--muted);">Tell us about your app or content needs.</p>
+            <h2>Transform your digital presence?</h2>
+            <p>Tell us about your app or content needs.</p>
           </div>
           <a href="#contact" class="btn">Request quote</a>
         </div>
       </section>
 
-      <section id="contact" style="margin-top:80px;">
+      <section id="contact">
         <h2 class="section-title">Contact</h2>
         <div class="contact-grid">
           <div class="card">
@@ -494,20 +529,20 @@
               <label>Name <input name="name" class="input" type="text" required></label>
               <label>Email <input name="email" class="input" type="email" required></label>
               <label>Message <textarea name="message" rows="4" required></textarea></label>
-              <div class="checkbox-group" style="margin-top:12px;">
+              <div class="checkbox-group" style="margin-top:16px;">
                 <input type="checkbox" id="consent" checked required>
-                <label for="consent" style="margin:0;font-weight:400;font-size:13px;">I agree to be contacted.</label>
+                <label for="consent" style="margin:0;font-weight:400;font-size:14px;">I agree to be contacted.</label>
               </div>
-              <button type="submit" class="btn" style="margin-top:16px;">Send Message</button>
-              <div id="formStatus" style="font-size:13px;font-weight:600;margin-top:10px;"></div>
+              <button type="submit" class="btn" style="margin-top:20px;">Send Message</button>
+              <div id="formStatus" style="font-size:14px;font-weight:600;margin-top:12px;"></div>
             </form>
           </div>
-          <aside class="card" style="display:flex;flex-direction:column;gap:16px;">
-            <div><strong>Email</strong><div style="color:var(--muted);font-size:14px;">connect@skrmblissai.in</div></div>
-            <div><strong>Phone</strong><div style="color:var(--muted);font-size:14px;">+91 82175 81238</div></div>
-            <div style="display:flex;gap:12px;">
-              <a href="https://wa.me/+918217581238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:24px;"></a>
-              <a href="https://www.facebook.com/skrmbliss" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" style="width:24px;"></a>
+          <aside class="card" style="display:flex;flex-direction:column;gap:20px;">
+            <div><strong>Email</strong><div style="color:var(--muted);font-size:15px;">connect@skrmblissai.in</div></div>
+            <div><strong>Phone</strong><div style="color:var(--muted);font-size:15px;">+91 82175 81238</div></div>
+            <div style="display:flex;gap:16px;">
+              <a href="https://wa.me/+918217581238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:28px;"></a>
+              <a href="https://www.facebook.com/skrmbliss" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" style="width:28px;"></a>
             </div>
           </aside>
         </div>
@@ -517,7 +552,7 @@
         <div class="footer-content">
           <div>
             <h3 class="brand-name">SKRMBliss.ai</h3>
-            <p class="brand-desc" style="max-width:300px;">Helping creators and businesses build better digital products.</p>
+            <p class="brand-desc" style="max-width:320px;">Helping creators and businesses build better digital products.</p>
           </div>
           <div class="footer-nav">
             <div class="nav-column"><h4>Services</h4><a href="#services">Apps</a><a href="#services">Tools</a></div>
@@ -534,7 +569,7 @@
 
   <div class="floating-widgets">
     <a class="widget-btn whatsapp" href="https://wa.me/+918217581238" target="_blank">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
     </a>
     <button class="widget-btn call" id="skrm-call-btn">📞</button>
   </div>
