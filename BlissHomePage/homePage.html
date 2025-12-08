@@ -1,8 +1,3 @@
-<!-- Important change: Removed outer 
-<!DOCTYPE>/
-<html>/
-	<head>/
-		<body> wrapper (for systeme.io Raw HTML), moved all CSS into a single <style> at top and kept original elements, semantics, ARIA and JS (mailto+clipboard) intact. -->
 <style>
   /* Scoped to container */
   #skrm-bliss-root {
@@ -309,7 +304,7 @@
     justify-content: center
   }
 
-  /* CARD */
+  /* CARD STYLING */
   #skrm-bliss-root .card {
     position: relative;
     overflow: visible;
@@ -317,7 +312,7 @@
     border-radius: 20px;
     padding: 26px;
     border: 1px solid var(--glass-strong);
-    transition: transform .42s cubic-bezier(.2, .9, .2, 1), box-shadow .42s, filter .42s;
+    transition: transform .42s cubic-bezier(.2, .9, .2, 1), box-shadow .42s, filter .42s, background 0.3s;
     transform-origin: center center;
     box-shadow: 0 8px 20px rgba(2, 6, 23, 0.04)
   }
@@ -337,11 +332,14 @@
     opacity: 0
   }
 
+  /* HOVER EFFECT WITH BRAND HUE */
   #skrm-bliss-root .card:hover,
   #skrm-bliss-root .card:focus-within {
-    transform: translateY(-18px) rotateX(4deg) rotateZ(-0.6deg) scale(1.02);
-    box-shadow: 0 36px 90px rgba(2, 6, 23, 0.18), 0 14px 40px rgba(2, 6, 23, 0.10);
-    filter: brightness(1.02)
+    transform: translateY(-12px) scale(1.01);
+    box-shadow: 0 36px 90px rgba(2, 6, 23, 0.12), 0 14px 40px rgba(2, 6, 23, 0.08);
+    /* Brand Hue Gradient applied on hover */
+    background: linear-gradient(135deg, #ffffff 30%, rgba(150, 201, 196, 0.18) 100%);
+    border-color: rgba(150, 201, 196, 0.4);
   }
 
   #skrm-bliss-root .card:hover::after,
@@ -431,6 +429,40 @@
     font-size: 12px;
     flex-shrink: 0
   }
+
+  /* LAUGHTER APP SECTION STYLES */
+  #skrm-bliss-root .wl-section {
+    margin-top: 80px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.9));
+    border-radius: 24px;
+    border: 1px solid var(--glass-strong);
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 1;
+  }
+
+  #skrm-bliss-root .wl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  #skrm-bliss-root .wl-img-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  #skrm-bliss-root .wl-img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    transform: rotate(2deg);
+  }
+
 
   /* Grids & sections */
   #skrm-bliss-root .grid-3 {
@@ -749,6 +781,18 @@
       gap: 32px
     }
 
+    #skrm-bliss-root .wl-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #skrm-bliss-root .wl-section {
+      padding: 24px;
+    }
+
+    #skrm-bliss-root .wl-img-container {
+      margin-top: 20px;
+    }
+
     #skrm-bliss-root .grid-3,
     #skrm-bliss-root .portfolio-grid {
       grid-template-columns: repeat(2, 1fr)
@@ -938,13 +982,13 @@
           </div>
         </aside>
       </section>
-      <section id="white-label-app" style="margin-top:80px; padding: 40px; background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,248,255,0.9)); border-radius: 24px; border: 1px solid var(--glass-strong); box-shadow: var(--shadow); position: relative; z-index: 1;">
+      <section id="white-label-app" class="wl-section">
         <div style="text-align:center; margin-bottom:40px;">
           <div style="display:inline-block;padding:6px 16px;border-radius:50px;background:rgba(124,58,237,0.08);border:1px solid var(--glass-strong);font-weight:700;font-size:13px;color:var(--brand-600);margin-bottom:16px;"> ✨ NEW FOR COACHES & STUDIOS </div>
           <h2 class="section-title" style="display:block;">Launch Your Own Laughter App</h2>
           <p class="section-sub" style="max-width:700px; margin:0 auto;">We built the world's first AI Laughter Coach. Now, we can rebrand it for <strong>YOU</strong>. </p>
         </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:40px; align-items:center;">
+        <div class="wl-grid">
           <div>
             <h3 style="font-size:28px; font-weight:800; margin-bottom:16px; color:#0f172a;">Your Custom-Branded App</h3>
             <p style="color:var(--muted); margin-bottom:24px; font-size:16px; line-height:1.6;"> Don't spend thousands developing technology from scratch. Claim our proven "Laughter OS" platform and we will customize it with your <strong>Brand Name, Logo, and Content</strong>. </p>
@@ -971,13 +1015,13 @@
                 </div>
               </div>
             </div>
-            <div style="margin-top:32px;">
-              <a href="https://www.skrmblissai.in/laughterapp" class="btn" style="padding:14px 32px;"> Claim Your App → </a>
-              <p style="font-size:12px; color:var(--muted); margin-top:12px;">*Limited to 5 coach partnerships per month.</p>
+            <div style="margin-top:32px; padding: 24px; border-radius: 20px; background: linear-gradient(135deg, rgba(150, 201, 196, 0.15), rgba(184, 172, 214, 0.2)); border: 1px solid rgba(150, 201, 196, 0.3); text-align:center;">
+              <a href="https://www.skrmblissai.in/laughterapp" class="btn" style="width:100%; text-align:center; padding:14px 32px; font-size:16px;"> Claim Your App → </a>
+              <p style="font-size:12px; color:var(--muted); margin-top:12px; margin-bottom:0;">*Limited to 5 coach partnerships per month.</p>
             </div>
           </div>
-          <div style="position:relative; display: flex; justify-content: center;">
-            <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="White Label App Mockup" style="width: 100%; max-width: 500px; border-radius: 20px; box-shadow: var(--shadow-lg); transform: rotate(2deg);">
+          <div class="wl-img-container">
+            <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="White Label App Mockup" class="wl-img">
           </div>
         </div>
       </section>
@@ -1213,5 +1257,136 @@
   </div>
 </div>
 <script>
-  (function() { // set year const y = new Date().getFullYear(); const yearEl = document.getElementById('year'); if(yearEl) yearEl.textContent = y; // Mobile menu toggle const hb = document.getElementById('skrm-hamburger'); const mm = document.getElementById('skrm-mobile-menu'); if(hb && mm){ hb.addEventListener('click', (e) => { e.stopPropagation(); const expanded = hb.getAttribute('aria-expanded') === 'true'; hb.setAttribute('aria-expanded', String(!expanded)); mm.style.display = expanded ? 'none' : 'block'; mm.setAttribute('aria-hidden', String(expanded)); }); // click-away close document.addEventListener('click', (ev) => { if(mm.style.display === 'block' && !mm.contains(ev.target) && ev.target !== hb){ mm.style.display='none'; hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); } }); window.addEventListener('keydown', (ev) => { if(ev.key==='Escape'){ mm.style.display='none'; hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); } }); } // language select (persist) (function(){ const sel = document.getElementById('skrm-lang'); if(!sel) return; sel.value = localStorage.getItem('skrm_lang') || 'en'; sel.addEventListener('change', (e) => { localStorage.setItem('skrm_lang', e.target.value); }); })(); // Contact form: mailto + clipboard fallback (function(){ const form = document.getElementById('contactForm'); const status = document.getElementById('formStatus'); const callBtn = document.getElementById('skrm-call-btn'); if(callBtn){ callBtn.addEventListener('click', () => { const phoneNumber = '+918217581238'; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(phoneNumber).then(() => { // accessible minimal feedback const t = document.createElement('div'); t.textContent = phoneNumber + ' (copied)'; t.style.cssText = 'position:fixed;right:20px;bottom:88px;background:#071026;color:white;padding:10px 14px;border-radius:10px;z-index:99999'; document.body.appendChild(t); setTimeout(()=>t.remove(), 2600); }).catch(() => { alert(`Phone: ${phoneNumber}`); }); } else { alert(`Phone: ${phoneNumber}`); } }); } if(!form) return; form.addEventListener('submit', function(e){ e.preventDefault(); if(status) status.textContent = ''; const name = (document.getElementById('name')||{}).value.trim(); const email = (document.getElementById('email')||{}).value.trim(); const message = (document.getElementById('message')||{}).value.trim(); const consent = (document.getElementById('consent')||{}).checked; if(!name||!email||!message){ if(status) status.textContent='Please complete all fields.'; return; } if(!/^\S+@\S+\.\S+$/.test(email)){ if(status) status.textContent='Please enter a valid email.'; return; } if(!consent){ if(status) status.textContent='Please allow us to contact you.'; return; } const targetEmail = 'connect@skrmblissai.in'; const subject = encodeURIComponent('Website enquiry from ' + name); const bodyText = 'Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message; const mailto = `mailto:${targetEmail}?subject=${subject}&body=${encodeURIComponent(bodyText)}`; // try open mail app window.location.href = mailto; if(status) status.textContent = 'Opening email client...'; // fallback: copy template to clipboard after a short delay setTimeout(async () => { try { if(navigator.clipboard && navigator.clipboard.writeText){ await navigator.clipboard.writeText(`To: ${targetEmail}\nSubject: Website enquiry from ${name}\n\n${bodyText}`); if(status) status.textContent = 'If your mail client did not open, a message template was copied to your clipboard.'; form.reset(); } } catch (err){ if(status) status.textContent = 'If mail app did not open, please email: ' + targetEmail; } }, 700); }); })(); // Smooth anchors + close mobile menu (function(){ document.querySelectorAll('#skrm-bliss-root a[href^="#"]').forEach(a => { a.addEventListener('click', function(ev){ const href = this.getAttribute('href'); if(href && href.length>1){ const t = document.querySelector(href); if(t){ ev.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); } const mm = document.getElementById('skrm-mobile-menu'); const hb = document.getElementById('skrm-hamburger'); if(mm){ mm.style.display='none'; if(hb) hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); } } }); }); })(); })(); 
+  (function() {
+    // set year 
+    const y = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = y;
+    // Mobile menu toggle 
+    const hb = document.getElementById('skrm-hamburger');
+    const mm = document.getElementById('skrm-mobile-menu');
+    if (hb && mm) {
+      hb.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const expanded = hb.getAttribute('aria-expanded') === 'true';
+        hb.setAttribute('aria-expanded', String(!expanded));
+        mm.style.display = expanded ? 'none' : 'block';
+        mm.setAttribute('aria-hidden', String(expanded));
+      });
+      // click-away close 
+      document.addEventListener('click', (ev) => {
+        if (mm.style.display === 'block' && !mm.contains(ev.target) && ev.target !== hb) {
+          mm.style.display = 'none';
+          hb.setAttribute('aria-expanded', 'false');
+          mm.setAttribute('aria-hidden', 'true');
+        }
+      });
+      window.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape') {
+          mm.style.display = 'none';
+          hb.setAttribute('aria-expanded', 'false');
+          mm.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+    // language select (persist) 
+    (function() {
+      const sel = document.getElementById('skrm-lang');
+      if (!sel) return;
+      sel.value = localStorage.getItem('skrm_lang') || 'en';
+      sel.addEventListener('change', (e) => {
+        localStorage.setItem('skrm_lang', e.target.value);
+      });
+    })();
+    // Contact form: mailto + clipboard fallback 
+    (function() {
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      const callBtn = document.getElementById('skrm-call-btn');
+      if (callBtn) {
+        callBtn.addEventListener('click', () => {
+          const phoneNumber = '+918217581238';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(phoneNumber).then(() => {
+              // accessible minimal feedback 
+              const t = document.createElement('div');
+              t.textContent = phoneNumber + ' (copied)';
+              t.style.cssText = 'position:fixed;right:20px;bottom:88px;background:#071026;color:white;padding:10px 14px;border-radius:10px;z-index:99999';
+              document.body.appendChild(t);
+              setTimeout(() => t.remove(), 2600);
+            }).catch(() => {
+              alert(`Phone: ${phoneNumber}`);
+            });
+          } else {
+            alert(`Phone: ${phoneNumber}`);
+          }
+        });
+      }
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (status) status.textContent = '';
+        const name = (document.getElementById('name') || {}).value.trim();
+        const email = (document.getElementById('email') || {}).value.trim();
+        const message = (document.getElementById('message') || {}).value.trim();
+        const consent = (document.getElementById('consent') || {}).checked;
+        if (!name || !email || !message) {
+          if (status) status.textContent = 'Please complete all fields.';
+          return;
+        }
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+          if (status) status.textContent = 'Please enter a valid email.';
+          return;
+        }
+        if (!consent) {
+          if (status) status.textContent = 'Please allow us to contact you.';
+          return;
+        }
+        const targetEmail = 'connect@skrmblissai.in';
+        const subject = encodeURIComponent('Website enquiry from ' + name);
+        const bodyText = 'Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message;
+        const mailto = `mailto:${targetEmail}?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+        // try open mail app 
+        window.location.href = mailto;
+        if (status) status.textContent = 'Opening email client...';
+        // fallback: copy template to clipboard after a short delay 
+        setTimeout(async () => {
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(`To: ${targetEmail}\nSubject: Website enquiry from ${name}\n\n${bodyText}`);
+              if (status) status.textContent = 'If your mail client did not open, a message template was copied to your clipboard.';
+              form.reset();
+            }
+          } catch (err) {
+            if (status) status.textContent = 'If mail app did not open, please email: ' + targetEmail;
+          }
+        }, 700);
+      });
+    })();
+    // Smooth anchors + close mobile menu 
+    (function() {
+      document.querySelectorAll('#skrm-bliss-root a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(ev) {
+          const href = this.getAttribute('href');
+          if (href && href.length > 1) {
+            const t = document.querySelector(href);
+            if (t) {
+              ev.preventDefault();
+              t.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+            const mm = document.getElementById('skrm-mobile-menu');
+            const hb = document.getElementById('skrm-hamburger');
+            if (mm) {
+              mm.style.display = 'none';
+              if (hb) hb.setAttribute('aria-expanded', 'false');
+              mm.setAttribute('aria-hidden', 'true');
+            }
+          }
+        });
+      });
+    })();
+  })();
 </script>
