@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SKRM Bliss AI</title>
+<div id="skrm-bliss-wrapper">
+
 <style>
-  /* --- 1. CORE VARIABLES & THEME --- */
-  :root {
+  /* --- SCOPED STYLES FOR RAW HTML WIDGET --- */
+  
+  /* Import Font */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  #skrm-bliss-wrapper {
+    /* Define Variables Locally */
     --bg-body: #EDE8F8;
     --bg-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, #EDE8F8 100%);
     --glass-bg: rgba(255, 255, 255, 0.65);
@@ -21,10 +22,20 @@
     --brand-lavender: #b8acd6;
     --brand-gradient: linear-gradient(135deg, #7db9b3 0%, #b8acd6 100%);
     --accent-glow: rgba(125, 185, 179, 0.2);
+
+    /* Base Settings */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    overflow-x: hidden;
+    line-height: 1.6;
+    width: 100%;
+    position: relative;
+    padding-bottom: 50px; /* Space for footer */
   }
 
   /* DARK MODE VARIABLES */
-  [data-theme="dark"] {
+  #skrm-bliss-wrapper[data-theme="dark"] {
     --bg-body: #0f172a;
     --bg-gradient: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
     --glass-bg: rgba(30, 41, 59, 0.7);
@@ -35,29 +46,16 @@
     --card-hover-shadow: 0 20px 40px rgba(125, 185, 179, 0.15);
   }
 
-  /* --- 2. GLOBAL RESET --- */
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0; padding: 0;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background: var(--bg-gradient);
-    color: var(--text-main);
-    overflow-x: hidden;
-    line-height: 1.6;
-    width: 100%;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  * { box-sizing: border-box; }
-  img { max-width: 100%; height: auto; display: block; }
-  a { text-decoration: none; color: inherit; transition: 0.3s; }
+  #skrm-bliss-wrapper * { box-sizing: border-box; }
+  #skrm-bliss-wrapper img { max-width: 100%; height: auto; display: block; }
+  #skrm-bliss-wrapper a { text-decoration: none; color: inherit; transition: 0.3s; }
   
-  .wrap {
+  #skrm-bliss-wrapper .wrap {
     max-width: 1200px; margin: 0 auto; padding: 20px; width: 100%;
   }
 
-  /* --- 3. UI COMPONENTS --- */
-  /* Glass Cards with Enhanced Effects */
-  .card {
+  /* --- UI COMPONENTS --- */
+  #skrm-bliss-wrapper .card {
     background: var(--glass-bg);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
@@ -70,23 +68,14 @@
     overflow: hidden;
   }
   
-  /* Card Hover Effect */
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 4px;
-    background: var(--brand-gradient);
-    opacity: 0; transition: 0.3s;
-  }
-  .card:hover {
+  #skrm-bliss-wrapper .card:hover {
     transform: translateY(-8px) scale(1.01);
     box-shadow: var(--card-hover-shadow);
     border-color: rgba(125, 185, 179, 0.5);
   }
-  .card:hover::before { opacity: 1; }
 
   /* Buttons */
-  .btn {
+  #skrm-bliss-wrapper .btn {
     display: inline-flex; align-items: center; justify-content: center;
     padding: 12px 30px; border-radius: 50px;
     background: var(--brand-gradient);
@@ -95,15 +84,15 @@
     transition: transform 0.2s;
     font-size: 0.95rem;
   }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--accent-glow); }
+  #skrm-bliss-wrapper .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--accent-glow); }
   
-  .btn.ghost {
+  #skrm-bliss-wrapper .btn.ghost {
     background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: none;
   }
-  .btn.ghost:hover { background: rgba(255,255,255,0.1); border-color: var(--text-main); }
+  #skrm-bliss-wrapper .btn.ghost:hover { background: rgba(255,255,255,0.1); border-color: var(--text-main); }
 
-  /* --- 4. NAVIGATION --- */
-  nav {
+  /* --- NAVIGATION --- */
+  #skrm-bliss-wrapper nav {
     display: flex; justify-content: space-between; align-items: center;
     padding: 14px 24px; border-radius: 20px;
     background: var(--glass-bg); 
@@ -111,24 +100,23 @@
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
     position: sticky; top: 15px; z-index: 100;
-    transition: background 0.3s ease;
   }
-  .brand { display: flex; align-items: center; gap: 12px; }
-  .logo-img {
+  #skrm-bliss-wrapper .brand { display: flex; align-items: center; gap: 12px; }
+  #skrm-bliss-wrapper .logo-img {
     width: 42px; height: 42px; border-radius: 12px;
     background: var(--brand-gradient); display: grid; place-items: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
-  .brand-title { font-weight: 800; font-size: 1.1rem; line-height: 1.2; }
-  .brand-sub { font-size: 0.75rem; color: var(--text-muted); }
+  #skrm-bliss-wrapper .brand-title { font-weight: 800; font-size: 1.1rem; line-height: 1.2; }
+  #skrm-bliss-wrapper .brand-sub { font-size: 0.75rem; color: var(--text-muted); }
 
-  .nav-links { display: flex; gap: 20px; align-items: center; }
-  .nav-links a { font-weight: 600; color: var(--text-muted); font-size: 0.95rem; }
-  .nav-links a:hover { color: var(--text-main); }
+  #skrm-bliss-wrapper .nav-links { display: flex; gap: 20px; align-items: center; }
+  #skrm-bliss-wrapper .nav-links a { font-weight: 600; color: var(--text-muted); font-size: 0.95rem; }
+  #skrm-bliss-wrapper .nav-links a:hover { color: var(--text-main); }
 
-  .controls { display: flex; align-items: center; gap: 15px; }
+  #skrm-bliss-wrapper .controls { display: flex; align-items: center; gap: 15px; }
 
-  /* Utilities: Dark Mode Toggle & Lang */
+  /* Utilities */
   .utility-btn {
     background: none; border: none; cursor: pointer; font-size: 1.2rem;
     padding: 8px; border-radius: 50%; transition: 0.3s;
@@ -145,33 +133,33 @@
   }
   .goog-te-gadget-simple span { color: var(--text-muted) !important; font-weight: 600; }
   
-  /* --- 5. HERO SECTION --- */
-  .hero {
+  /* --- HERO SECTION --- */
+  #skrm-bliss-wrapper .hero {
     margin-top: 60px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px;
     align-items: center;
   }
-  .hero h1 {
+  #skrm-bliss-wrapper .hero h1 {
     font-size: 3.5rem; line-height: 1.1; margin: 20px 0; font-weight: 900; letter-spacing: -1px;
   }
-  .hero .accent {
+  #skrm-bliss-wrapper .hero .accent {
     background: var(--brand-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 500px; margin-bottom: 30px; }
-  .hero-ctas { display: flex; gap: 15px; flex-wrap: wrap; }
+  #skrm-bliss-wrapper .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 500px; margin-bottom: 30px; }
+  #skrm-bliss-wrapper .hero-ctas { display: flex; gap: 15px; flex-wrap: wrap; }
 
-  .hero-stats { margin-top: 40px; }
-  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; margin-top: 15px; }
-  .stat .n { font-size: 1.8rem; font-weight: 900; color: #7db9b3; }
-  .stat .l { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  #skrm-bliss-wrapper .hero-stats { margin-top: 40px; }
+  #skrm-bliss-wrapper .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; margin-top: 15px; }
+  #skrm-bliss-wrapper .stat .n { font-size: 1.8rem; font-weight: 900; color: #7db9b3; }
+  #skrm-bliss-wrapper .stat .l { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
   /* HERO IMAGE STYLES (3D Effect) */
   .hero-visual {
     position: relative; display: flex; justify-content: center; align-items: center;
     perspective: 1000px;
+    margin-bottom: 30px;
   }
   .app-mockup {
     width: 100%; max-width: 380px; border-radius: 20px;
-    /* 3D Transform */
     transform: rotateY(-5deg) rotateX(2deg);
     box-shadow: -20px 20px 60px rgba(0,0,0,0.25);
     border: 4px solid var(--glass-border);
@@ -185,7 +173,6 @@
   .ready-packs {
     background: var(--glass-bg); padding: 30px; border-radius: 24px;
     border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
-    margin-top: 30px;
   }
   .features-list { list-style: none; padding: 0; margin: 20px 0; }
   .features-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-weight: 500; color: var(--text-muted); font-size: 0.95rem; }
@@ -195,30 +182,30 @@
     display: grid; place-items: center; font-size: 12px; font-weight: 900; flex-shrink: 0;
   }
 
-  /* --- 6. GRIDS --- */
-  .section-header { margin: 80px 0 30px; }
-  .section-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
-  .section-sub { font-size: 1.1rem; color: var(--text-muted); }
+  /* --- GRIDS --- */
+  #skrm-bliss-wrapper .section-header { margin: 80px 0 30px; }
+  #skrm-bliss-wrapper .section-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+  #skrm-bliss-wrapper .section-sub { font-size: 1.1rem; color: var(--text-muted); }
 
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  #skrm-bliss-wrapper .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  #skrm-bliss-wrapper .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
 
-  .card .icon {
+  #skrm-bliss-wrapper .card .icon {
     width: 60px; height: 60px; border-radius: 16px;
     background: var(--brand-gradient); display: grid; place-items: center;
     font-size: 28px; margin-bottom: 20px; color: white;
     box-shadow: 0 8px 20px rgba(125, 185, 179, 0.2);
   }
-  .process .num {
+  #skrm-bliss-wrapper .process .num {
     width: 48px; height: 48px; border-radius: 12px;
     background: var(--brand-gradient); color: white; font-weight: 800; font-size: 20px;
     display: grid; place-items: center; margin-bottom: 15px;
   }
-  .card h3, .card strong { color: var(--text-main); }
-  .card p { color: var(--text-muted); }
+  #skrm-bliss-wrapper h3, #skrm-bliss-wrapper strong { color: var(--text-main); }
+  #skrm-bliss-wrapper p { color: var(--text-muted); }
 
-  /* --- 7. ROI & CONTACT --- */
-  .final-cta {
+  /* --- ROI & CONTACT --- */
+  #skrm-bliss-wrapper .final-cta {
     margin-top: 80px; padding: 50px; border-radius: 24px;
     background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(255,255,255,0.05) 100%);
     border: 1px solid var(--glass-border);
@@ -226,41 +213,40 @@
     box-shadow: var(--glass-shadow);
     backdrop-filter: blur(10px);
   }
-  .final-cta h2 { font-size: 2rem; font-weight: 800; margin: 0 0 10px; }
+  #skrm-bliss-wrapper .final-cta h2 { font-size: 2rem; font-weight: 800; margin: 0 0 10px; }
 
-  .contact-grid {
+  #skrm-bliss-wrapper .contact-grid {
     display: grid; grid-template-columns: 1fr 380px; gap: 40px; margin-top: 40px;
   }
-  .input, select, textarea {
+  #skrm-bliss-wrapper .input, select, textarea {
     width: 100%; padding: 16px; border-radius: 12px;
     border: 1px solid var(--glass-border); background: rgba(255,255,255,0.8);
     font-size: 15px; margin-top: 8px; outline: none; transition: 0.2s;
     color: #071026;
   }
-  [data-theme="dark"] .input { background: rgba(0,0,0,0.3); color: white; border-color: rgba(255,255,255,0.2); }
-
-  .input:focus { border-color: #7db9b3; box-shadow: 0 0 0 3px rgba(125,185,179,0.1); }
-  label { display: block; margin-bottom: 20px; font-weight: 600; font-size: 0.95rem; }
   
-  .checkbox-group { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-  input[type="checkbox"] { width: 18px; height: 18px; accent-color: #7db9b3; }
+  #skrm-bliss-wrapper .input:focus { border-color: #7db9b3; box-shadow: 0 0 0 3px rgba(125,185,179,0.1); }
+  #skrm-bliss-wrapper label { display: block; margin-bottom: 20px; font-weight: 600; font-size: 0.95rem; }
+  
+  #skrm-bliss-wrapper .checkbox-group { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+  #skrm-bliss-wrapper input[type="checkbox"] { width: 18px; height: 18px; accent-color: #7db9b3; }
 
-  /* --- 8. FOOTER --- */
-  footer {
+  /* --- FOOTER --- */
+  #skrm-bliss-wrapper footer {
     margin-top: 100px; padding: 60px 0; 
     background: var(--glass-bg); 
     border-top: 1px solid var(--glass-border);
   }
-  .footer-content {
+  #skrm-bliss-wrapper .footer-content {
     display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding: 0 20px; max-width: 1200px; margin: 0 auto;
   }
-  .footer-nav { display: flex; gap: 60px; }
-  .nav-col h4 { font-size: 0.9rem; text-transform: uppercase; color: var(--text-main); margin-bottom: 20px; letter-spacing: 1px; }
-  .nav-col a { display: block; color: var(--text-muted); margin-bottom: 12px; font-size: 0.95rem; }
-  .nav-col a:hover { color: #7db9b3; }
-  .footer-btm { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.9rem; }
+  #skrm-bliss-wrapper .footer-nav { display: flex; gap: 60px; }
+  #skrm-bliss-wrapper .nav-col h4 { font-size: 0.9rem; text-transform: uppercase; color: var(--text-main); margin-bottom: 20px; letter-spacing: 1px; }
+  #skrm-bliss-wrapper .nav-col a { display: block; color: var(--text-muted); margin-bottom: 12px; font-size: 0.95rem; }
+  #skrm-bliss-wrapper .nav-col a:hover { color: #7db9b3; }
+  #skrm-bliss-wrapper .footer-btm { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.9rem; }
 
-  /* --- 9. MODALS & WIDGETS --- */
+  /* --- MODALS & WIDGETS --- */
   .modal-overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
     display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px;
@@ -268,14 +254,15 @@
   }
   .modal-overlay.active { display: flex; opacity: 1; }
   .modal-box {
-    background: var(--bg-body); width: 100%; max-width: 700px; border-radius: 24px;
+    background: #EDE8F8; width: 100%; max-width: 700px; border-radius: 24px;
     box-shadow: 0 25px 50px rgba(0,0,0,0.4); overflow: hidden; border: 1px solid var(--glass-border);
+    color: #071026;
   }
   .modal-header {
     background: var(--brand-gradient); padding: 20px 30px; color: white;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .modal-body { padding: 30px; color: var(--text-main); }
+  .modal-body { padding: 30px; color: #071026; }
   
   .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
   .roi-result { background: rgba(125, 185, 179, 0.1); padding: 20px; border-radius: 16px; text-align: center; border: 1px solid rgba(125, 185, 179, 0.3); }
@@ -303,282 +290,275 @@
     display: none; justify-content: center; align-items: center; gap: 20px;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
   }
-  .cookie-banner p { margin: 0; font-size: 0.9rem; color: var(--text-main); }
+  .cookie-banner p { margin: 0; font-size: 0.9rem; color: #071026; }
   .cookie-banner.show { display: flex; }
 
-  /* --- 10. MOBILE RESPONSIVE --- */
+  /* RESPONSIVE */
   @media (max-width: 980px) {
-    .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 0; }
-    .hero-visual { order: -1; } /* Puts image on top on mobile */
-    .nav-links { display: none; }
-    .grid-3, .process { grid-template-columns: repeat(2, 1fr); }
+    #skrm-bliss-wrapper .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 0; }
+    #skrm-bliss-wrapper .hero-visual { order: -1; }
+    #skrm-bliss-wrapper .nav-links { display: none; }
+    #skrm-bliss-wrapper .grid-3, #skrm-bliss-wrapper .process { grid-template-columns: repeat(2, 1fr); }
   }
-  
   @media (max-width: 640px) {
-    .hero h1 { font-size: 2.5rem; }
-    .grid-3, .process, .stat-row, .contact-grid { grid-template-columns: 1fr; }
-    .final-cta { flex-direction: column; text-align: center; }
-    .final-cta button { width: 100%; margin-top: 20px; }
-    .footer-content { flex-direction: column; gap: 40px; }
-    .footer-nav { flex-direction: column; gap: 30px; }
+    #skrm-bliss-wrapper .hero h1 { font-size: 2.5rem; }
+    #skrm-bliss-wrapper .grid-3, #skrm-bliss-wrapper .process, #skrm-bliss-wrapper .stat-row, #skrm-bliss-wrapper .contact-grid { grid-template-columns: 1fr; }
+    #skrm-bliss-wrapper .final-cta { flex-direction: column; text-align: center; }
+    #skrm-bliss-wrapper .final-cta button { width: 100%; margin-top: 20px; }
+    #skrm-bliss-wrapper .footer-content { flex-direction: column; gap: 40px; }
+    #skrm-bliss-wrapper .footer-nav { flex-direction: column; gap: 30px; }
     .roi-grid { grid-template-columns: 1fr; }
-    .widgets { right: 20px; bottom: 80px; } /* Moved up slightly */
+    .widgets { right: 20px; bottom: 80px; }
     .cookie-banner { flex-direction: column; text-align: center; gap: 10px; }
   }
 </style>
-</head>
-<body id="skrm-bliss-root">
 
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-    }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+<div class="wrap">
+  
+  <nav>
+    <div class="brand">
+      <div class="logo-img">
+        <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png" alt="Logo" style="width:24px;">
+      </div>
+      <div>
+        <div class="brand-title">SKRMBliss.AI</div>
+        <div class="brand-sub">White-Label Solutions</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#process">How it Works</a>
+      <a href="#contact">Pricing</a>
+      <button class="btn ghost" id="navBookCall" style="padding: 8px 16px; font-size: 0.85rem;">📞 Book Call</button>
+    </div>
+    <div class="controls">
+      <div id="google_translate_element"></div>
+      <button class="utility-btn" id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
+      <a href="#contact" class="btn">Book Demo</a>
+    </div>
+  </nav>
 
-  <div class="wrap">
+  <section class="hero">
+    <div>
+      <div style="display:inline-block; padding:6px 16px; border-radius:50px; background:rgba(125,185,179,0.1); color:#6aa8a2; font-weight:700; font-size:12px; margin-bottom:20px;">
+        ✨ For Coaches & Studios
+      </div>
+      <h1>Launch Your Own <span class="accent">AI Laughter App</span> in 7 Days</h1>
+      <p>Don't spend $20,000 on development. We provide the technology. You provide the brand.</p>
+      
+      <div class="hero-ctas">
+        <a href="#contact" class="btn">Claim Your App</a>
+        <a href="https://sumansuneja-laughterhub1-498377085294.me-central1.run.app/" target="_blank" class="btn ghost">View Demo</a>
+      </div>
+
+      <div class="card hero-stats">
+        <div style="font-weight:800; margin-bottom:15px; font-size:1.1rem; color:var(--text-main);">Why Coaches Choose Us</div>
+        <div class="stat-row">
+          <div class="stat"><div class="n">10x</div><div class="l">Cheaper</div></div>
+          <div class="stat"><div class="n">24/7</div><div class="l">AI Support</div></div>
+          <div class="stat"><div class="n">100%</div><div class="l">Ownership</div></div>
+        </div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="hero-visual">
+        <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App Mobile Interface" class="app-mockup">
+      </div>
+
+      <div class="ready-packs">
+        <h3 style="font-size:1.4rem; font-weight:800; margin-bottom:10px; color:var(--text-main);">The Advantage</h3>
+        <p style="color:var(--text-muted); font-size:0.95rem;">Proven "Laughter OS" wrapped in your brand.</p>
+        <ul class="features-list">
+          <li>Your Logo & Colors</li>
+          <li>Your Video Content</li>
+          <li>Gemini AI trained on YOU</li>
+        </ul>
+      </div>
+    </aside>
+  </section>
+
+  <section id="features" class="section-header">
+    <h2 class="section-title">What You Get</h2>
+    <p class="section-sub">A complete digital ecosystem.</p>
+    <div class="grid-3">
+      <div class="card"><div class="icon">🤖</div><h3>AI Coach</h3><p>Your students talk to the app; AI responds with exercises.</p></div>
+      <div class="card"><div class="icon">🎨</div><h3>White-Label</h3><p>Your brand, your domain. We remain invisible.</p></div>
+      <div class="card"><div class="icon">📲</div><h3>PWA Tech</h3><p>Installs on iPhone/Android without App Store fees.</p></div>
+      <div class="card"><div class="icon">📊</div><h3>Analytics</h3><p>Track student joy scores and streaks.</p></div>
+      <div class="card"><div class="icon">🎥</div><h3>Hosting</h3><p>Optimized video streaming for your sessions.</p></div>
+      <div class="card"><div class="icon">🌍</div><h3>Multi-Lang</h3><p>AI adapts to 7+ languages automatically.</p></div>
+    </div>
+  </section>
+
+  <section id="process" class="section-header">
+    <h2 class="section-title">How It Works</h2>
+    <div class="process">
+      <div class="card"><div class="num">1</div><strong>Assets</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Send logo & videos.</p></div>
+      <div class="card"><div class="num">2</div><strong>Setup</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">We customize the AI.</p></div>
+      <div class="card"><div class="num">3</div><strong>Review</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Test private link.</p></div>
+      <div class="card"><div class="num">4</div><strong>Launch</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Go live on your domain.</p></div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div>
+      <h2>ROI: How this pays for itself</h2>
+      <p style="max-width:600px; margin-top:10px; color:var(--text-muted);">Sell subscriptions, bundle with workshops, or sell corporate licenses.</p>
+    </div>
+    <button class="btn" id="openRoiBtn">Calculate ROI</button>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Claim Your App</h2>
+    <p class="section-sub">Limited availability to ensure quality onboarding.</p>
     
-    <nav>
-      <div class="brand">
-        <div class="logo-img">
-          <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png" alt="Logo" style="width:24px;">
+    <div class="contact-grid">
+      <div class="card">
+        <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
+          <label>Name <input name="name" class="input" type="text" required placeholder="Your Name"></label>
+          <label>Email <input name="email" class="input" type="email" required placeholder="you@domain.com"></label>
+          <label>Business Name <input name="business" class="input" type="text" required></label>
+          <div class="checkbox-group">
+            <input type="checkbox" id="consent" checked required>
+            <label for="consent" style="margin:0; font-weight:400;">I agree to be contacted.</label>
+          </div>
+          <button type="submit" class="btn" style="width:100%; margin-top:20px;">Request Demo</button>
+          <div id="formStatus" style="margin-top:15px; font-weight:600; font-size:14px;"></div>
+        </form>
+      </div>
+      
+      <aside class="card" style="display:flex; flex-direction:column; gap:20px;">
+        <strong style="font-size:1.2rem; color:var(--text-main);">Contact Us</strong>
+        <div>
+          <div style="font-size:0.9rem; color:var(--text-muted);">Email</div>
+          <a href="mailto:connect@skrmblissai.in" style="font-weight:600; color:var(--text-main);">connect@skrmblissai.in</a>
+        </div>
+        <div style="font-style:italic; color:var(--text-muted); font-size:0.95rem;">"We handle the code, you handle the laughter."</div>
+        <a href="https://wa.me/+918217581238" target="_blank" class="btn ghost" style="text-align:center;">Chat on WhatsApp</a>
+      </aside>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div style="max-width:300px;">
+        <h3 style="font-weight:900; margin:0 0 10px;">SKRMBliss.AI</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted);">Helping coaches build better digital products.</p>
+      </div>
+      <div class="footer-nav">
+        <div class="nav-col">
+          <h4>Services</h4>
+          <a href="#features">App Dev</a>
+          <a href="#features">AI Tools</a>
+        </div>
+        <div class="nav-col">
+          <h4>Company</h4>
+          <a href="#contact">Contact</a>
+          <a href="#">Privacy</a>
+        </div>
+        <div class="nav-col">
+          <h4>Follow</h4>
+          <a href="https://www.facebook.com/skrmbliss" target="_blank">Facebook</a>
+          <a href="https://wa.me/+918217581238" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-btm">
+      © 2025 SKRM Bliss AI • Built in Bengaluru
+    </div>
+  </footer>
+
+</div> 
+
+<div class="widgets">
+  <a href="https://wa.me/+918217581238" target="_blank" class="fab whatsapp">
+    <svg viewBox="0 0 24 24"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
+  </a>
+  <button class="fab call-fab" id="fabBookCall" title="Book a Call">📅</button>
+</div>
+
+<div id="cookieBanner" class="cookie-banner">
+  <p>🍪 We use cookies to improve your experience.</p>
+  <div style="display:flex; gap:10px;">
+      <button class="btn" onclick="acceptCookies()">Accept</button>
+      <button class="btn ghost" onclick="acceptCookies()" style="padding: 10px 20px;">Close</button>
+  </div>
+</div>
+
+<div id="roiOverlay" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 style="margin:0;">ROI Calculator</h3>
+      <button class="close-modal" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="roi-grid">
+        <div>
+          <label>Students: <span id="valStudents">50</span></label>
+          <input type="range" id="inStudents" min="10" max="500" value="50" style="width:100%">
         </div>
         <div>
-          <div class="brand-title">SKRMBliss.AI</div>
-          <div class="brand-sub">White-Label Solutions</div>
+          <label>Monthly Fee: $<span id="valFee">5</span></label>
+          <input type="range" id="inFee" min="5" max="50" value="5" style="width:100%">
         </div>
       </div>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#process">How it Works</a>
-        <a href="#contact">Pricing</a>
-        <button class="btn ghost" id="navBookCall" style="padding: 8px 16px; font-size: 0.85rem;">📞 Book Call</button>
+      <div class="roi-result">
+        <div style="font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">Potential Monthly Revenue</div>
+        <div class="roi-val" id="valTotal">$250</div>
       </div>
-      <div class="controls">
-        <div id="google_translate_element"></div>
-
-        <button class="utility-btn" id="themeToggle" aria-label="Toggle Dark Mode">
-            🌙
-        </button>
-
-        <a href="#contact" class="btn">Book Demo</a>
+      <div style="text-align:center; margin-top:20px;">
+        <button class="btn close-modal-action">Get This Result</button>
       </div>
-    </nav>
+    </div>
+  </div>
+</div>
 
-    <section class="hero">
-      <div>
-        <div style="display:inline-block; padding:6px 16px; border-radius:50px; background:rgba(125,185,179,0.1); color:#6aa8a2; font-weight:700; font-size:12px; margin-bottom:20px;">
-          ✨ For Coaches & Studios
-        </div>
-        <h1>Launch Your Own <span class="accent">AI Laughter App</span> in 7 Days</h1>
-        <p>Don't spend $20,000 on development. We provide the technology. You provide the brand.</p>
-        
-        <div class="hero-ctas">
-          <a href="#contact" class="btn">Claim Your App</a>
-          <a href="https://sumansuneja-laughterhub1-498377085294.me-central1.run.app/" target="_blank" class="btn ghost">View Demo</a>
-        </div>
-
-        <div class="card hero-stats">
-          <div style="font-weight:800; margin-bottom:15px; font-size:1.1rem; color:var(--text-main);">Why Coaches Choose Us</div>
-          <div class="stat-row">
-            <div class="stat"><div class="n">10x</div><div class="l">Cheaper</div></div>
-            <div class="stat"><div class="n">24/7</div><div class="l">AI Support</div></div>
-            <div class="stat"><div class="n">100%</div><div class="l">Ownership</div></div>
-          </div>
-        </div>
-      </div>
-
-      <aside>
-        <div class="hero-visual">
-          <img src="image_042b62.jpg" alt="Laughter App Mobile Interface" class="app-mockup">
-        </div>
-
-        <div class="ready-packs">
-          <h3 style="font-size:1.4rem; font-weight:800; margin-bottom:10px; color:var(--text-main);">The Advantage</h3>
-          <p style="color:var(--text-muted); font-size:0.95rem;">Proven "Laughter OS" wrapped in your brand.</p>
-          <ul class="features-list">
-            <li>Your Logo & Colors</li>
-            <li>Your Video Content</li>
-            <li>Gemini AI trained on YOU</li>
-          </ul>
-        </div>
-      </aside>
-    </section>
-
-    <section id="features" class="section-header">
-      <h2 class="section-title">What You Get</h2>
-      <p class="section-sub">A complete digital ecosystem.</p>
-      <div class="grid-3">
-        <div class="card"><div class="icon">🤖</div><h3>AI Coach</h3><p>Your students talk to the app; AI responds with exercises.</p></div>
-        <div class="card"><div class="icon">🎨</div><h3>White-Label</h3><p>Your brand, your domain. We remain invisible.</p></div>
-        <div class="card"><div class="icon">📲</div><h3>PWA Tech</h3><p>Installs on iPhone/Android without App Store fees.</p></div>
-        <div class="card"><div class="icon">📊</div><h3>Analytics</h3><p>Track student joy scores and streaks.</p></div>
-        <div class="card"><div class="icon">🎥</div><h3>Hosting</h3><p>Optimized video streaming for your sessions.</p></div>
-        <div class="card"><div class="icon">🌍</div><h3>Multi-Lang</h3><p>AI adapts to 7+ languages automatically.</p></div>
-      </div>
-    </section>
-
-    <section id="process" class="section-header">
-      <h2 class="section-title">How It Works</h2>
-      <div class="process">
-        <div class="card"><div class="num">1</div><strong>Assets</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Send logo & videos.</p></div>
-        <div class="card"><div class="num">2</div><strong>Setup</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">We customize the AI.</p></div>
-        <div class="card"><div class="num">3</div><strong>Review</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Test private link.</p></div>
-        <div class="card"><div class="num">4</div><strong>Launch</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Go live on your domain.</p></div>
-      </div>
-    </section>
-
-    <section class="final-cta">
-      <div>
-        <h2>ROI: How this pays for itself</h2>
-        <p style="max-width:600px; margin-top:10px; color:var(--text-muted);">Sell subscriptions, bundle with workshops, or sell corporate licenses.</p>
-      </div>
-      <button class="btn" id="openRoiBtn">Calculate ROI</button>
-    </section>
-
-    <section id="contact">
-      <h2 class="section-title">Claim Your App</h2>
-      <p class="section-sub">Limited availability to ensure quality onboarding.</p>
+<div id="bookCallOverlay" class="modal-overlay">
+  <div class="modal-box" style="max-width:500px;">
+    <div class="modal-header">
+      <h3 style="margin:0;">Book a 15-min Call</h3>
+      <button class="close-modal-call" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button>
+    </div>
+    <div class="modal-body" style="text-align:center;">
+      <p style="margin-bottom:20px;">Ready to discuss your app? Pick a time below.</p>
       
-      <div class="contact-grid">
-        <div class="card">
-          <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
-            <label>Name <input name="name" class="input" type="text" required placeholder="Your Name"></label>
-            <label>Email <input name="email" class="input" type="email" required placeholder="you@domain.com"></label>
-            <label>Business Name <input name="business" class="input" type="text" required></label>
-            <div class="checkbox-group">
-              <input type="checkbox" id="consent" checked required>
-              <label for="consent" style="margin:0; font-weight:400;">I agree to be contacted.</label>
-            </div>
-            <button type="submit" class="btn" style="width:100%; margin-top:20px;">Request Demo</button>
-            <div id="formStatus" style="margin-top:15px; font-weight:600; font-size:14px;"></div>
-          </form>
-        </div>
-        
-        <aside class="card" style="display:flex; flex-direction:column; gap:20px;">
-          <strong style="font-size:1.2rem; color:var(--text-main);">Contact Us</strong>
-          <div>
-            <div style="font-size:0.9rem; color:var(--text-muted);">Email</div>
-            <a href="mailto:connect@skrmblissai.in" style="font-weight:600; color:var(--text-main);">connect@skrmblissai.in</a>
-          </div>
-          <div style="font-style:italic; color:var(--text-muted); font-size:0.95rem;">"We handle the code, you handle the laughter."</div>
-          <a href="https://wa.me/+918217581238" target="_blank" class="btn ghost" style="text-align:center;">Chat on WhatsApp</a>
-        </aside>
+      <div style="background: var(--glass-bg); padding: 40px; border-radius: 12px; margin-bottom:20px; border: 1px dashed var(--text-muted);">
+          📅 Calendly / Booking Widget Loads Here
       </div>
-    </section>
 
-    <footer>
-      <div class="footer-content">
-        <div style="max-width:300px;">
-          <h3 style="font-weight:900; margin:0 0 10px;">SKRMBliss.AI</h3>
-          <p style="font-size:0.9rem; color:var(--text-muted);">Helping coaches build better digital products.</p>
-        </div>
-        <div class="footer-nav">
-          <div class="nav-col">
-            <h4>Services</h4>
-            <a href="#features">App Dev</a>
-            <a href="#features">AI Tools</a>
-          </div>
-          <div class="nav-col">
-            <h4>Company</h4>
-            <a href="#contact">Contact</a>
-            <a href="#">Privacy</a>
-          </div>
-          <div class="nav-col">
-            <h4>Follow</h4>
-            <a href="https://www.facebook.com/skrmbliss" target="_blank">Facebook</a>
-            <a href="https://wa.me/+918217581238" target="_blank">WhatsApp</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-btm">
-        © 2025 SKRM Bliss AI • Built in Bengaluru
-      </div>
-    </footer>
-
-  </div> 
-
-  <div class="widgets">
-    <a href="https://wa.me/+918217581238" target="_blank" class="fab whatsapp">
-      <svg viewBox="0 0 24 24"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
-    </a>
-    <button class="fab call-fab" id="fabBookCall" title="Book a Call">📅</button>
-  </div>
-
-  <div id="cookieBanner" class="cookie-banner">
-    <p>🍪 We use cookies to improve your experience.</p>
-    <div style="display:flex; gap:10px;">
-        <button class="btn" onclick="acceptCookies()">Accept</button>
-        <button class="btn ghost" onclick="acceptCookies()" style="padding: 10px 20px;">Close</button>
+      <a href="tel:+918217581238" class="btn" style="width:100%;">Call Now: +91 82175 81238</a>
+      <br><br>
+      <button class="btn ghost close-modal-call">Close</button>
     </div>
   </div>
-
-  <div id="roiOverlay" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 style="margin:0;">ROI Calculator</h3>
-        <button class="close-modal" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button>
-      </div>
-      <div class="modal-body">
-        <div class="roi-grid">
-          <div>
-            <label>Students: <span id="valStudents">50</span></label>
-            <input type="range" id="inStudents" min="10" max="500" value="50" style="width:100%">
-          </div>
-          <div>
-            <label>Monthly Fee: $<span id="valFee">5</span></label>
-            <input type="range" id="inFee" min="5" max="50" value="5" style="width:100%">
-          </div>
-        </div>
-        <div class="roi-result">
-          <div style="font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">Potential Monthly Revenue</div>
-          <div class="roi-val" id="valTotal">$250</div>
-        </div>
-        <div style="text-align:center; margin-top:20px;">
-          <button class="btn close-modal-action">Get This Result</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="bookCallOverlay" class="modal-overlay">
-    <div class="modal-box" style="max-width:500px;">
-      <div class="modal-header">
-        <h3 style="margin:0;">Book a 15-min Call</h3>
-        <button class="close-modal-call" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button>
-      </div>
-      <div class="modal-body" style="text-align:center;">
-        <p style="margin-bottom:20px;">Ready to discuss your app? Pick a time below.</p>
-        
-        <div style="background: var(--glass-bg); padding: 40px; border-radius: 12px; margin-bottom:20px; border: 1px dashed var(--text-muted);">
-            📅 Calendly / Booking Widget Loads Here
-        </div>
-
-        <a href="tel:+918217581238" class="btn" style="width:100%;">Call Now: +91 82175 81238</a>
-        <br><br>
-        <button class="btn ghost close-modal-call">Close</button>
-      </div>
-    </div>
-  </div>
+</div>
 
 <script>
 (function(){
   
   // --- DARK MODE LOGIC ---
+  const wrapper = document.getElementById('skrm-bliss-wrapper');
   const toggleBtn = document.getElementById('themeToggle');
   const storedTheme = localStorage.getItem('theme');
   
   if (storedTheme) {
-    document.documentElement.setAttribute('data-theme', storedTheme);
+    wrapper.setAttribute('data-theme', storedTheme);
     toggleBtn.textContent = storedTheme === 'dark' ? '☀️' : '🌙';
   }
 
   toggleBtn.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const currentTheme = wrapper.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
-    document.documentElement.setAttribute('data-theme', newTheme);
+    wrapper.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
   });
@@ -675,5 +655,5 @@
   }
 })();
 </script>
-</body>
-</html>
+
+</div>
