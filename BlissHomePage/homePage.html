@@ -1,12 +1,852 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKRM Bliss AI - Digital Solutions & White Label Apps</title>
-</head>
-<body>
+<!-- Important change: Removed outer 
+<!DOCTYPE>/
+<html>/
+	<head>/
+		<body> wrapper (for systeme.io Raw HTML), moved all CSS into a single <style> at top and kept original elements, semantics, ARIA and JS (mailto+clipboard) intact. -->
+<style>
+  /* Scoped to container */
+  #skrm-bliss-root {
+    --lavender: #b8acd6;
+    --teal: #96c9c4;
+    --brand-400: #96c9c4;
+    --brand-500: #7db9b3;
+    --brand-600: #6aa8a2;
+    --accent: #b8acd6;
+    --muted: #6b7280;
+    --glass-strong: rgba(15, 23, 42, 0.06);
+    --shadow: 0 24px 60px rgba(2, 6, 23, 0.10);
+    --shadow-lg: 0 40px 120px rgba(2, 6, 23, 0.14);
+    --text: #071026;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: var(--text);
+    background: radial-gradient(circle at 50% 0%, #f7f9fa 0%, #ffffff 60%, #f1f5f9 100%);
+  }
 
+  #skrm-bliss-root * {
+    box-sizing: border-box
+  }
+
+  #skrm-bliss-root .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px
+  }
+
+  /* NAV */
+  #skrm-bliss-root nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid var(--glass-strong);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 14px;
+    z-index: 999
+  }
+
+  #skrm-bliss-root .brand {
+    display: flex;
+    gap: 14px;
+    align-items: center
+  }
+
+  #skrm-bliss-root .logo-img {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--brand-500), var(--lavender));
+    box-shadow: 0 8px 24px rgba(150, 201, 196, 0.28)
+  }
+
+  #skrm-bliss-root .brand-title {
+    font-weight: 800;
+    font-size: 17px
+  }
+
+  #skrm-bliss-root .brand-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px
+  }
+
+  #skrm-bliss-root .nav-links {
+    display: flex;
+    gap: 8px
+  }
+
+  #skrm-bliss-root .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: all .22s;
+    outline: none;
+  }
+
+  #skrm-bliss-root .nav-links a:hover,
+  #skrm-bliss-root .nav-links a:focus-visible {
+    transform: translateY(-2px);
+    color: var(--text);
+    background: rgba(15, 23, 42, 0.04);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  #skrm-bliss-root .controls {
+    display: flex;
+    gap: 8px;
+    align-items: center
+  }
+
+  #skrm-bliss-root .btn {
+    padding: 10px 24px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--brand-500), var(--lavender));
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    transition: transform .2s, box-shadow .2s;
+    outline: none;
+  }
+
+  #skrm-bliss-root .btn.ghost {
+    background: transparent;
+    border: 1px solid var(--glass-strong);
+    color: var(--text)
+  }
+
+  #skrm-bliss-root .btn:hover,
+  #skrm-bliss-root .btn:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  #skrm-bliss-root .select {
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--glass-strong);
+    background: transparent;
+    outline: none;
+  }
+
+  #skrm-bliss-root .select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* LAUNCH BANNER */
+  #skrm-bliss-root .launch-banner {
+    margin-top: 20px;
+    padding: 18px 28px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(150, 201, 196, 0.05));
+    border: 1px solid var(--glass-strong);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 12px 40px rgba(150, 201, 196, 0.15);
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+  }
+
+  #skrm-bliss-root .launch-banner:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(150, 201, 196, 0.25)
+  }
+
+  #skrm-bliss-root .launch-banner::before {
+    content: "NEW";
+    position: absolute;
+    top: 10px;
+    left: -30px;
+    background: linear-gradient(135deg, var(--brand-500), var(--lavender));
+    color: white;
+    padding: 4px 40px;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1px;
+    transform: rotate(-45deg);
+    box-shadow: 0 4px 12px rgba(150, 201, 196, 0.3);
+  }
+
+  #skrm-bliss-root .launch-icon {
+    font-size: 48px;
+    animation: skrmPulse 2s ease-in-out infinite
+  }
+
+  @keyframes skrmPulse {
+
+    0%,
+    100% {
+      transform: scale(1)
+    }
+
+    50% {
+      transform: scale(1.06)
+    }
+  }
+
+  /* HERO */
+  #skrm-bliss-root .hero {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 48px;
+    padding: 20px 0 60px 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    overflow: visible
+  }
+
+  #skrm-bliss-root .hero h1 {
+    font-size: 68px;
+    margin: 0;
+    line-height: 0.95;
+    font-weight: 900;
+    color: var(--text);
+    text-align: left;
+    letter-spacing: -2px
+  }
+
+  #skrm-bliss-root .hero h1 .accent {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--brand-400), var(--lavender), var(--teal), #d4a5c9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 100%;
+    animation: skrmGradientShift 5s linear infinite;
+    will-change: background-position
+  }
+
+  @keyframes skrmGradientShift {
+    0% {
+      background-position: 0% 50%
+    }
+
+    50% {
+      background-position: 100% 50%
+    }
+
+    100% {
+      background-position: 0% 50%
+    }
+  }
+
+  #skrm-bliss-root .hero p {
+    color: var(--muted);
+    margin-top: 24px;
+    font-size: 18px;
+    max-width: 600px;
+    line-height: 1.6
+  }
+
+  #skrm-bliss-root .hero-ctas {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap
+  }
+
+  #skrm-bliss-root .hero .btn {
+    min-width: 160px;
+    padding: 14px 28px;
+    font-size: 16px
+  }
+
+  /* HERO STATS & READY PACKS */
+  #skrm-bliss-root .hero-stats {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5)
+  }
+
+  #skrm-bliss-root .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 4px
+  }
+
+  #skrm-bliss-root .stat {
+    padding: 0;
+    background: transparent;
+    border: none;
+    text-align: left
+  }
+
+  #skrm-bliss-root .stat .n {
+    font-weight: 900;
+    color: var(--brand-600);
+    font-size: 28px
+  }
+
+  #skrm-bliss-root aside .ready-packs {
+    height: 100%;
+    padding: 48px;
+    border-radius: 32px;
+    background: #fff;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+  }
+
+  /* CARD */
+  #skrm-bliss-root .card {
+    position: relative;
+    overflow: visible;
+    background: #fff;
+    border-radius: 20px;
+    padding: 26px;
+    border: 1px solid var(--glass-strong);
+    transition: transform .42s cubic-bezier(.2, .9, .2, 1), box-shadow .42s, filter .42s;
+    transform-origin: center center;
+    box-shadow: 0 8px 20px rgba(2, 6, 23, 0.04)
+  }
+
+  #skrm-bliss-root .card::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 8px;
+    height: 4px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--brand-400), var(--lavender), var(--teal));
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform .38s cubic-bezier(.2, .9, .2, 1), opacity .3s;
+    opacity: 0
+  }
+
+  #skrm-bliss-root .card:hover,
+  #skrm-bliss-root .card:focus-within {
+    transform: translateY(-18px) rotateX(4deg) rotateZ(-0.6deg) scale(1.02);
+    box-shadow: 0 36px 90px rgba(2, 6, 23, 0.18), 0 14px 40px rgba(2, 6, 23, 0.10);
+    filter: brightness(1.02)
+  }
+
+  #skrm-bliss-root .card:hover::after,
+  #skrm-bliss-root .card:focus-within::after {
+    transform: scaleX(1);
+    opacity: 1
+  }
+
+  #skrm-bliss-root .card .icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--brand-400), var(--lavender));
+    font-size: 32px;
+    margin-bottom: 18px;
+    transition: transform .5s cubic-bezier(.2, .9, .2, 1), box-shadow .5s;
+    position: relative;
+    z-index: 2
+  }
+
+  #skrm-bliss-root .card .icon::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(150, 201, 196, 0.12), transparent 50%);
+    opacity: 0;
+    transition: transform .42s, opacity .42s;
+    z-index: -1
+  }
+
+  #skrm-bliss-root .card:hover .icon,
+  #skrm-bliss-root .card:focus-within .icon {
+    transform: translateY(-6px) rotate(8deg) scale(1.18);
+    box-shadow: 0 28px 60px rgba(124, 58, 237, 0.14)
+  }
+
+  #skrm-bliss-root .card:hover .icon::before,
+  #skrm-bliss-root .card:focus-within .icon::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1
+  }
+
+  #skrm-bliss-root .card h3 {
+    margin: 0 0 8px;
+    transition: transform .36s, color .36s
+  }
+
+  #skrm-bliss-root .card:hover h3,
+  #skrm-bliss-root .card:focus-within h3 {
+    transform: translateY(-6px);
+    color: var(--text)
+  }
+
+  #skrm-bliss-root .features-list {
+    list-style: none;
+    padding: 0;
+    background: transparent;
+    border: none;
+    margin: 12px 0;
+    color: var(--muted);
+    font-size: 16px
+  }
+
+  #skrm-bliss-root .features-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px
+  }
+
+  #skrm-bliss-root .features-list li::before {
+    content: "✓";
+    color: var(--brand-600);
+    font-weight: 900;
+    background: rgba(150, 201, 196, 0.2);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    flex-shrink: 0
+  }
+
+  /* Grids & sections */
+  #skrm-bliss-root .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 18px
+  }
+
+  #skrm-bliss-root .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 18px
+  }
+
+  #skrm-bliss-root .process {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 18px
+  }
+
+  #skrm-bliss-root .section-title {
+    font-size: 40px;
+    color: var(--text);
+    margin-bottom: 8px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    display: inline-block
+  }
+
+  #skrm-bliss-root .section-title::after {
+    content: '';
+    display: block;
+    margin-top: 12px;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-400), var(--lavender));
+    border-radius: 3px
+  }
+
+  #skrm-bliss-root .section-sub {
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.7
+  }
+
+  /* final CTA */
+  #skrm-bliss-root .final-cta {
+    margin-top: 44px;
+    padding: 34px;
+    border-radius: 18px;
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.07), rgba(150, 201, 196, 0.05));
+    border: 1px solid var(--glass-strong);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: transform .36s
+  }
+
+  #skrm-bliss-root .final-cta:hover,
+  #skrm-bliss-root .final-cta:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(2, 6, 23, 0.08)
+  }
+
+  #skrm-bliss-root .final-cta h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 900
+  }
+
+  #skrm-bliss-root .final-cta p {
+    margin: 0;
+    color: var(--muted)
+  }
+
+  /* contact */
+  #skrm-bliss-root .contact-form {
+    display: grid;
+    gap: 12px
+  }
+
+  #skrm-bliss-root .input,
+  #skrm-bliss-root textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-strong);
+    font-size: 15px;
+    background: transparent;
+    color: var(--text);
+    min-height: 44px;
+    font-family: inherit;
+    outline: none
+  }
+
+  #skrm-bliss-root textarea {
+    min-height: 120px;
+    resize: vertical
+  }
+
+  #skrm-bliss-root label span {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+    color: var(--text)
+  }
+
+  #skrm-bliss-root .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0
+  }
+
+  #skrm-bliss-root .checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer
+  }
+
+  /* social links */
+  #skrm-bliss-root .social-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    justify-content: center
+  }
+
+  #skrm-bliss-root .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: transparent;
+    overflow: hidden;
+    border: 1px solid var(--glass-strong);
+    transition: background .2s, transform .2s
+  }
+
+  #skrm-bliss-root .social-links a:hover,
+  #skrm-bliss-root .social-links a:focus-visible {
+    background: rgba(15, 23, 42, 0.04);
+    transform: translateY(-2px);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px
+  }
+
+  #skrm-bliss-root .social-links img,
+  #skrm-bliss-root .social-links svg {
+    width: 20px;
+    height: 20px;
+    display: block
+  }
+
+  /* footer */
+  #skrm-bliss-root footer {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 48px;
+    margin-top: 60px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--text)
+  }
+
+  #skrm-bliss-root .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 40px
+  }
+
+  #skrm-bliss-root .brand-name {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0 0 12px 0;
+    color: var(--text)
+  }
+
+  #skrm-bliss-root .brand-desc {
+    color: #475569;
+    line-height: 1.6;
+    font-size: 15px;
+    margin: 0 0 24px 0
+  }
+
+  #skrm-bliss-root .footer-cta-group {
+    display: flex;
+    gap: 12px
+  }
+
+  #skrm-bliss-root .footer-btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    color: var(--text);
+    font-weight: 600;
+    background: white;
+    transition: all .2s
+  }
+
+  #skrm-bliss-root .footer-btn:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+    transform: translateY(-1px)
+  }
+
+  #skrm-bliss-root .footer-nav {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap
+  }
+
+  #skrm-bliss-root .nav-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+  }
+
+  #skrm-bliss-root .nav-column h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em
+  }
+
+  #skrm-bliss-root .nav-column a {
+    text-decoration: none;
+    color: #64748b;
+    font-size: 14px;
+    transition: color .2s;
+    line-height: 1.4
+  }
+
+  #skrm-bliss-root .nav-column a:hover,
+  #skrm-bliss-root .nav-column a:focus-visible {
+    color: var(--text);
+    text-decoration: underline;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px
+  }
+
+  #skrm-bliss-root .footer-bottom {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 14px;
+    color: #64748b
+  }
+
+  /* floating widgets */
+  #skrm-bliss-root .floating-widgets {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999
+  }
+
+  #skrm-bliss-root .widget-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: white;
+    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.12);
+    border: none;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    outline: none
+  }
+
+  #skrm-bliss-root .widget-btn.whatsapp {
+    background: #25D366;
+    color: white
+  }
+
+  #skrm-bliss-root .widget-btn.call {
+    background: linear-gradient(135deg, var(--brand-500), var(--lavender));
+    color: white
+  }
+
+  #skrm-bliss-root .widget-btn:hover,
+  #skrm-bliss-root .widget-btn:focus-visible {
+    transform: scale(1.08);
+    box-shadow: 0 16px 40px rgba(2, 6, 23, 0.18);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px
+  }
+
+  /* responsive adjustments */
+  @media (max-width:980px) {
+    #skrm-bliss-root .hero {
+      grid-template-columns: 1fr;
+      padding: 32px 0;
+      gap: 32px
+    }
+
+    #skrm-bliss-root .grid-3,
+    #skrm-bliss-root .portfolio-grid {
+      grid-template-columns: repeat(2, 1fr)
+    }
+
+    #skrm-bliss-root .process {
+      grid-template-columns: repeat(2, 1fr)
+    }
+
+    #skrm-bliss-root .nav-links {
+      display: none
+    }
+
+    #skrm-bliss-root .hero h1 {
+      font-size: 48px
+    }
+
+    #skrm-bliss-root .final-cta {
+      flex-direction: column;
+      align-items: flex-start
+    }
+
+    #skrm-bliss-root .launch-banner {
+      flex-direction: column;
+      text-align: center
+    }
+
+    #skrm-bliss-root .launch-banner>div:last-child {
+      width: 100%
+    }
+
+    #skrm-bliss-root .launch-banner .btn {
+      flex: 1
+    }
+  }
+
+  @media (max-width:640px) {
+
+    #skrm-bliss-root .grid-3,
+    #skrm-bliss-root .portfolio-grid,
+    #skrm-bliss-root .footer-grid {
+      grid-template-columns: 1fr
+    }
+
+    #skrm-bliss-root .floating-widgets {
+      right: 12px;
+      bottom: 12px
+    }
+
+    #skrm-bliss-root .hero h1 {
+      font-size: 36px
+    }
+
+    #skrm-bliss-root .process {
+      grid-template-columns: 1fr
+    }
+
+    #skrm-bliss-root .hero-ctas {
+      justify-content: center
+    }
+
+    #skrm-bliss-root .stat-row {
+      grid-template-columns: 1fr
+    }
+
+    #skrm-bliss-root .final-cta>div:last-child {
+      width: 100%;
+      display: flex;
+      gap: 10px
+    }
+
+    #skrm-bliss-root .final-cta .btn {
+      flex: 1
+    }
+
+    #skrm-bliss-root aside .ready-packs {
+      padding: 24px
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    #skrm-bliss-root .card,
+    #skrm-bliss-root .card .icon,
+    #skrm-bliss-root .hero h1 .accent,
+    #skrm-bliss-root .nav-links a,
+    #skrm-bliss-root .btn,
+    #skrm-bliss-root .widget-btn,
+    #skrm-bliss-root .final-cta,
+    #skrm-bliss-root .social-links a,
+    #skrm-bliss-root .launch-banner,
+    #skrm-bliss-root .launch-icon {
+      animation: none !important;
+      transition: none !important;
+      transform: none !important
+    }
+  }
+</style>
 <div id="skrm-bliss-root" aria-label="SKRM Bliss AI">
   <div class="wrap">
     <nav role="navigation" aria-label="Primary navigation">
@@ -19,7 +859,6 @@
           <div class="brand-sub">Digital Solutions for Business & Education</div>
         </div>
       </div>
-
       <div style="display:flex;align-items:center;gap:10px">
         <div class="nav-links" role="menu" aria-label="Main menu">
           <a href="#white-label-app" style="color:var(--brand-600);font-weight:700">For Coaches</a>
@@ -28,28 +867,23 @@
           <a href="#process">Process</a>
           <a href="#contact">Contact</a>
         </div>
-
         <div class="controls" role="group" aria-label="Page controls">
           <select id="skrm-lang" class="select" aria-label="Language">
             <option value="en">EN</option>
             <option value="hi">हिंदी</option>
           </select>
-
           <a href="#contact" class="btn">Get Started</a>
-
           <button id="skrm-hamburger" class="select" aria-expanded="false" aria-controls="skrm-mobile-menu" title="Open menu">☰</button>
-
-          <div id="skrm-mobile-menu" class="card" style="position:absolute;top:68px;right:20px;display:none;min-width:220px;z-index:9999;box-shadow:var(--shadow-lg);">
+          <div id="skrm-mobile-menu" class="card" style="position:absolute;top:68px;right:20px;display:none;min-width:220px;z-index:9999;box-shadow:var(--shadow-lg);" aria-hidden="true">
             <a href="#white-label-app" style="display:block;padding:10px;color:var(--brand-600);font-weight:700;text-decoration:none">For Coaches (New)</a>
-            <a href="#services" style="display:block;padding:10px;color:#0f172a;text-decoration:none">Services</a>
-            <a href="#portfolio" style="display:block;padding:10px;color:#0f172a;text-decoration:none">Portfolio</a>
-            <a href="#process" style="display:block;padding:10px;color:#0f172a;text-decoration:none">Process</a>
-            <a href="#contact" style="display:block;padding:10px;color:#0f172a;text-decoration:none">Contact</a>
+            <a href="#services" style="display:block;padding:10px;color:var(--text);text-decoration:none">Services</a>
+            <a href="#portfolio" style="display:block;padding:10px;color:var(--text);text-decoration:none">Portfolio</a>
+            <a href="#process" style="display:block;padding:10px;color:var(--text);text-decoration:none">Process</a>
+            <a href="#contact" style="display:block;padding:10px;color:var(--text);text-decoration:none">Contact</a>
           </div>
         </div>
       </div>
     </nav>
-
     <a href="https://www.skrmblissai.in/simulatorlab" class="launch-banner" style="text-decoration:none;color:inherit" aria-label="New Product Launch: PhysicsVerse Interactive Lab">
       <div class="launch-icon" aria-hidden="true">🔬</div>
       <div class="launch-content">
@@ -60,39 +894,43 @@
         <span class="btn" style="pointer-events:none">Explore Now →</span>
       </div>
     </a>
-
     <main>
       <section class="hero" aria-labelledby="heroTitle">
         <div style="padding-right: 20px;">
-          <h1 id="heroTitle">Build digital experiences <span class="accent">that convert</span></h1>
+          <h1 id="heroTitle">Build digital experiences <span class="accent">that convert</span>
+          </h1>
           <p>We create interactive web apps, mobile solutions, learning tools, marketing visuals, and funnels for startups, business owners, YouTubers, and educators.</p>
-
           <div class="hero-ctas">
             <a href="#services" class="btn">Explore Services</a>
             <a href="#contact" class="btn ghost">Talk to us</a>
           </div>
-
           <div class="hero-stats" style="margin-top:40px">
-            <div style="font-weight:800;color:#071026;margin-bottom:16px;font-size:18px;">Trusted by</div>
+            <div style="font-weight:800;color:var(--text);margin-bottom:16px;font-size:18px;">Trusted by</div>
             <div class="stat-row">
-              <div class="stat"><div class="n">120+</div><div class="l" style="margin-top:4px;font-size:13px;color:var(--muted)">Projects delivered</div></div>
-              <div class="stat"><div class="n">40+</div><div class="l" style="margin-top:4px;font-size:13px;color:var(--muted)">Partners & Clients</div></div>
-              <div class="stat"><div class="n">10k+</div><div class="l" style="margin-top:4px;font-size:13px;color:var(--muted)">Learners reached</div></div>
+              <div class="stat">
+                <div class="n">120+</div>
+                <div class="l" style="margin-top:4px;font-size:13px;color:var(--muted)">Projects delivered</div>
+              </div>
+              <div class="stat">
+                <div class="n">40+</div>
+                <div class="l" style="margin-top:4px;font-size:13px;color:var(--muted)">Partners & Clients</div>
+              </div>
+              <div class="stat">
+                <div class="n">10k+</div>
+                <div class="l" style="margin-top:4px;font-size:13px;color:var(--muted)">Learners reached</div>
+              </div>
             </div>
           </div>
         </div>
-
         <aside>
           <div class="ready-packs" aria-labelledby="packsTitle">
-            <h3 id="packsTitle" style="margin:0 0 8px;font-size:24px;font-weight:800;color:#071026">Ready-made packs</h3>
+            <h3 id="packsTitle" style="margin:0 0 8px;font-size:24px;font-weight:800;color:var(--text)">Ready-made packs</h3>
             <p style="color:var(--muted);margin:0 0 20px;line-height:1.6">Mock papers, lesson packs, and marketing banners — ready to use or customise.</p>
-            
             <ul class="features-list" aria-hidden="false" style="border:none;padding:0;">
               <li style="margin-bottom:12px">Editable files (Figma, PPTX)</li>
               <li style="margin-bottom:12px">Printable PDFs & Mobile views</li>
               <li style="margin-bottom:12px">School-branded design options</li>
             </ul>
-            
             <div style="display:flex;gap:12px;margin-top:24px;">
               <a href="#portfolio" class="btn ghost" style="flex:1;text-align:center">View work</a>
               <a href="#contact" class="btn" style="flex:1;text-align:center">Hire us</a>
@@ -100,126 +938,101 @@
           </div>
         </aside>
       </section>
-
       <section id="white-label-app" style="margin-top:80px; padding: 40px; background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,248,255,0.9)); border-radius: 24px; border: 1px solid var(--glass-strong); box-shadow: var(--shadow); position: relative; z-index: 1;">
         <div style="text-align:center; margin-bottom:40px;">
-           <div style="display:inline-block;padding:6px 16px;border-radius:50px;background:rgba(124,58,237,0.08);border:1px solid var(--glass-strong);font-weight:700;font-size:13px;color:var(--brand-600);margin-bottom:16px;">
-            ✨ NEW FOR COACHES & STUDIOS
-          </div>
+          <div style="display:inline-block;padding:6px 16px;border-radius:50px;background:rgba(124,58,237,0.08);border:1px solid var(--glass-strong);font-weight:700;font-size:13px;color:var(--brand-600);margin-bottom:16px;"> ✨ NEW FOR COACHES & STUDIOS </div>
           <h2 class="section-title" style="display:block;">Launch Your Own Laughter App</h2>
-          <p class="section-sub" style="max-width:700px; margin:0 auto;">We built the world's first AI Laughter Coach. Now, we can rebrand it for <strong>YOU</strong>.</p>
+          <p class="section-sub" style="max-width:700px; margin:0 auto;">We built the world's first AI Laughter Coach. Now, we can rebrand it for <strong>YOU</strong>. </p>
         </div>
-
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:40px; align-items:center;">
-            <div>
-                <h3 style="font-size:28px; font-weight:800; margin-bottom:16px; color:#0f172a;">Your Custom-Branded App</h3>
-                <p style="color:var(--muted); margin-bottom:24px; font-size:16px; line-height:1.6;">
-                    Don't spend thousands developing technology from scratch. Claim our proven "Laughter OS" platform and we will customize it with your <strong>Brand Name, Logo, and Content</strong>.
-                </p>
-                
-                <div style="display:grid; gap:16px;">
-                    <div class="card" style="padding:16px; display:flex; align-items:start; gap:12px;">
-                        <div style="font-size:24px;">📱</div>
-                        <div>
-                            <strong style="display:block; color:#0f172a; margin-bottom:4px;">Progressive Web App (PWA)</strong>
-                            <div style="font-size:14px; color:var(--muted);">Installs directly from your website. No App Store fees. </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card" style="padding:16px; display:flex; align-items:start; gap:12px;">
-                        <div style="font-size:24px;">🤖</div>
-                        <div>
-                            <strong style="display:block; color:#0f172a; margin-bottom:4px;">AI-Powered Coach</strong>
-                            <div style="font-size:14px; color:var(--muted);">Integrated AI trained to guide your students through laughter exercises 24/7.</div>
-                        </div>
-                    </div>
-
-                    <div class="card" style="padding:16px; display:flex; align-items:start; gap:12px;">
-                        <div style="font-size:24px;">🎨</div>
-                        <div>
-                            <strong style="display:block; color:#0f172a; margin-bottom:4px;">Your Brand Identity</strong>
-                            <div style="font-size:14px; color:var(--muted);">We will brand it with name and logo</div>
-                        </div>
-                    </div>
+          <div>
+            <h3 style="font-size:28px; font-weight:800; margin-bottom:16px; color:#0f172a;">Your Custom-Branded App</h3>
+            <p style="color:var(--muted); margin-bottom:24px; font-size:16px; line-height:1.6;"> Don't spend thousands developing technology from scratch. Claim our proven "Laughter OS" platform and we will customize it with your <strong>Brand Name, Logo, and Content</strong>. </p>
+            <div style="display:grid; gap:16px;">
+              <div class="card" style="padding:16px; display:flex; align-items:start; gap:12px;">
+                <div style="font-size:24px;">📱</div>
+                <div>
+                  <strong style="display:block; color:#0f172a; margin-bottom:4px;">Progressive Web App (PWA)</strong>
+                  <div style="font-size:14px; color:var(--muted);">Installs directly from your website. No App Store fees. </div>
                 </div>
-
-                <div style="margin-top:32px;">
-                    <a href="https://www.skrmblissai.in/laughterapp" class="btn" style="padding:14px 32px;">
-  Claim Your App &rarr;
-</a>
-
-                    <p style="font-size:12px; color:var(--muted); margin-top:12px;">*Limited to 5 coach partnerships per month.</p>
+              </div>
+              <div class="card" style="padding:16px; display:flex; align-items:start; gap:12px;">
+                <div style="font-size:24px;">🤖</div>
+                <div>
+                  <strong style="display:block; color:#0f172a; margin-bottom:4px;">AI-Powered Coach</strong>
+                  <div style="font-size:14px; color:var(--muted);">Integrated AI trained to guide your students through laughter exercises 24/7.</div>
                 </div>
+              </div>
+              <div class="card" style="padding:16px; display:flex; align-items:start; gap:12px;">
+                <div style="font-size:24px;">🎨</div>
+                <div>
+                  <strong style="display:block; color:#0f172a; margin-bottom:4px;">Your Brand Identity</strong>
+                  <div style="font-size:14px; color:var(--muted);">We will brand it with name and logo</div>
+                </div>
+              </div>
             </div>
-
-            <div style="position:relative; display: flex; justify-content: center;">
-                <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="White Label App Mockup" style="width: 100%; max-width: 500px; border-radius: 20px; box-shadow: var(--shadow-lg); transform: rotate(2deg);">
+            <div style="margin-top:32px;">
+              <a href="https://www.skrmblissai.in/laughterapp" class="btn" style="padding:14px 32px;"> Claim Your App → </a>
+              <p style="font-size:12px; color:var(--muted); margin-top:12px;">*Limited to 5 coach partnerships per month.</p>
             </div>
+          </div>
+          <div style="position:relative; display: flex; justify-content: center;">
+            <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="White Label App Mockup" style="width: 100%; max-width: 500px; border-radius: 20px; box-shadow: var(--shadow-lg); transform: rotate(2deg);">
+          </div>
         </div>
       </section>
-
       <section id="services" style="margin-top:60px">
         <h2 class="section-title">Services</h2>
         <p class="section-sub">Complete digital growth solutions for startups, creators, and businesses.</p>
-
         <div class="grid-3" role="list">
-           
           <div class="card" role="listitem" aria-label="Web & Mobile Apps">
             <div class="icon" aria-hidden="true">💻</div>
             <h3>Web & Mobile Apps</h3>
             <p style="color:var(--muted)">Interactive modern webapps and mobile applications tailored to your business needs. Fast, responsive, and user-centric.</p>
-          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
-   <a href="#contact" class="btn">Discuss plan</a>
-   <a href="https://sumansuneja-laughterhub1-498377085294.me-central1.run.app/" class="btn ghost" target="_blank" rel="noopener">Demo</a>
-</div>
+            <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+              <a href="#contact" class="btn">Discuss plan</a>
+              <a href="https://sumansuneja-laughterhub1-498377085294.me-central1.run.app/" class="btn ghost" target="_blank" rel="noopener">Demo</a>
+            </div>
           </div>
-
           <div class="card" role="listitem" aria-label="Interactive Learning Tools">
             <div class="icon" aria-hidden="true">🧩</div>
             <h3>Interactive Learning Tools</h3>
             <p style="color:var(--muted)">Engaging simulators, quizzes, and gamified learning experiences for educational platforms and training modules.</p>
             <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
-               <a href="#contact" class="btn">Discuss plan</a>
-               
+              <a href="#contact" class="btn">Discuss plan</a>
             </div>
           </div>
-
           <div class="card" role="listitem" aria-label="Funnels">
             <div class="icon" aria-hidden="true">🚀</div>
             <h3>Conversion Funnels</h3>
             <p style="color:var(--muted)">Lead capture pages, multi-step funnels and email sequences optimised to increase signups and sales.</p>
             <a href="#contact" class="btn ghost">Build funnel</a>
           </div>
-
           <div class="card" role="listitem" aria-label="Design">
             <div class="icon" aria-hidden="true">🎨</div>
             <h3>Design & Branding</h3>
             <p style="color:var(--muted)">Banners, social templates, and marketing collateral — consistent, print-ready and tailored for your audience.</p>
             <a href="#contact" class="btn ghost">Request quote</a>
           </div>
-
           <div class="card" role="listitem" aria-label="Portals">
             <div class="icon" aria-hidden="true">🎓</div>
             <h3>Course Portals</h3>
             <p style="color:var(--muted)">Custom LMS platforms with video hosting, progress tracking and dashboards for coaching or employee training.</p>
             <a href="#contact" class="btn ghost">Explore options</a>
           </div>
-
           <div class="card" role="listitem" aria-label="Landing pages">
             <div class="icon" aria-hidden="true">🌐</div>
             <h3>Landing Pages</h3>
             <p style="color:var(--muted)">High-converting pages for product launches, webinars and events — responsive, fast and analytics-ready.</p>
             <a href="#contact" class="btn ghost">Get started</a>
           </div>
-
-            <div class="card" role="listitem" aria-label="Educational Content">
+          <div class="card" role="listitem" aria-label="Educational Content">
             <div class="icon" aria-hidden="true">✍️</div>
             <h3>Educational Content</h3>
             <p style="color:var(--muted)">Lesson scripts, worksheets, and technical writing mapped to your requirements for effective knowledge transfer.</p>
             <a href="#contact" class="btn ghost">Discuss plan</a>
           </div>
-
-            <div class="card" role="listitem" aria-label="Mock Papers">
+          <div class="card" role="listitem" aria-label="Mock Papers">
             <div class="icon" aria-hidden="true">📄</div>
             <h3>Assessment Papers</h3>
             <p style="color:var(--muted)">Original question papers and structured marking schemes for coaching institutes and recruitment drives.</p>
@@ -227,43 +1040,35 @@
           </div>
         </div>
       </section>
-
       <section id="portfolio" style="margin-top:48px">
         <h2 class="section-title">Portfolio</h2>
         <p class="section-sub">Selected projects — apps, platforms, and digital experiences.</p>
-
         <div class="portfolio-grid" role="list" aria-live="polite">
-           
           <div class="portfolio-card card" role="listitem">
             <div class="portfolio-type" style="display:inline-block;padding:6px 12px;border-radius:18px;background:rgba(150,201,196,0.06);border:1px solid var(--glass-strong);font-weight:700;font-size:12px;color:var(--brand-600)">Web App</div>
             <h4 style="margin:8px 0 6px">Business Management Dashboard</h4>
             <p style="color:var(--muted)">A comprehensive React-based web app for inventory tracking and client management.</p>
           </div>
-
           <div class="portfolio-card card" role="listitem">
             <div class="portfolio-type" style="display:inline-block;padding:6px 12px;border-radius:18px;background:rgba(150,201,196,0.06);border:1px solid var(--glass-strong);font-weight:700;font-size:12px;color:var(--brand-600)">Mobile App</div>
             <h4 style="margin:8px 0 6px">Fitness & Habit Tracker</h4>
             <p style="color:var(--muted)">Cross-platform mobile application featuring daily streaks, notifications, and progress charts.</p>
           </div>
-
           <div class="portfolio-card card" role="listitem">
             <div class="portfolio-type" style="display:inline-block;padding:6px 12px;border-radius:18px;background:rgba(150,201,196,0.06);border:1px solid var(--glass-strong);font-weight:700;font-size:12px;color:var(--brand-600)">Platform</div>
             <h4 style="margin:8px 0 6px">Interactive Learning Platform</h4>
             <p style="color:var(--muted)">Gamified educational platform with simulations, quizzes, and real-time student analytics.</p>
           </div>
-
           <div class="portfolio-card card" role="listitem">
             <div class="portfolio-type" style="display:inline-block;padding:6px 12px;border-radius:18px;background:rgba(150,201,196,0.06);border:1px solid var(--glass-strong);font-weight:700;font-size:12px;color:var(--brand-600)">Funnel</div>
             <h4 style="margin:8px 0 6px">High-Ticket Lead Funnel</h4>
             <p style="color:var(--muted)">Multi-step funnel that increased trial bookings by 3× through targeted messaging and UX improvements.</p>
           </div>
-
           <div class="portfolio-card card" role="listitem">
             <div class="portfolio-type" style="display:inline-block;padding:6px 12px;border-radius:18px;background:rgba(150,201,196,0.06);border:1px solid var(--glass-strong);font-weight:700;font-size:12px;color:var(--brand-600)">Design</div>
             <h4 style="margin:8px 0 6px">Start-up Brand Kit</h4>
             <p style="color:var(--muted)">Complete social media and print recruitment branding package for a new tech agency.</p>
           </div>
-
           <div class="portfolio-card card" role="listitem">
             <div class="portfolio-type" style="display:inline-block;padding:6px 12px;border-radius:18px;background:rgba(150,201,196,0.06);border:1px solid var(--glass-strong);font-weight:700;font-size:12px;color:var(--brand-600)">Landing Page</div>
             <h4 style="margin:8px 0 6px">Product Launch Page</h4>
@@ -271,22 +1076,32 @@
           </div>
         </div>
       </section>
-
       <section id="process" style="margin-top:48px">
         <h2 class="section-title">Process</h2>
         <p class="section-sub">A simple, transparent workflow — from brief to delivery.</p>
-
         <div class="process" role="list">
-          <div class="step card" role="listitem"><div class="num" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;font-weight:900;font-size:26px;box-shadow:0 10px 30px rgba(150,201,196,0.2);margin-bottom:12px">1</div><strong style="display:block;margin-bottom:8px">Brief & Discovery</strong><div style="color:var(--muted)">We understand goals, audience and constraints through a short discovery call and questionnaire.</div></div>
-
-          <div class="step card" role="listitem"><div class="num" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;font-weight:900;font-size:26px;box-shadow:0 10px 30px rgba(150,201,196,0.2);margin-bottom:12px">2</div><strong style="display:block;margin-bottom:8px">Planning</strong><div style="color:var(--muted)">Project mapping, wireframes and delivery milestones so expectations are crystal clear.</div></div>
-
-          <div class="step card" role="listitem"><div class="num" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;font-weight:900;font-size:26px;box-shadow:0 10px 30px rgba(150,201,196,0.2);margin-bottom:12px">3</div><strong style="display:block;margin-bottom:8px">Development</strong><div style="color:var(--muted)">Design, coding, and content production with two review rounds included.</div></div>
-
-          <div class="step card" role="listitem"><div class="num" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;font-weight:900;font-size:26px;box-shadow:0 10px 30px rgba(150,201,196,0.2);margin-bottom:12px">4</div><strong style="display:block;margin-bottom:8px">Delivery & Launch</strong><div style="color:var(--muted)">Handover files, deploy applications, implement feedback and provide ongoing support.</div></div>
+          <div class="step card" role="listitem">
+            <div class="num" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;font-weight:900;font-size:26px;box-shadow:0 10px 30px rgba(150,201,196,0.2);margin-bottom:12px">1</div>
+            <strong style="display:block;margin-bottom:8px">Brief & Discovery</strong>
+            <div style="color:var(--muted)">We understand goals, audience and constraints through a short discovery call and questionnaire.</div>
+          </div>
+          <div class="step card" role="listitem">
+            <div class="num" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;font-weight:900;font-size:26px;box-shadow:0 10px 30px rgba(150,201,196,0.2);margin-bottom:12px">2</div>
+            <strong style="display:block;margin-bottom:8px">Planning</strong>
+            <div style="color:var(--muted)">Project mapping, wireframes and delivery milestones so expectations are crystal clear.</div>
+          </div>
+          <div class="step card" role="listitem">
+            <div class="num" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;font-weight:900;font-size:26px;box-shadow:0 10px 30px rgba(150,201,196,0.2);margin-bottom:12px">3</div>
+            <strong style="display:block;margin-bottom:8px">Development</strong>
+            <div style="color:var(--muted)">Design, coding, and content production with two review rounds included.</div>
+          </div>
+          <div class="step card" role="listitem">
+            <div class="num" style="width:64px;height:64px;display:inline-grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;font-weight:900;font-size:26px;box-shadow:0 10px 30px rgba(150,201,196,0.2);margin-bottom:12px">4</div>
+            <strong style="display:block;margin-bottom:8px">Delivery & Launch</strong>
+            <div style="color:var(--muted)">Handover files, deploy applications, implement feedback and provide ongoing support.</div>
+          </div>
         </div>
       </section>
-
       <section style="margin-top:44px">
         <div class="final-cta" role="region" aria-label="Final call to action">
           <div>
@@ -299,601 +1114,104 @@
           </div>
         </div>
       </section>
-
       <section id="contact" style="margin-top:48px">
         <h2 class="section-title">Contact</h2>
         <p class="section-sub">Tell us about your project — short messages are welcome. (Share deliverables & timeline.)</p>
-
         <div style="display:grid;grid-template-columns:1fr 360px;gap:24px;margin-top:20px">
           <div class="card">
             <form id="contactForm" class="contact-form" novalidate>
-              <label><span>Name</span><input id="name" class="input" type="text" placeholder="Your name" required></label>
-              <label><span>Email</span><input id="email" class="input" type="email" placeholder="you@domain.com" required></label>
-              <label><span>Message</span><textarea id="message" class="input" placeholder="A short brief or question (project type, timeline)" required></textarea></label>
-
+              <label>
+                <span>Name</span>
+                <input id="name" class="input" type="text" placeholder="Your name" required>
+              </label>
+              <label>
+                <span>Email</span>
+                <input id="email" class="input" type="email" placeholder="you@domain.com" required>
+              </label>
+              <label>
+                <span>Message</span>
+                <textarea id="message" class="input" placeholder="A short brief or question (project type, timeline)" required></textarea>
+              </label>
               <div class="checkbox-group">
-                <input type="checkbox" id="consent" checked><label for="consent">I agree to be contacted about my enquiry.</label>
+                <input type="checkbox" id="consent" checked>
+                <label for="consent">I agree to be contacted about my enquiry.</label>
               </div>
-
               <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
                 <button type="submit" class="btn">Send message</button>
                 <div id="formStatus" class="muted" aria-live="polite" style="font-weight:600"></div>
               </div>
             </form>
           </div>
-
           <aside class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:12px">
             <strong style="font-size:16px">Contact us</strong>
-            <div class="muted" style="margin-top:4px">Email: <a href="mailto:connect@skrmblissai.com">connect@skrmblissai.com</a></div>
-            <div class="muted">Phone: +91 99022 36432</div>
+            <div class="muted" style="margin-top:4px">Email: <a href="mailto:connect@skrmblissai.in">connect@skrmblissai.in</a>
+            </div>
+            <div class="muted">Phone: +918217581238</div>
             <div class="muted">Location: Bengaluru, India</div>
-
             <div style="margin-top:8px;color:var(--muted);text-align:center">Typical response within 1 business day. Share brief details about your project requirements.</div>
-
             <div class="social-links" aria-label="Social links">
-              <a href="https://www.facebook.com/skrmbliss" target="_blank" rel="noopener" aria-label="Facebook"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook"></a>
-              
-              <a href="https://discord.gg/e6z9PvRxu4" target="_blank" rel="noopener" aria-label="Discord">
-                <svg width="24" height="24" viewBox="0 0 16 16" fill="#5865F2" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px">
-                    <path d="M13.545 2.93a13.5 13.5 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.575-.406.886a12.5 12.5 0 0 0-3.67 0c-.114-.311-.271-.636-.412-.886a.05.05 0 0 0-.053-.025 13.5 13.5 0 0 0-3.257 1.011.05.05 0 0 0-.022.028A13.4 13.4 0 0 0 1.488 9.53a.05.05 0 0 0 .01.05C2.7 11.235 4.453 11.75 6.132 11.838a.05.05 0 0 0 .055-.03c.271-.37.513-.762.722-1.173a.05.05 0 0 0-.028-.06 8.6 8.6 0 0 1-1.226-.586.05.05 0 0 1-.005-.084c.105-.078.21-.16.311-.246a.05.05 0 0 1 .051-.007c2.651 1.21 5.516 1.21 8.138 0a.05.05 0 0 1 .052.007c.1.086.205.168.311.246a.05.05 0 0 1-.005.084 8.6 8.6 0 0 1-1.226.586.05.05 0 0 0-.028.06c.21.41.451.803.722 1.173a.05.05 0 0 0 .055.03c1.678-.088 3.432-.603 4.634-2.258a.05.05 0 0 0 .01-.05 13.4 13.4 0 0 0-.93-6.571.05.05 0 0 0-.022-.028ZM5.525 8.52c-.754 0-1.373-.69-1.373-1.536s.607-1.536 1.373-1.536c.771 0 1.386.696 1.373 1.536 0 .846-.602 1.536-1.373 1.536Zm5.15 0c-.754 0-1.373-.69-1.373-1.536s.607-1.536 1.373-1.536c.771 0 1.386.696 1.373 1.536 0 .846-.602 1.536-1.373 1.536Z"/>
+              <a href="https://www.facebook.com/skrmbliss" target="_blank" rel="noopener" aria-label="Facebook">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+              </a>
+              <a href="https://discord.gg/e6z9PvRxu4" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+                <svg width="24" height="24" viewBox="0 0 16 16" fill="#5865F2" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px" aria-hidden="true">
+                  <path d="M13.545 2.93a13.5 13.5 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.575-.406.886a12.5 12.5 0 0 0-3.67 0c-.114-.311-.271-.636-.412-.886a.05.05 0 0 0-.053-.025 13.5 13.5 0 0 0-3.257 1.011.05.05 0 0 0-.022.028A13.4 13.4 0 0 0 1.488 9.53a.05.05 0 0 0 .01.05C2.7 11.235 4.453 11.75 6.132 11.838a.05.05 0 0 0 .055-.03c.271-.37.513-.762.722-1.173a.05.05 0 0 0-.028-.06 8.6 8.6 0 0 1-1.226-.586.05.05 0 0 1-.005-.084c.105-.078.21-.16.311-.246a.05.05 0 0 1 .051-.007c2.651 1.21 5.516 1.21 8.138 0a.05.05 0 0 1 .052.007c.1.086.205.168.311.246a.05.05 0 0 1-.005.084 8.6 8.6 0 0 1-1.226.586.05.05 0 0 0-.028.06c.21.41.451.803.722 1.173a.05.05 0 0 0 .055.03c1.678-.088 3.432-.603 4.634-2.258a.05.05 0 0 0 .01-.05 13.4 13.4 0 0 0-.93-6.571.05.05 0 0 0-.022-.028ZM5.525 8.52c-.754 0-1.373-.69-1.373-1.536s.607-1.536 1.373-1.536c.771 0 1.386.696 1.373 1.536 0 .846-.602 1.536-1.373 1.536Zm5.15 0c-.754 0-1.373-.69-1.373-1.536s.607-1.536 1.373-1.536c.771 0 1.386.696 1.373 1.536 0 .846-.602 1.536-1.373 1.536Z" />
                 </svg>
               </a>
-              <a href="https://wa.me/+919902236432" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></a>
+              <a href="https://wa.me/+918217581238" target="_blank" rel="noopener" aria-label="WhatsApp">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+              </a>
             </div>
           </aside>
         </div>
       </section>
-
-<footer>
-  <div class="footer-content">
-    
-    <div class="footer-brand">
-      <h3 class="brand-name">SKRMBliss.AI</h3>
-      <p class="brand-desc">Web development, apps, and digital content for businesses, startups, and educators.</p>
-      
-      <div class="footer-cta-group">
-        <a href="#contact" class="footer-btn">Hire us</a>
-        <a href="#portfolio" class="footer-btn">View portfolio</a>
-      </div>
-    </div>
-
-    <div class="footer-nav">
-      
-      <div class="nav-column">
-        <h4>Services</h4>
-        <a href="#services">Web & Mobile Apps</a>
-        <a href="#services">Interactive Tools</a>
-        <a href="#services">Portals & Funnels</a>
-      </div>
-
-      <div class="nav-column">
-        <h4>Company</h4>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
-        <a href="#">Terms</a>
-      </div>
-
-      <div class="nav-column">
-        <h4>Follow</h4>
-        <a href="#" target="_blank">Facebook</a>
-        <a href="#" target="_blank">Discord</a>
-        <a href="#" target="_blank">WhatsApp</a>
-      </div>
-      
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div class="copyright">© <span id="year">2025</span> SKRM Bliss AI — All rights reserved</div>
-    <div class="location">Built with care • Bengaluru</div>
-  </div>
-</footer>
-
-<script>
-  // Auto-update year
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+      <footer>
+        <div class="footer-content">
+          <div class="footer-brand">
+            <h3 class="brand-name">SKRMBliss.AI</h3>
+            <p class="brand-desc">Web development, apps, and digital content for businesses, startups, and educators.</p>
+            <div class="footer-cta-group">
+              <a href="#contact" class="footer-btn">Hire us</a>
+              <a href="#portfolio" class="footer-btn">View portfolio</a>
+            </div>
+          </div>
+          <div class="footer-nav">
+            <div class="nav-column">
+              <h4>Services</h4>
+              <a href="#services">Web & Mobile Apps</a>
+              <a href="#services">Interactive Tools</a>
+              <a href="#services">Portals & Funnels</a>
+            </div>
+            <div class="nav-column">
+              <h4>Company</h4>
+              <a href="#portfolio">Portfolio</a>
+              <a href="#contact">Contact</a>
+              <a href="#">Terms</a>
+            </div>
+            <div class="nav-column">
+              <h4>Follow</h4>
+              <a href="https://www.facebook.com/skrmbliss" target="_blank" rel="noopener">Facebook</a>
+              <a href="https://discord.gg/e6z9PvRxu4" target="_blank" rel="noopener">Discord</a>
+              <a href="https://wa.me/+918217581238" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="copyright">© <span id="year"></span> SKRM Bliss AI — All rights reserved </div>
+          <div class="location">Built with care • Bengaluru</div>
+        </div>
+      </footer>
     </main>
   </div>
-
   <div class="floating-widgets" aria-hidden="false">
-    <a class="widget-btn whatsapp" href="https://wa.me/+919902236432" target="_blank" rel="noopener" aria-label="WhatsApp">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
+    <a class="widget-btn whatsapp" href="https://wa.me/+918217581238" target="_blank" rel="noopener" aria-label="WhatsApp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z" />
+      </svg>
     </a>
     <button class="widget-btn call" id="skrm-call-btn" aria-label="Show phone number">📞</button>
   </div>
 </div>
-
 <script>
-  (function(){
-    // CSS Injection Script (Fixes the validation problem)
-    const styleContent = `
-    /* Scoped to container */
-    #skrm-bliss-root{
-      --lavender:#b8acd6;
-      --teal:#96c9c4;
-      --brand-400:#96c9c4;
-      --brand-500:#7db9b3;
-      --brand-600:#6aa8a2;
-      --accent:#b8acd6;
-      --muted:#6b7280;
-      --glass-strong:rgba(15,23,42,0.06);
-      --shadow:0 24px 60px rgba(2,6,23,0.10);
-      --shadow-lg:0 40px 120px rgba(2,6,23,0.14);
-      /* UPDATED BACKGROUND to match the light glow in image */
-      background: radial-gradient(circle at 50% 0%, #f7f9fa 0%, #ffffff 60%, #f1f5f9 100%);
-      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color: #0f172a;
-    }
-    #skrm-bliss-root *{box-sizing:border-box}
-    .wrap{max-width:1200px;margin:0 auto;padding:20px}
-
-    /* NAV */
-    nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-radius:18px;background:rgba(255,255,255,0.98);border:1px solid var(--glass-strong);box-shadow:var(--shadow);position:sticky;top:14px;z-index:999}
-    .brand{display:flex;gap:14px;align-items:center}
-    .logo-img{width:56px;height:56px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));box-shadow:0 8px 24px rgba(150,201,196,0.28)}
-    .brand-title{font-weight:800;font-size:17px}
-    .brand-sub{font-size:12px;color:var(--muted);margin-top:2px}
-
-    .nav-links{display:flex;gap:8px}
-    .nav-links a{color:var(--muted);text-decoration:none;padding:8px 14px;border-radius:10px;transition:all .22s;outline:none;}
-    .nav-links a:hover, .nav-links a:focus-visible{transform:translateY(-2px);color:var(--text);background:rgba(15,23,42,0.04);outline:2px solid var(--accent);outline-offset:2px;}
-    .controls{display:flex;gap:8px;align-items:center}
-    .btn{padding:10px 24px;border-radius:30px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white;text-decoration:none;font-weight:700;display:inline-block;cursor:pointer;border:none;transition:transform .2s, box-shadow .2s;outline:none;}
-    .btn.ghost{background:transparent;border:1px solid var(--glass-strong);color:var(--text)}
-    .btn:hover, .btn:focus-visible{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,0.15);outline:2px solid var(--accent);outline-offset:2px;}
-    .btn.ghost:hover, .btn.ghost:focus-visible{background:rgba(15,23,42,0.04);transform:translateY(-1px);box-shadow:none;}
-    .select{padding:6px 8px;border-radius:8px;border:1px solid var(--glass-strong);background:transparent;outline:none;}
-    .select:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-
-    /* NEW LAUNCH BANNER */
-    .launch-banner{
-      margin-top:20px;padding:18px 28px;border-radius:16px;
-      background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(150,201,196,0.05));
-      border:1px solid var(--glass-strong);display:flex;align-items:center;justify-content:space-between;gap:16px;
-      box-shadow:0 12px 40px rgba(150,201,196,0.15);position:relative;overflow:hidden;
-      transition:transform .3s,box-shadow .3s;
-    }
-    .launch-banner:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(150,201,196,0.25)}
-    .launch-banner::before{
-      content:"NEW";position:absolute;top:10px;left:-30px;background:linear-gradient(135deg,var(--brand-500),var(--lavender));
-      color:white;padding:4px 40px;font-weight:900;font-size:11px;letter-spacing:1px;
-      transform:rotate(-45deg);box-shadow:0 4px 12px rgba(150,201,196,0.3);
-    }
-    .launch-banner .launch-icon{
-      font-size:48px;animation:skrmPulse 2s ease-in-out infinite;
-    }
-    @keyframes skrmPulse{
-      0%,100%{transform:scale(1)}
-      50%{transform:scale(1.1)}
-    }
-    .launch-content h3{margin:0 0 6px;font-size:22px;font-weight:900;color:#071026}
-    .launch-content p{margin:0;color:var(--muted);font-size:15px}
-
-
-    /* HERO - UPDATED TO MATCH IMAGE */
-    .hero{
-        margin-top:40px;
-        display:grid;
-        grid-template-columns:1.1fr 0.9fr;
-        gap:48px;
-        padding:20px 0 60px 0;
-        /* Removed border/bg to allow transparency like the image */
-        background:transparent;
-        border:none;
-        box-shadow:none;
-        position:relative;
-        overflow:visible;
-    }
-    
-    .hero h1{
-        font-size:68px; /* Larger */
-        margin:0;
-        line-height:0.95;
-        font-weight:900;
-        color:#0f172a;
-        text-align:left;
-        letter-spacing: -2px;
-    }
-    /* Accent gradient animation */
-    .hero h1 .accent{
-      display:inline-block;
-      background:linear-gradient(90deg,var(--brand-400),var(--lavender),var(--teal),#d4a5c9);
-      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-      background-size:300% 100%;
-      animation:skrmGradientShift 5s linear infinite;
-      will-change:background-position;
-    }
-    @keyframes skrmGradientShift{
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    .hero p{color:var(--muted);margin-top:24px;font-size:18px;max-width:600px;line-height:1.6}
-
-    .hero-ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
-    .hero .btn{min-width:160px; padding:14px 28px; font-size:16px;}
-
-    /* UPDATED: HERO STATS -> "TRUSTED BY" CARD (Floating like image) */
-    .hero-stats{
-        background:#fff;
-        border-radius:24px;
-        padding:32px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-        border:1px solid rgba(255,255,255,0.5);
-    }
-    .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:4px}
-    .stat{padding:0;background:transparent;border:none;text-align:left}
-    .stat .n{font-weight:900;color:var(--brand-600);font-size:28px}
-    
-    /* UPDATED: RIGHT SIDE CARD -> "READY PACKS" (Floating white card) */
-    aside .ready-packs{
-        height:100%;
-        padding:48px;
-        border-radius:32px;
-        background:#fff;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-    }
-
-    /* CARD: Hover animation */
-    .card{
-      position:relative;overflow:visible;background:#fff;border-radius:20px;padding:26px;border:1px solid var(--glass-strong);
-      transition:transform .42s cubic-bezier(.2,.9,.2,1),box-shadow .42s,filter .42s;
-      transform-origin:center center;
-      box-shadow: 0 8px 20px rgba(2,6,23,0.04);
-    }
-    /* accent bar (reveals on hover) */
-    .card::after{
-      content:"";position:absolute;left:12px;right:12px;top:8px;height:4px;border-radius:6px;
-      background:linear-gradient(90deg,var(--brand-400),var(--lavender),var(--teal));
-      transform:scaleX(0);transform-origin:left center;transition:transform .38s cubic-bezier(.2,.9,.2,1),opacity .3s;
-      opacity:0;
-    }
-
-    /* Hover: strong lift + rotate + glow */
-    .card:hover, .card:focus-within{
-      transform:translateY(-18px) rotateX(4deg) rotateZ(-0.6deg) scale(1.02);
-      box-shadow:0 36px 90px rgba(2,6,23,0.18), 0 14px 40px rgba(2,6,23,0.10);
-      filter:brightness(1.02);
-    }
-    .card:hover::after, .card:focus-within::after{transform:scaleX(1);opacity:1}
-
-    .card .icon{
-      width:76px;height:76px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand-400),var(--lavender));
-      font-size:32px;margin-bottom:18px;transition:transform .5s cubic-bezier(.2,.9,.2,1),box-shadow .5s;position:relative;z-index:2;
-    }
-    .card .icon::before{
-      content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0);width:120px;height:120px;border-radius:50%;
-      background:radial-gradient(circle, rgba(150,201,196,0.12), transparent 50%);opacity:0;transition:transform .42s,opacity .42s;z-index:-1;
-    }
-    .card:hover .icon, .card:focus-within .icon{transform:translateY(-6px) rotate(8deg) scale(1.18);box-shadow:0 28px 60px rgba(124,58,237,0.14)}
-    .card:hover .icon::before, .card:focus-within .icon::before{transform:translate(-50%,-50%) scale(1);opacity:1}
-
-    .card h3{margin:0 0 8px;transition:transform .36s,color .36s}
-    .card:hover h3, .card:focus-within h3{transform:translateY(-6px);color:#071026}
-    .features-list{list-style:none;padding:0;background:transparent;border:none;margin:12px 0;color:var(--muted); font-size:16px;}
-    .features-list li{display:flex; align-items:center; gap:10px;}
-    .features-list li::before {content: "✓"; color: var(--brand-600); font-weight: 900; background:rgba(150,201,196,0.2); width:24px; height:24px; border-radius:50%; display:grid; place-items:center; font-size:12px; flex-shrink:0;}
-
-
-    /* Grids */
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:18px}
-    .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:18px}
-    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:18px}
-
-    /* Section headings/text */
-    .section-title{font-size:40px;color:#071026;margin-bottom:8px;font-weight:900;letter-spacing:-1px;display:inline-block}
-    .section-title::after{content:'';display:block;margin-top:12px;width:60px;height:4px;background:linear-gradient(90deg,var(--brand-400),var(--lavender));border-radius:3px}
-    .section-sub{color:var(--muted);margin-bottom:28px;font-weight:500;font-size:16px;line-height:1.7}
-
-    /* final CTA */
-    .final-cta{margin-top:44px;padding:34px;border-radius:18px;background:linear-gradient(90deg, rgba(124,58,237,0.07), rgba(150,201,196,0.05));border:1px solid var(--glass-strong);display:flex;align-items:center;justify-content:space-between;gap:20px;transition:transform .36s}
-    .final-cta:hover, .final-cta:focus-within{transform:translateY(-6px);box-shadow:0 12px 24px rgba(2,6,23,0.08);}
-    .final-cta h2{margin:0;font-size:24px;font-weight:900}
-    .final-cta p{margin:0;color:var(--muted)}
-
-    /* Contact form controls */
-    .contact-form{display:grid;gap:12px}
-    .input, textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--glass-strong);font-size:15px;background:transparent;color:var(--text);min-height:44px;font-family:inherit;outline:none;}
-    .input:focus, textarea:focus{border-color:var(--brand-500);box-shadow:0 0 0 2px rgba(125,185,179,0.3);}
-    textarea{min-height:120px;resize:vertical}
-    label span{display:block;margin-bottom:6px;font-weight:700;color:#071026}
-    .checkbox-group{display:flex;align-items:center;gap:8px;padding:8px 0}
-    .checkbox-group input[type="checkbox"]{width:18px;height:18px;cursor:pointer}
-
-    /* Social links - centered in contact aside */
-    .social-links{display:flex;gap:12px;margin-top:18px;justify-content:center}
-    .social-links a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:transparent;overflow:hidden;border:1px solid var(--glass-strong);transition:background .2s, transform .2s;}
-    .social-links a:hover, .social-links a:focus-visible{background:rgba(15,23,42,0.04);transform:translateY(-2px);outline:2px solid var(--accent);outline-offset:2px;}
-    .social-links img{width:20px;height:20px;display:block}
-
-    /* Footer - UPDATED TO "FLOATING" STYLE SIMILAR TO HERO CARDS */
-    footer {
-      background-color: #ffffff;
-      border-radius: 24px;
-      padding: 48px;
-      margin-top: 60px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(0,0,0,0.05);
-      font-family: Inter, system-ui, sans-serif;
-      color: #0f172a;
-    }
-
-    /* Top Section Layout */
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    /* Left Brand Section */
-    .footer-brand {
-      max-width: 400px;
-    }
-
-    .brand-name {
-      font-size: 18px;
-      font-weight: 900;
-      margin: 0 0 12px 0;
-      color: #0f172a;
-    }
-
-    .brand-desc {
-      color: #475569;
-      line-height: 1.6;
-      font-size: 15px;
-      margin: 0 0 24px 0;
-    }
-
-    .footer-cta-group {
-      display: flex;
-      gap: 12px;
-    }
-
-    .footer-btn {
-      text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 50px; /* Fully rounded pill shape */
-      border: 1px solid #e2e8f0;
-      color: #0f172a;
-      font-weight: 600;
-      font-size: 14px;
-      background: white;
-      transition: all 0.2s ease;
-    }
-
-    .footer-btn:hover {
-      border-color: #cbd5e1;
-      background-color: #f8fafc;
-      transform: translateY(-1px);
-    }
-
-    /* Right Navigation Grid */
-    .footer-nav {
-      display: flex;
-      gap: 60px;
-      flex-wrap: wrap;
-    }
-
-    .nav-column {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .nav-column h4 {
-      font-size: 14px;
-      font-weight: 700;
-      color: #0f172a;
-      margin: 0 0 4px 0;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .nav-column a {
-      text-decoration: none;
-      color: #64748b;
-      font-size: 14px;
-      transition: color 0.2s;
-      line-height: 1.4;
-    }
-
-    .nav-column a:hover {
-      color: #0f172a;
-      text-decoration: underline;
-    }
-
-    /* Bottom Bar */
-    .footer-bottom {
-      border-top: 1px solid #f1f5f9;
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 14px;
-      color: #64748b;
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-      .footer-content {
-        flex-direction: column;
-        gap: 32px;
-      }
-      
-      .footer-nav {
-        width: 100%;
-        justify-content: space-between;
-        gap: 30px;
-      }
-      
-      .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-    .footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    footer a{color:var(--muted);text-decoration:none;transition:color .2s}
-    footer a:hover, footer a:focus-visible{color:var(--brand-500);text-decoration:underline;outline:2px solid var(--accent);outline-offset:2px;}
-    footer strong{display:block;margin-bottom:10px;color:#071026}
-
-    /* Floating widgets */
-    .floating-widgets{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:12px;z-index:9999}
-    .widget-btn{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:white;box-shadow:0 12px 30px rgba(2,6,23,0.12);border:none;cursor:pointer;transition:transform .2s, box-shadow .2s;outline:none;}
-    .widget-btn.whatsapp{background:#25D366;color:white}
-    .widget-btn.call{background:linear-gradient(135deg,var(--brand-500),var(--lavender));color:white}
-    .widget-btn:hover, .widget-btn:focus-visible{transform:scale(1.08);box-shadow:0 16px 40px rgba(2,6,23,0.18);outline:2px solid var(--accent);outline-offset:2px;}
-
-
-    /* Responsive */
-    @media (max-width:980px){
-      .hero{grid-template-columns:1fr;padding:32px 0; gap:32px;}
-      .grid-3,.portfolio-grid{grid-template-columns:repeat(2,1fr)}
-      .process{grid-template-columns:repeat(2,1fr)}
-      .nav-links{display:none}
-      .hero h1{font-size:48px}
-      .final-cta{flex-direction:column;align-items:flex-start}
-      .launch-banner{flex-direction:column;text-align:center}
-      .launch-banner > div:last-child{width:100%;}
-      .launch-banner .btn{flex:1}
-    }
-    @media (max-width:640px){
-      .grid-3,.portfolio-grid, .footer-grid{grid-template-columns:1fr}
-      .floating-widgets{right:12px;bottom:12px}
-      .hero h1{font-size:36px}
-      .process{grid-template-columns:1fr}
-      .hero-ctas{justify-content:center}
-      .stat-row{grid-template-columns:1fr}
-      #contact > div{grid-template-columns:1fr}
-      .contact-form{gap:16px}
-      .final-cta > div:last-child{width:100%; display:flex; gap:10px;}
-      .final-cta .btn{flex:1}
-      aside .ready-packs{padding:24px;}
-      #white-label-app > div:nth-child(2){ grid-template-columns: 1fr !important; }
-    }
-
-    /* Reduced motion respect */
-    @media (prefers-reduced-motion: reduce){
-      .card, .card .icon, .hero h1 .accent, .nav-links a, .btn, .widget-btn, .final-cta, .social-links a, .launch-banner, .launch-icon{
-        animation:none !important;
-        transition:none !important;
-        transform:none !important;
-      }
-      .card:hover, .card:focus-within, .final-cta:hover, .final-cta:focus-within, .btn:hover, .btn:focus-visible, .launch-banner:hover{
-        transform:none !important;
-        box-shadow:var(--shadow) !important;
-      }
-      .card::after, .card .icon::before{
-        opacity:1 !important;
-        transform:scaleX(1) !important;
-        transition:none !important;
-      }
-      .launch-banner::before{
-        transform:rotate(-45deg) !important;
-      }
-    }
-
-    /* GLOW EFFECT FOR WHITE LABEL SECTION */
-    #white-label-app::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      border-radius: 24px;
-      background: linear-gradient(#ABCEC9, #C3B8D5);
-      background-size: 200% 200%;
-      filter: blur(30px);
-      transform: translateY(15px) scale(1.02);
-      opacity: 0.5;
-      animation: skrmGlowFlow 8s ease infinite;
-    }
-    @keyframes skrmGlowFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    `;
-    const style = document.createElement('style');
-    style.textContent = styleContent;
-    document.head.appendChild(style);
-
-    // set year
-    const y = new Date().getFullYear();
-    const yearEl = document.getElementById('skrm-year');
-    if(yearEl) yearEl.textContent = y;
-
-    // Mobile menu toggle
-    const hb = document.getElementById('skrm-hamburger');
-    const mm = document.getElementById('skrm-mobile-menu');
-    if(hb && mm){
-      hb.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const expanded = hb.getAttribute('aria-expanded') === 'true';
-        hb.setAttribute('aria-expanded', String(!expanded));
-        mm.style.display = expanded ? 'none' : 'block';
-      });
-      // click-away close
-      document.addEventListener('click', (ev) => {
-        if(!mm.contains(ev.target) && ev.target !== hb){ mm.style.display='none'; hb.setAttribute('aria-expanded','false'); }
-      });
-      window.addEventListener('keydown', (ev) => { if(ev.key==='Escape'){ mm.style.display='none'; hb.setAttribute('aria-expanded','false'); } });
-    }
-
-    // language select (persist)
-    (function(){
-      const sel = document.getElementById('skrm-lang');
-      if(!sel) return;
-      sel.value = localStorage.getItem('skrm_lang') || 'en';
-      sel.addEventListener('change', (e) => { localStorage.setItem('skrm_lang', e.target.value); });
-    })();
-
-    // Contact form: mailto + clipboard fallback
-    (function(){
-      const form = document.getElementById('contactForm');
-      const status = document.getElementById('formStatus');
-      const callBtn = document.getElementById('skrm-call-btn');
-
-      if(callBtn){
-        callBtn.addEventListener('click', () => {
-          const phoneNumber = '+91 99022 36432';
-          navigator.clipboard.writeText(phoneNumber).then(() => {
-            alert(`Phone number copied to clipboard: ${phoneNumber}`);
-          }).catch(err => {
-            alert(`Failed to copy. Please call ${phoneNumber}.`);
-          });
-        });
-      }
-
-      if(!form) return;
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        if(status) status.textContent = '';
-        const name = (document.getElementById('name')||{}).value.trim();
-        const email = (document.getElementById('email')||{}).value.trim();
-        const message = (document.getElementById('message')||{}).value.trim();
-        const consent = (document.getElementById('consent')||{}).checked;
-        if(!name||!email||!message){ if(status) status.textContent='Please complete all fields.'; return; }
-        if(!/^\S+@\S+\.\S+$/.test(email)){ if(status) status.textContent='Please enter a valid email.'; return; }
-        if(!consent){ if(status) status.textContent='Please allow us to contact you.'; return; }
-
-        const targetEmail = 'connect@skrmblissai.com';
-        const subject = encodeURIComponent('Website enquiry from ' + name);
-        const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message);
-        const mailto = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
-
-        window.location.href = mailto;
-        if(status) status.textContent = 'Opening email client...';
-      });
-    })();
-  })();
+  (function() { // set year const y = new Date().getFullYear(); const yearEl = document.getElementById('year'); if(yearEl) yearEl.textContent = y; // Mobile menu toggle const hb = document.getElementById('skrm-hamburger'); const mm = document.getElementById('skrm-mobile-menu'); if(hb && mm){ hb.addEventListener('click', (e) => { e.stopPropagation(); const expanded = hb.getAttribute('aria-expanded') === 'true'; hb.setAttribute('aria-expanded', String(!expanded)); mm.style.display = expanded ? 'none' : 'block'; mm.setAttribute('aria-hidden', String(expanded)); }); // click-away close document.addEventListener('click', (ev) => { if(mm.style.display === 'block' && !mm.contains(ev.target) && ev.target !== hb){ mm.style.display='none'; hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); } }); window.addEventListener('keydown', (ev) => { if(ev.key==='Escape'){ mm.style.display='none'; hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); } }); } // language select (persist) (function(){ const sel = document.getElementById('skrm-lang'); if(!sel) return; sel.value = localStorage.getItem('skrm_lang') || 'en'; sel.addEventListener('change', (e) => { localStorage.setItem('skrm_lang', e.target.value); }); })(); // Contact form: mailto + clipboard fallback (function(){ const form = document.getElementById('contactForm'); const status = document.getElementById('formStatus'); const callBtn = document.getElementById('skrm-call-btn'); if(callBtn){ callBtn.addEventListener('click', () => { const phoneNumber = '+918217581238'; if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(phoneNumber).then(() => { // accessible minimal feedback const t = document.createElement('div'); t.textContent = phoneNumber + ' (copied)'; t.style.cssText = 'position:fixed;right:20px;bottom:88px;background:#071026;color:white;padding:10px 14px;border-radius:10px;z-index:99999'; document.body.appendChild(t); setTimeout(()=>t.remove(), 2600); }).catch(() => { alert(`Phone: ${phoneNumber}`); }); } else { alert(`Phone: ${phoneNumber}`); } }); } if(!form) return; form.addEventListener('submit', function(e){ e.preventDefault(); if(status) status.textContent = ''; const name = (document.getElementById('name')||{}).value.trim(); const email = (document.getElementById('email')||{}).value.trim(); const message = (document.getElementById('message')||{}).value.trim(); const consent = (document.getElementById('consent')||{}).checked; if(!name||!email||!message){ if(status) status.textContent='Please complete all fields.'; return; } if(!/^\S+@\S+\.\S+$/.test(email)){ if(status) status.textContent='Please enter a valid email.'; return; } if(!consent){ if(status) status.textContent='Please allow us to contact you.'; return; } const targetEmail = 'connect@skrmblissai.in'; const subject = encodeURIComponent('Website enquiry from ' + name); const bodyText = 'Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message; const mailto = `mailto:${targetEmail}?subject=${subject}&body=${encodeURIComponent(bodyText)}`; // try open mail app window.location.href = mailto; if(status) status.textContent = 'Opening email client...'; // fallback: copy template to clipboard after a short delay setTimeout(async () => { try { if(navigator.clipboard && navigator.clipboard.writeText){ await navigator.clipboard.writeText(`To: ${targetEmail}\nSubject: Website enquiry from ${name}\n\n${bodyText}`); if(status) status.textContent = 'If your mail client did not open, a message template was copied to your clipboard.'; form.reset(); } } catch (err){ if(status) status.textContent = 'If mail app did not open, please email: ' + targetEmail; } }, 700); }); })(); // Smooth anchors + close mobile menu (function(){ document.querySelectorAll('#skrm-bliss-root a[href^="#"]').forEach(a => { a.addEventListener('click', function(ev){ const href = this.getAttribute('href'); if(href && href.length>1){ const t = document.querySelector(href); if(t){ ev.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); } const mm = document.getElementById('skrm-mobile-menu'); const hb = document.getElementById('skrm-hamburger'); if(mm){ mm.style.display='none'; if(hb) hb.setAttribute('aria-expanded','false'); mm.setAttribute('aria-hidden','true'); } } }); }); })(); })(); 
 </script>
-</body>
-</html>
