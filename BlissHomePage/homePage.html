@@ -1,109 +1,127 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-<div id="skrm-bliss-root" data-theme="light">
+
+<div id="skrm-bliss-root" data-theme="dark">
   <style>
-    /* --- SCOPED CSS RESET FOR SYSTEME.IO --- */
+    /* ===== 0. GLOBAL RESET & VIEWPORT FIX (End-to-End) ===== */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      background-color: #050505; /* Match dark theme base */
+    }
+
+    /* ===== SKRMBliss Root & Layout Engine ===== */
     #skrm-bliss-root {
-      width: 100%;
+      /* 🔥 FORCE FULL WIDTH (Breakout Strategy) */
+      width: 100vw !important;
+      max-width: 100vw !important;
       position: relative;
-      /* Font & Base Settings applied only to this container */
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw !important;
+      margin-right: -50vw !important;
+      overflow-x: hidden !important;
+      
+      /* Typography & Base */
       font-family: 'Inter', sans-serif;
       line-height: 1.6;
       isolation: isolate;
-      /* Creates a new stacking context */
-      /* --- COLOR PALETTE (CONSTANTS) --- */
-      --col-teal: #ABCEC9;
-      --col-violet: #C3B8D5;
-      --col-grey: #AABBCC;
-      --col-lavender: #EDE8F8;
-      /* LIGHT MODE DEFAULTS */
-      --bg-body: radial-gradient(circle at 50% 0%, #ffffff 0%, var(--col-lavender) 100%);
-      --bg-blob-1: rgba(171, 206, 201, 0.6);
-      --bg-blob-2: rgba(195, 184, 213, 0.6);
-      --bg-blob-3: rgba(170, 187, 204, 0.4);
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --text-on-brand: #000000;
-      --brand-primary: var(--col-teal);
-      --brand-secondary: var(--col-violet);
-      /* PREMIUM GLASS SETTINGS (Light) */
-      --glass-surface: rgba(255, 255, 255, 0.55);
-      --glass-border: rgba(255, 255, 255, 0.6);
-      --glass-blur: 40px;
-      --glass-shadow: 0 20px 40px rgba(170, 187, 204, 0.15);
-      --glass-inset: inset 0 1px 1px rgba(255, 255, 255, 0.9), inset 0 0 20px rgba(255, 255, 255, 0.2);
-      --glow-color: rgba(171, 206, 201, 0.6);
-      --glow-spread: 0 0 40px 5px;
-      --card-hover-bg: rgba(255, 255, 255, 0.85);
-      --gradient-text: linear-gradient(135deg, #555, #ABCEC9);
-      /* Apply Background to Container */
-      background: var(--bg-body);
-      color: var(--text-main);
-      transition: background 0.5s ease, color 0.5s ease;
       padding-bottom: 60px;
-      /* Space for widgets */
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
-    #skrm-bliss-root * {
-      box-sizing: border-box;
-    }
+    #skrm-bliss-root * { box-sizing: border-box; max-width: 100%; }
 
-    #skrm-bliss-root img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    #skrm-bliss-root a {
-      text-decoration: none;
-    }
-
-    /* DARK MODE OVERRIDES (Scoped to wrapper) */
-    #skrm-bliss-root[data-theme="dark"] {
+    /* --- TOKENS & VARIABLES --- */
+    #skrm-bliss-root {
+      --brand-primary: #ABCEC9;
+      --brand-secondary: #C3B8D5;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-on-brand: #000000;
+      
+      /* Glass & Glow Tokens */
+      --glass-surface: rgba(30, 30, 35, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-blur: 40px;
+      --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.02);
+      
+      /* 🔥 HEARTBEAT SYSTEM TOKENS */
+      --card-glow-base: rgba(171, 206, 201, 0.25);
+      --card-glow-pulse: rgba(171, 206, 201, 0.45);
+      --card-surge-color: rgba(171, 206, 201, 0.75);
+      
+      /* Backgrounds */
       --bg-body: linear-gradient(135deg, #050505 0%, #121214 50%, #050505 100%);
       --bg-blob-1: rgba(171, 206, 201, 0.15);
       --bg-blob-2: rgba(195, 184, 213, 0.15);
       --bg-blob-3: rgba(170, 187, 204, 0.1);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-on-brand: #000000;
-      --brand-primary: var(--col-teal);
-      --brand-secondary: var(--col-violet);
-      --glass-surface: rgba(30, 30, 35, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-blur: 40px;
-      --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.02);
-      --glow-color: rgba(171, 206, 201, 0.3);
-      --glow-spread: 0 0 50px 10px;
-      --card-hover-bg: rgba(45, 45, 50, 0.8);
-      --gradient-text: linear-gradient(135deg, #ffffff 30%, #ABCEC9 100%);
+      
+      background: var(--bg-body);
+      color: var(--text-main);
     }
 
-    /* Animated Background */
-    #skrm-bliss-root .bg-gradient {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 15% 50%, var(--bg-blob-1) 0%, transparent 50%), radial-gradient(circle at 85% 80%, var(--bg-blob-2) 0%, transparent 50%), radial-gradient(circle at 50% 20%, var(--bg-blob-3) 0%, transparent 50%);
-      animation: gradientShift 15s ease infinite;
-      pointer-events: none;
-      z-index: 0;
-      transition: background 0.5s ease;
+    /* Light Mode Overrides */
+    #skrm-bliss-root[data-theme="light"] {
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --glass-surface: rgba(255, 255, 255, 0.55);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      
+      --card-glow-base: rgba(125, 185, 179, 0.45);
+      --card-glow-pulse: rgba(125, 185, 179, 0.65);
+      --card-surge-color: rgba(125, 185, 179, 0.85);
+
+      --bg-body: radial-gradient(circle at 50% 0%, #ffffff 0%, #EDE8F8 100%);
+      --bg-blob-1: rgba(171, 206, 201, 0.6);
+      --bg-blob-2: rgba(195, 184, 213, 0.6);
+      --bg-blob-3: rgba(170, 187, 204, 0.4);
     }
 
-    @keyframes gradientShift {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.1);
-        opacity: 0.9;
-      }
+    /* --- ANIMATIONS: HEARTBEAT & SURGE --- */
+    @keyframes skrm-heartbeat {
+        0% { box-shadow: 0 0 30px var(--card-glow-base), var(--glass-inset); }
+        50% { box-shadow: 0 0 50px var(--card-glow-pulse), var(--glass-inset); }
+        100% { box-shadow: 0 0 30px var(--card-glow-base), var(--glass-inset); }
     }
 
+    /* Common Card Styles */
+    #skrm-bliss-root .bento-card,
+    #skrm-bliss-root .service-card,
+    #skrm-bliss-root .glass-form,
+    #skrm-bliss-root .feature-banner,
+    #skrm-bliss-root .timeline-content {
+        background: var(--glass-surface);
+        backdrop-filter: blur(var(--glass-blur));
+        -webkit-backdrop-filter: blur(var(--glass-blur));
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        position: relative;
+        overflow: hidden;
+
+        /* 🔥 PERFORMANCE (Mobile Safe) */
+        transform: translateZ(0);
+        will-change: box-shadow, transform;
+
+        /* 🔥 STATE A: HEARTBEAT */
+        animation: skrm-heartbeat 4s infinite ease-in-out;
+        transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s ease;
+    }
+
+    /* 🔥 STATE B: SURGE (Hover) */
+    #skrm-bliss-root .bento-card:hover,
+    #skrm-bliss-root .service-card:hover,
+    #skrm-bliss-root .glass-form:hover,
+    #skrm-bliss-root .feature-banner:hover,
+    #skrm-bliss-root .timeline-content:hover {
+        animation: none; /* Stop heartbeat */
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 0 60px var(--card-surge-color), var(--glass-inset);
+        border-color: var(--brand-primary);
+        z-index: 10;
+    }
+
+    /* --- LAYOUT UTILITIES --- */
     #skrm-bliss-root .container {
       max-width: 1280px;
       margin: 0 auto;
@@ -114,860 +132,214 @@
 
     /* --- NAVIGATION --- */
     #skrm-bliss-root nav {
-      position: sticky;
-      top: 1rem;
-      z-index: 100;
-      margin: 1rem auto 2rem;
-      max-width: 1280px;
+      position: sticky; top: 1rem; z-index: 100;
+      margin: 1rem auto 2rem; max-width: 1280px;
       background: var(--glass-surface);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
+      backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       border-radius: 50px;
       padding: 0.8rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: var(--glass-shadow);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), var(--glass-inset);
-      transition: all 0.3s ease;
+      display: flex; justify-content: space-between; align-items: center;
+      /* Nav pulses too */
+      animation: skrm-heartbeat 5s infinite ease-in-out;
     }
 
     #skrm-bliss-root .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--text-main);
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1.25rem; font-weight: 800; color: var(--text-main);
       text-decoration: none;
-      transition: color 0.3s;
     }
+    #skrm-bliss-root .logo img { width: 36px; height: 36px; object-fit: contain; }
 
-    #skrm-bliss-root .logo img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-    }
+    #skrm-bliss-root .nav-links { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+    #skrm-bliss-root .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; transition: 0.3s; }
+    #skrm-bliss-root .nav-links a:hover { color: var(--brand-primary); text-shadow: 0 0 10px var(--brand-primary); }
 
-    #skrm-bliss-root .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+    #skrm-bliss-root .controls { display: flex; gap: 10px; align-items: center; }
 
-    #skrm-bliss-root .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: color 0.3s ease;
-      position: relative;
-    }
-
-    #skrm-bliss-root .nav-links a:hover {
-      color: var(--brand-primary);
-      text-shadow: 0 0 20px var(--brand-primary);
-    }
-
+    /* Buttons */
     #skrm-bliss-root .btn-primary {
-      padding: 0.8rem 2rem;
-      border-radius: 12px;
-      background: var(--brand-primary);
-      color: var(--text-on-brand);
-      font-weight: 700;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
+      padding: 0.8rem 2rem; border-radius: 12px;
+      background: var(--brand-primary); color: var(--text-on-brand);
+      font-weight: 700; text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 0 20px var(--card-glow-base);
+      transition: 0.3s;
     }
-
     #skrm-bliss-root .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 25px var(--brand-primary);
+      box-shadow: 0 0 30px var(--brand-primary);
     }
-
     #skrm-bliss-root .btn-glass {
-      padding: 0.8rem 1.8rem;
-      border-radius: 12px;
-      background: var(--glass-surface);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
-
-    #skrm-bliss-root .btn-glass:hover {
-      background: var(--card-hover-bg);
-      border-color: var(--brand-primary);
-      box-shadow: 0 0 15px var(--glow-color);
-    }
-
-    #skrm-bliss-root .controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    #skrm-bliss-root .theme-toggle {
-      background: var(--glass-surface);
-      border: 1px solid var(--glass-border);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--text-main);
-      transition: 0.3s ease;
-    }
-
-    #skrm-bliss-root .theme-toggle:hover {
-      background: var(--card-hover-bg);
-      box-shadow: 0 0 15px var(--glow-color);
-      transform: rotate(15deg);
-    }
-
-    #skrm-bliss-root .lang-select {
-      padding: 0.5rem 0.8rem;
-      border-radius: 12px;
-      background: var(--glass-surface);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      font-weight: 600;
-      cursor: pointer;
-      outline: none;
-      backdrop-filter: blur(10px);
+      padding: 0.8rem 1.8rem; border-radius: 12px;
+      background: transparent; border: 1px solid var(--glass-border);
+      color: var(--text-main); font-weight: 600; cursor: pointer;
       transition: 0.3s;
     }
+    #skrm-bliss-root .btn-glass:hover { background: rgba(255,255,255,0.1); border-color: var(--brand-primary); }
 
-    #skrm-bliss-root .lang-select:hover {
-      border-color: var(--brand-primary);
-      background: var(--card-hover-bg);
+    /* Controls */
+    #skrm-bliss-root .theme-toggle, #skrm-bliss-root .lang-select {
+        background: transparent; border: 1px solid var(--glass-border);
+        color: var(--text-main); padding: 5px 10px; border-radius: 20px;
+        cursor: pointer;
     }
-
-    #skrm-bliss-root .lang-select option {
-      background: var(--card-hover-bg);
-      color: var(--text-main);
-    }
-
-    #skrm-bliss-root .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--text-main);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
+    #skrm-bliss-root .lang-select option { background: #121214; color: white; }
+    #skrm-bliss-root .mobile-menu-btn { display: none; background:none; border:none; color:var(--text-main); font-size:1.5rem; }
 
     /* --- HERO --- */
-    #skrm-bliss-root .hero {
-      margin: 4rem 0 6rem;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    #skrm-bliss-root .hero-content h1 {
-      font-size: 4rem;
-      font-weight: 900;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
-    }
-
+    #skrm-bliss-root .hero { margin: 4rem 0 6rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+    #skrm-bliss-root .hero h1 { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; color: var(--text-main); }
     #skrm-bliss-root .gradient-text {
-      background: var(--gradient-text);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      background-size: 200% auto;
-      animation: gradientSlide 4s ease infinite;
+        background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
+    #skrm-bliss-root .hero p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 540px; }
+    #skrm-bliss-root .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-    @keyframes gradientSlide {
+    /* Bento Grid */
+    #skrm-bliss-root .hero-bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    #skrm-bliss-root .bento-wide { grid-column: span 2; display: flex; align-items: center; justify-content: space-between; padding: 2rem; }
+    #skrm-bliss-root .bento-card { padding: 2rem; }
+    #skrm-bliss-root .stat-num { font-size: 2.5rem; font-weight: 900; color: var(--brand-primary); }
+    #skrm-bliss-root .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; }
+    #skrm-bliss-root .bento-icon { font-size: 2rem; margin-bottom: 1rem; }
+    #skrm-bliss-root h3 { color: var(--text-main); margin: 0 0 0.5rem; }
+    #skrm-bliss-root p { color: var(--text-muted); margin: 0; }
 
-      0%,
-      100% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
+    /* Feature Banner */
+    #skrm-bliss-root .feature-banner { margin: 6rem 0; padding: 3rem; display: flex; align-items: center; gap: 4rem; }
+    #skrm-bliss-root .feature-visual { flex: 1; display: flex; justify-content: center; }
+    #skrm-bliss-root .feature-img { 
+        width: 100%; max-width: 400px; border-radius: 20px; 
+        box-shadow: 0 0 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);
     }
-
-    #skrm-bliss-root .hero-content p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 540px;
+    #skrm-bliss-root .feature-content { flex: 1; }
+    #skrm-bliss-root .badge { 
+        display: inline-block; padding: 0.4rem 1rem; border-radius: 20px;
+        background: rgba(171, 206, 201, 0.2); color: var(--brand-primary);
+        font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; border: 1px solid var(--brand-primary);
     }
+    #skrm-bliss-root .feature-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+    #skrm-bliss-root .feature-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; color: var(--text-muted); }
+    #skrm-bliss-root .feature-list li::before { content: '✓'; color: var(--brand-primary); font-weight: 900; }
 
-    #skrm-bliss-root .hero-btns {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
+    /* Services Grid */
+    #skrm-bliss-root .section-header { text-align: center; margin-bottom: 4rem; margin-top: 6rem; }
+    #skrm-bliss-root .section-title { font-size: 3rem; font-weight: 900; margin-bottom: 1rem; color: var(--text-main); }
+    #skrm-bliss-root .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    #skrm-bliss-root .service-card { padding: 2rem; }
+    #skrm-bliss-root .service-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: inline-block; }
 
-    #skrm-bliss-root .hero-bento {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-
-    /* --- MATTE GLASS CARDS --- */
-    #skrm-bliss-root .bento-card,
-    #skrm-bliss-root .service-card,
-    #skrm-bliss-root .timeline-content,
-    #skrm-bliss-root .feature-banner,
-    #skrm-bliss-root .glass-form {
-      background: var(--glass-surface);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      box-shadow: var(--glass-shadow), var(--glass-inset);
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #skrm-bliss-root .bento-card:hover,
-    #skrm-bliss-root .service-card:hover,
-    #skrm-bliss-root .timeline-content:hover,
-    #skrm-bliss-root .glass-form:hover {
-      transform: translateY(-6px) scale(1.01);
-      background: var(--card-hover-bg);
-      border-color: var(--brand-primary);
-      box-shadow: var(--glow-spread) var(--glow-color), var(--glass-inset);
-      z-index: 10;
-    }
-
-    #skrm-bliss-root .bento-wide {
-      grid-column: span 2;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 2rem;
-    }
-
-    #skrm-bliss-root .bento-card {
-      padding: 2rem;
-    }
-
-    #skrm-bliss-root .stat-block {
-      text-align: center;
-    }
-
-    #skrm-bliss-root .stat-num {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: var(--brand-primary);
-      text-shadow: 0 0 20px rgba(171, 206, 201, 0.4);
-    }
-
-    #skrm-bliss-root .stat-label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    #skrm-bliss-root .bento-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-      color: var(--text-on-brand);
-      display: grid;
-      place-items: center;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    #skrm-bliss-root .bento-card h3 {
-      color: var(--text-main);
-      margin-bottom: 0.5rem;
-    }
-
-    #skrm-bliss-root .bento-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    #skrm-bliss-root .feature-banner {
-      margin: 6rem 0;
-      padding: 3rem;
-      display: flex;
-      align-items: center;
-      gap: 4rem;
-    }
-
-    #skrm-bliss-root .feature-visual {
-      flex: 1;
-      position: relative;
-      height: 360px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #skrm-bliss-root .feature-img {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 20px;
-      transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
-      box-shadow: -20px 20px 60px rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--glass-border);
-      transition: transform 0.5s ease;
-    }
-
-    #skrm-bliss-root .feature-banner:hover .feature-img {
-      transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.05);
-    }
-
-    #skrm-bliss-root .feature-content {
-      flex: 1;
-      z-index: 2;
-    }
-
-    #skrm-bliss-root .badge {
-      display: inline-block;
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      background: rgba(171, 206, 201, 0.2);
-      color: var(--brand-primary);
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      border: 1px solid var(--brand-secondary);
-    }
-
-    #skrm-bliss-root .feature-content h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-      color: var(--text-main);
-    }
-
-    #skrm-bliss-root .feature-list li {
-      margin-bottom: 0.8rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-muted);
-    }
-
-    #skrm-bliss-root .feature-list li::before {
-      content: '✓';
-      display: grid;
-      place-items: center;
-      width: 20px;
-      height: 20px;
-      background: var(--brand-secondary);
-      border-radius: 50%;
-      color: var(--text-on-brand);
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    #skrm-bliss-root .section-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    #skrm-bliss-root .section-title {
-      font-size: 3rem;
-      font-weight: 900;
-      margin-bottom: 1rem;
-      color: var(--text-main);
-    }
-
-    #skrm-bliss-root .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    #skrm-bliss-root .service-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      display: inline-block;
-    }
-
-    #skrm-bliss-root .service-card:hover .service-icon {
-      animation: pulse 1s infinite;
-      text-shadow: 0 0 15px var(--brand-primary);
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.1);
-      }
-
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    #skrm-bliss-root .service-card h3 {
-      color: var(--text-main);
-      margin-bottom: 0.5rem;
-    }
-
-    #skrm-bliss-root .service-card p {
-      color: var(--text-muted);
-    }
-
-    #skrm-bliss-root .timeline {
-      position: relative;
-      max-width: 800px;
-      margin: 4rem auto;
-    }
-
+    /* Timeline */
+    #skrm-bliss-root .timeline { position: relative; max-width: 800px; margin: 4rem auto; }
     #skrm-bliss-root .timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--brand-primary), var(--brand-secondary));
-      transform: translateX(-50%);
+      content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, var(--brand-primary), var(--brand-secondary)); transform: translateX(-50%);
     }
-
-    #skrm-bliss-root .timeline-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 4rem;
-      width: 100%;
-      position: relative;
-    }
-
-    #skrm-bliss-root .timeline-item:nth-child(even) {
-      flex-direction: row-reverse;
-    }
-
+    #skrm-bliss-root .timeline-item { display: flex; justify-content: space-between; margin-bottom: 4rem; width: 100%; position: relative; }
+    #skrm-bliss-root .timeline-item:nth-child(even) { flex-direction: row-reverse; }
     #skrm-bliss-root .timeline-dot {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translate(-50%, 0);
-      width: 40px;
-      height: 40px;
-      background: var(--glass-surface);
-      backdrop-filter: blur(10px);
-      border: 3px solid var(--brand-primary);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      z-index: 2;
-      color: var(--brand-primary);
-      font-weight: 800;
-      box-shadow: 0 0 20px var(--glow-color);
+      position: absolute; left: 50%; top: 0; transform: translate(-50%, 0);
+      width: 40px; height: 40px; background: var(--glass-surface);
+      border: 3px solid var(--brand-primary); border-radius: 50%;
+      display: grid; place-items: center; z-index: 2; color: var(--brand-primary); font-weight: 800;
+      box-shadow: 0 0 20px var(--card-glow-base);
     }
+    #skrm-bliss-root .timeline-content { width: 45%; padding: 2rem; }
+    #skrm-bliss-root .timeline-step { font-size: 0.8rem; text-transform: uppercase; color: var(--brand-primary); margin-bottom: 0.5rem; display: block; }
 
-    #skrm-bliss-root .timeline-content {
-      width: 45%;
-      padding: 2rem;
+    /* Contact */
+    #skrm-bliss-root .contact-section { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 6rem 0; }
+    #skrm-bliss-root .glass-form { padding: 3rem; }
+    #skrm-bliss-root input, #skrm-bliss-root textarea {
+      width: 100%; padding: 1rem; margin-bottom: 1.2rem;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border);
+      border-radius: 12px; color: var(--text-main); font-family: inherit; transition: 0.3s;
     }
+    #skrm-bliss-root input:focus, #skrm-bliss-root textarea:focus { outline: none; border-color: var(--brand-primary); box-shadow: 0 0 15px var(--card-glow-base); }
 
-    #skrm-bliss-root .timeline-step {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      color: var(--brand-secondary);
-      margin-bottom: 0.5rem;
-      display: block;
-      letter-spacing: 1px;
-    }
-
-    #skrm-bliss-root .timeline-content h3 {
-      color: var(--text-main);
-    }
-
-    #skrm-bliss-root .timeline-content p {
-      color: var(--text-muted);
-    }
-
-    #skrm-bliss-root .contact-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      margin: 6rem 0;
-    }
-
-    #skrm-bliss-root .glass-form {
-      padding: 3rem;
-    }
-
-    #skrm-bliss-root .glass-form h2 {
-      color: var(--text-main);
-    }
-
-    #skrm-bliss-root input,
-    #skrm-bliss-root textarea {
-      width: 100%;
-      padding: 1rem;
-      margin-bottom: 1.2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      color: var(--text-main);
-      font-family: inherit;
-      transition: 0.3s;
-    }
-
-    #skrm-bliss-root input:focus,
-    #skrm-bliss-root textarea:focus {
-      outline: none;
-      border-color: var(--brand-primary);
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 15px var(--glow-color);
-    }
-
+    /* Footer */
     #skrm-bliss-root footer {
-      border-top: 1px solid var(--glass-border);
-      padding: 4rem 0 2rem;
-      background: var(--glass-surface);
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
-      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border); padding: 4rem 0 2rem;
+      background: var(--glass-surface); backdrop-filter: blur(20px);
     }
+    #skrm-bliss-root .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+    #skrm-bliss-root .footer-links a { display: block; color: var(--text-muted); margin-bottom: 0.8rem; text-decoration: none; }
+    #skrm-bliss-root .footer-links a:hover { color: var(--brand-primary); }
 
-    #skrm-bliss-root .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-
-    #skrm-bliss-root .footer-links h4 {
-      color: var(--text-main);
-      margin-bottom: 1rem;
-    }
-
-    #skrm-bliss-root .footer-links a {
-      display: block;
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-bottom: 0.8rem;
-      transition: 0.3s;
-    }
-
-    #skrm-bliss-root .footer-links a:hover {
-      color: var(--brand-primary);
-      padding-left: 5px;
-      text-shadow: 0 0 10px var(--brand-primary);
-    }
-
-    /* --- FLOATING WIDGETS --- */
-    #skrm-bliss-root .fab-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      z-index: 9999;
-    }
-
+    /* Widgets & Modals */
+    #skrm-bliss-root .fab-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 1rem; z-index: 9999; }
     #skrm-bliss-root .fab {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: var(--glass-surface);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), var(--glass-inset);
-      transition: all 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
+      width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--glass-surface); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+      color: var(--text-main); cursor: pointer; text-decoration: none;
+      
+      /* Heartbeat for FABs too */
+      animation: skrm-heartbeat 3s infinite ease-in-out;
     }
+    #skrm-bliss-root .fab:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--brand-primary); animation: none; }
+    #skrm-bliss-root .fab.whatsapp svg { fill: #25D366; }
 
-    #skrm-bliss-root .fab:hover {
-      transform: scale(1.15);
-      border-color: var(--brand-primary);
-      box-shadow: 0 0 30px var(--brand-primary), inset 0 0 10px rgba(255, 255, 255, 0.2);
-      background: var(--glass-surface);
-    }
-
-    #skrm-bliss-root .fab.whatsapp svg {
-      fill: #25D366;
-      filter: drop-shadow(0 0 2px #25D366);
-    }
-
-    #skrm-bliss-root .fab.phone {
-      font-size: 1.5rem;
-    }
-
-    /* --- MODALS (Scoped) --- */
     #skrm-bliss-root .modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
     }
-
-    #skrm-bliss-root .modal-overlay.active {
-      display: flex;
-      opacity: 1;
-    }
-
+    #skrm-bliss-root .modal-overlay.active { display: flex; }
     #skrm-bliss-root .modal-content {
-      width: 90%;
-      max-width: 500px;
-      padding: 2rem;
-      border: 1px solid var(--brand-primary);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
-    }
-
-    #skrm-bliss-root .modal-overlay.active .modal-content {
-      transform: scale(1);
-    }
-
-    #skrm-bliss-root .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-
-    #skrm-bliss-root .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 0.5rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    #skrm-bliss-root .day-name {
-      font-weight: 700;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    #skrm-bliss-root .calendar-day {
-      padding: 0.5rem;
-      border-radius: 8px;
-      cursor: pointer;
-      color: var(--text-main);
-      font-weight: 500;
-      transition: 0.2s;
-    }
-
-    #skrm-bliss-root .calendar-day:hover:not(.disabled) {
-      background: var(--brand-secondary);
+      width: 90%; max-width: 500px; padding: 2rem; border-radius: 24px;
+      background: #0f1014; border: 1px solid var(--brand-primary); box-shadow: 0 0 50px var(--card-glow-pulse);
       color: white;
     }
-
-    #skrm-bliss-root .calendar-day.selected {
-      background: var(--brand-primary);
-      color: var(--text-on-brand);
-    }
-
-    #skrm-bliss-root .calendar-day.disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    #skrm-bliss-root .time-slots {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.8rem;
-      max-height: 200px;
-      overflow-y: auto;
-      margin-bottom: 1.5rem;
-    }
-
-    #skrm-bliss-root .time-slot {
-      padding: 0.6rem;
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      font-size: 0.9rem;
-      color: var(--text-main);
-      transition: 0.2s;
-    }
-
-    #skrm-bliss-root .time-slot:hover {
-      border-color: var(--brand-primary);
-      background: rgba(171, 206, 201, 0.1);
-    }
-
-    #skrm-bliss-root .time-slot.selected {
-      background: var(--brand-primary);
-      color: var(--text-on-brand);
-      border-color: var(--brand-primary);
-    }
-
+    #skrm-bliss-root .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 15px 0; text-align: center; }
+    #skrm-bliss-root .calendar-day { padding: 8px; border-radius: 5px; cursor: pointer; }
+    #skrm-bliss-root .calendar-day:hover { background: var(--brand-primary); color: black; }
+    #skrm-bliss-root .calendar-day.selected { background: var(--brand-primary); color: black; font-weight: bold; }
+    #skrm-bliss-root .time-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-height: 200px; overflow-y: auto; margin: 15px 0; }
+    #skrm-bliss-root .time-slot { padding: 8px; border: 1px solid #333; text-align: center; cursor: pointer; border-radius: 5px; }
+    #skrm-bliss-root .time-slot:hover, #skrm-bliss-root .time-slot.selected { background: var(--brand-primary); color: black; }
+    
     #skrm-bliss-root .cookie-banner {
-      position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      max-width: 360px;
-      z-index: 9998;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transform: translateY(150%);
-      transition: transform 0.5s ease;
+      position: fixed; bottom: 20px; left: 20px; padding: 20px; background: var(--glass-surface);
+      border: 1px solid var(--glass-border); border-radius: 16px; backdrop-filter: blur(20px);
+      display: none; flex-direction: column; gap: 10px; z-index: 9998; max-width: 300px;
     }
+    #skrm-bliss-root .cookie-banner.show { display: flex; }
 
-    #skrm-bliss-root .cookie-banner.show {
-      transform: translateY(0);
-    }
-
-    #skrm-bliss-root .btn-small {
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    #skrm-bliss-root .btn-accept {
-      background: var(--brand-primary);
-      color: var(--text-on-brand);
-      border: none;
-    }
-
-    #skrm-bliss-root .btn-decline {
-      background: transparent;
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-    }
-
+    /* --- RESPONSIVE --- */
     @media (max-width: 968px) {
-      #skrm-bliss-root .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 3rem;
-      }
-
-      #skrm-bliss-root .hero-btns {
-        justify-content: center;
-      }
-
-      #skrm-bliss-root .feature-banner {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      #skrm-bliss-root .contact-section {
-        grid-template-columns: 1fr;
-      }
-
-      #skrm-bliss-root .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      #skrm-bliss-root .cookie-banner {
-        left: 1rem;
-        right: 1rem;
-        bottom: 1rem;
-        width: auto;
-        max-width: none;
-      }
+      #skrm-bliss-root .hero { grid-template-columns: 1fr; text-align: center; }
+      #skrm-bliss-root .hero-btns { justify-content: center; }
+      #skrm-bliss-root .feature-banner { flex-direction: column; text-align: center; }
+      #skrm-bliss-root .contact-section { grid-template-columns: 1fr; }
+      #skrm-bliss-root .footer-grid { grid-template-columns: 1fr 1fr; }
     }
-
     @media (max-width: 768px) {
-      #skrm-bliss-root h1 {
-        font-size: 2.8rem;
-      }
-
-      #skrm-bliss-root .timeline::before {
-        left: 20px;
-      }
-
-      #skrm-bliss-root .timeline-dot {
-        left: 20px;
-      }
-
-      #skrm-bliss-root .timeline-item {
-        flex-direction: column;
-        padding-left: 60px;
-        margin-bottom: 3rem;
-      }
-
-      #skrm-bliss-root .timeline-item:nth-child(even) {
-        flex-direction: column;
-      }
-
-      #skrm-bliss-root .timeline-content {
-        width: 100%;
-      }
-
-      #skrm-bliss-root .nav-links {
-        display: none;
-      }
-
-      #skrm-bliss-root .mobile-menu-btn {
-        display: block;
-      }
-
-      #skrm-bliss-root .hero-bento {
-        grid-template-columns: 1fr;
-      }
-
-      #skrm-bliss-root .bento-wide {
-        grid-column: span 1;
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      #skrm-bliss-root .footer-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
+      #skrm-bliss-root .nav-links { display: none; }
+      #skrm-bliss-root .mobile-menu-btn { display: block; }
+      #skrm-bliss-root .hero h1 { font-size: 2.5rem; }
+      #skrm-bliss-root .hero-bento { grid-template-columns: 1fr; }
+      #skrm-bliss-root .bento-wide { grid-column: span 1; flex-direction: column; gap: 2rem; }
+      #skrm-bliss-root .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      
+      /* Timeline Mobile */
+      #skrm-bliss-root .timeline::before { left: 20px; }
+      #skrm-bliss-root .timeline-dot { left: 20px; }
+      #skrm-bliss-root .timeline-item { flex-direction: column; padding-left: 60px; margin-bottom: 3rem; }
+      #skrm-bliss-root .timeline-item:nth-child(even) { flex-direction: column; }
+      #skrm-bliss-root .timeline-content { width: 100%; }
     }
   </style>
-  <div class="bg-gradient"></div>
+
+  <div style="position: absolute; inset: 0; background: radial-gradient(circle at 15% 50%, var(--bg-blob-1) 0%, transparent 50%), radial-gradient(circle at 85% 80%, var(--bg-blob-2) 0%, transparent 50%); pointer-events: none; z-index: 0;"></div>
+
   <nav>
-    <a href="#" class="logo">
-      <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png" alt="SKRM Bliss AI"> SKRMBliss.ai </a>
+    <a href="https://www.skrmblissai.in" class="logo">
+      <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png" alt="SKRM Bliss AI"> SKRMBliss.ai 
+    </a>
     <ul class="nav-links">
-      <li>
-        <a href="#services" data-i18n="nav_services">Services</a>
-      </li>
-      <li>
-        <a href="#process" data-i18n="nav_process">Process</a>
-      </li>
-      <li>
-        <a href="#contact" data-i18n="nav_contact">Contact</a>
-      </li>
+      <li><a href="#services" data-i18n="nav_services">Services</a></li>
+      <li><a href="#process" data-i18n="nav_process">Process</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
     </ul>
     <div class="controls">
       <select id="langSelect" class="lang-select">
@@ -977,17 +349,19 @@
         <option value="fr">FR</option>
       </select>
       <button class="theme-toggle" id="themeToggle" title="Switch Theme">
-        <span id="themeIcon">🌙</span>
+        <span id="themeIcon">☀️</span>
       </button>
       <button class="btn-primary" style="padding:0.6rem 1.2rem; font-size:0.9rem;" onclick="openBooking()" data-i18n="nav_cta">Book a Call</button>
       <button class="mobile-menu-btn">☰</button>
     </div>
   </nav>
+
   <div class="container">
     <header class="hero">
       <div class="hero-content">
         <h1>
           <span data-i18n="hero_title_1">Build digital experiences</span>
+          <br>
           <span class="gradient-text" data-i18n="hero_title_2">that convert</span>
         </h1>
         <p data-i18n="hero_desc">We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.</p>
@@ -1023,6 +397,7 @@
         </div>
       </div>
     </header>
+
     <section class="feature-banner">
       <div class="feature-visual">
         <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App Interface" class="feature-img" loading="lazy">
@@ -1043,6 +418,7 @@
         <a href="https://www.skrmblissai.in/laughterapp" class="btn-primary" style="display:inline-block; margin-top:1rem;" data-i18n="feat_cta">Claim Your App →</a>
       </div>
     </section>
+
     <section id="services">
       <div class="section-header">
         <h2 class="section-title" data-i18n="srv_title">Our Services</h2>
@@ -1081,6 +457,7 @@
         </div>
       </div>
     </section>
+
     <section id="process">
       <div class="section-header" style="margin-top:8rem;">
         <h2 class="section-title" data-i18n="proc_title">How We Work</h2>
@@ -1120,6 +497,7 @@
         </div>
       </div>
     </section>
+
     <section id="contact" class="contact-section">
       <div class="glass-form">
         <h2 style="margin-bottom:1.5rem;" data-i18n="contact_title">Let's Build Something</h2>
@@ -1143,13 +521,14 @@
             <strong>Location:</strong> Bengaluru, India
           </p>
         </div>
-        <div class="service-card" style="background: var(--card-hover-bg);">
+        <div class="service-card" style="background: var(--card-glow-base);">
           <h3 data-i18n="ready_title">Ready to start?</h3>
           <p data-i18n="ready_desc">Our typical response time is within 24 hours.</p>
         </div>
       </div>
     </section>
   </div>
+
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -1178,13 +557,15 @@
       <div style="text-align:center; color:var(--text-muted); border-top:1px solid var(--glass-border); padding-top:2rem;"> &copy; <span id="year"></span> SKRM Bliss AI — Built with Care in Bengaluru. </div>
     </div>
   </footer>
+
   <div id="cookieBanner" class="cookie-banner">
     <div class="cookie-text"> We use cookies to enhance your experience and analyze traffic. By continuing, you agree to our use of cookies. </div>
     <div class="cookie-btns">
-      <button class="btn-small btn-accept" onclick="acceptCookies()">Accept</button>
-      <button class="btn-small btn-decline" onclick="hideCookieBanner()">Decline</button>
+      <button class="btn-small btn-primary" onclick="acceptCookies()">Accept</button>
+      <button class="btn-small btn-glass" onclick="hideCookieBanner()">Decline</button>
     </div>
   </div>
+
   <div class="fab-container">
     <a href="https://wa.me/+918217581238" target="_blank" class="fab whatsapp" title="Chat on WhatsApp">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
@@ -1193,15 +574,16 @@
     </a>
     <button onclick="openBooking()" class="fab phone" title="Book a Call"> 📞 </button>
   </div>
+
   <div class="modal-overlay" id="bookingModal">
     <div class="modal-content">
-      <button class="close-modal" onclick="closeBooking()">&times;</button>
+      <button class="close-modal" onclick="closeBooking()" style="float:right; background:none; border:none; color:white; font-size:1.5rem;">&times;</button>
       <h2 style="margin-bottom:0.5rem; text-align:center;" data-i18n="book_title">Book a Call</h2>
       <p style="text-align:center; color:var(--text-muted); margin-bottom:1.5rem;" data-i18n="book_subtitle">Select a slot (IST 08:00 AM - 09:00 PM)</p>
       <div id="calendarView">
-        <div class="calendar-header">
+        <div class="calendar-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
           <button onclick="changeMonth(-1)" class="btn-glass" style="padding:5px 10px;">&lt;</button>
-          <h3 id="currentMonthYear"></h3>
+          <h3 id="currentMonthYear" style="margin:0;"></h3>
           <button onclick="changeMonth(1)" class="btn-glass" style="padding:5px 10px;">&gt;</button>
         </div>
         <div class="calendar-grid" id="calendarDays"></div>
@@ -1212,40 +594,194 @@
     </div>
   </div>
 </div>
+
 <script>
-  (function() { // --- 1. SCOPED CONSTANTS --- const translations = { en: { nav_services: "Services", nav_process: "Process", nav_contact: "Contact", nav_cta: "Book a Call", nav_company: "Company", nav_social: "Social", hero_title_1: "Build digital experiences", hero_title_2: "that convert", hero_desc: "We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.", btn_explore: "Explore Services", btn_talk: "Talk to Us", btn_book: "Book 1:1 Call", stat_projects: "Projects", stat_clients: "Clients", stat_users: "Users", card_packs_title: "Ready Packs", card_packs_desc: "Mock papers & marketing assets ready to use.", card_fast_title: "Fast Deploy", card_fast_desc: "Launch your MVP in days, not months.", feat_badge: "✨ New for Coaches", feat_title_1: "Launch Your Own", feat_title_2: "AI Laughter App", feat_desc: "Rebrand our proven AI Laughter Coach for your audience. No coding required.", feat_li_1: "PWA Ready (No App Store fees)", feat_li_2: "24/7 AI Coach for students", feat_li_3: "Your Logo & Brand Colors", feat_cta: "Claim Your App →", srv_title: "Our Services", srv_sub: "Complete digital growth solutions tailored for you.", srv_web: "Web Apps", srv_tools: "Interactive Tools", srv_funnels: "Funnels", srv_design: "Design", srv_portals: "Course Portals", srv_mobile: "Mobile Solutions", proc_title: "How We Work", proc_1_title: "Brief & Strategy", proc_1_desc: "We understand your goals through a discovery call.", proc_2_title: "Wireframes & Roadmap", proc_2_desc: "Project mapping so expectations are clear.", proc_3_title: "Design & Develop", proc_3_desc: "Coding and design with regular review loops.", proc_4_title: "Deploy & Support", proc_4_desc: "Handover files and provide ongoing maintenance.", contact_title: "Let's Build Something", lbl_name: "Name", lbl_email: "Email", lbl_msg: "Message", btn_send: "Send Message", info_title: "Contact Info", ready_title: "Ready to start?", ready_desc: "Typical response time: 24 hours.", footer_desc: "Helping creators build better digital products with tech and design.", book_title: "Book a Call", book_subtitle: "Select a slot (IST 08:00 AM - 09:00 PM)", book_slots: "Available Slots", book_confirm: "Confirm Booking" }, hi: { nav_services: "सेवाएं", nav_process: "प्रक्रिया", nav_contact: "संपर्क", nav_cta: "कॉल बुक करें", hero_title_1: "डिजिटल अनुभव बनाएं", hero_title_2: "जो बदलते हैं", btn_explore: "सेवाएं देखें", btn_talk: "बात करें", btn_book: "कॉल बुक करें", book_title: "कॉल बुक करें", book_subtitle: "समय चुनें (IST 08:00 AM - 09:00 PM)", book_slots: "उपलब्ध समय", book_confirm: "बुकिंग कन्फर्म करें" }, es: { nav_services: "Servicios", nav_process: "Proceso", nav_contact: "Contacto", nav_cta: "Reservar", hero_title_1: "Crea experiencias digitales", hero_title_2: "que convierten", btn_explore: "Explorar Servicios", btn_talk: "Hablemos", btn_book: "Reservar Llamada", book_title: "Reservar Llamada", book_subtitle: "Selecciona hora (IST 08:00 AM - 09:00 PM)", book_slots: "Horarios Disponibles", book_confirm: "Confirmar Reserva" }, fr: { nav_services: "Services", nav_process: "Processus", nav_contact: "Contact", nav_cta: "Réserver", hero_title_1: "Créez des expériences", hero_title_2: "numériques qui convertissent", btn_explore: "Explorer", btn_talk: "Discutons", btn_book: "Réserver un appel", book_title: "Réserver un appel", book_subtitle: "Choisir un créneau (IST 08h00 - 21h00)", book_slots: "Créneaux disponibles", book_confirm: "Confirmer" } }; const root = document.getElementById('skrm-bliss-root'); // --- 2. LANGUAGE LOGIC --- const langSelect = root.querySelector('#langSelect'); function updateLanguage(lang) { root.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if(translations[lang] && translations[lang][key]) { el.textContent = translations[lang][key]; } }); localStorage.setItem('skrm_lang', lang); } if(langSelect) { langSelect.addEventListener('change', (e) => { updateLanguage(e.target.value); }); const savedLang = localStorage.getItem('skrm_lang') || 'en'; langSelect.value = savedLang; updateLanguage(savedLang); } // --- 3. THEME TOGGLE LOGIC --- const themeBtn = root.querySelector('#themeToggle'); const themeIcon = root.querySelector('#themeIcon'); const savedTheme = localStorage.getItem('theme'); if(savedTheme === 'dark') { root.setAttribute('data-theme', 'dark'); if(themeIcon) themeIcon.textContent = '☀️'; } if(themeBtn) { themeBtn.addEventListener('click', () => { if(root.getAttribute('data-theme') === 'dark') { root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); themeIcon.textContent = '🌙'; } else { root.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); themeIcon.textContent = '☀️'; } }); } // --- 4. COOKIE BANNER --- const cookieBanner = root.querySelector('#cookieBanner'); if(!localStorage.getItem('cookieConsent') && cookieBanner) { setTimeout(() => cookieBanner.classList.add('show'), 1500); } window.acceptCookies = function() { localStorage.setItem('cookieConsent', 'true'); window.hideCookieBanner(); }; window.hideCookieBanner = function() { if(cookieBanner) cookieBanner.classList.remove('show'); }; // --- 5. UTILITIES --- const yearEl = root.querySelector('#year'); if(yearEl) yearEl.textContent = new Date().getFullYear(); // Form Handling const form = root.querySelector('#contactForm'); if(form) { form.addEventListener('submit', async (e) => { e.preventDefault(); const status = root.querySelector('#formStatus'); const btn = form.querySelector('button'); const ogText = btn.textContent; btn.textContent = '...'; try { const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } }); if (response.ok) { status.textContent = "Message sent successfully!"; status.style.color = "#25D366"; form.reset(); } else { status.textContent = "Oops! Problem sending message."; status.style.color = "#ef4444"; } } catch (err) { status.textContent = "Error sending message."; status.style.color = "#ef4444"; } btn.textContent = ogText; }); } // --- 6. BOOKING CALENDAR LOGIC (IST 8am-9pm) --- const modal = root.querySelector('#bookingModal'); const calendarDays = root.querySelector('#calendarDays'); const timeSlots = root.querySelector('#timeSlots'); const slotTitle = root.querySelector('#slotTitle'); const confirmBtn = root.querySelector('#confirmBtn'); const monthYear = root.querySelector('#currentMonthYear'); let currentDate = new Date(); let selectedDate = null; let selectedTime = null; window.openBooking = function() { modal.classList.add('active'); renderCalendar(); } window.closeBooking = function() { modal.classList.remove('active'); resetBooking(); } function resetBooking() { selectedDate = null; selectedTime = null; if(timeSlots) timeSlots.innerHTML = ''; if(slotTitle) slotTitle.style.display = 'none'; if(confirmBtn) confirmBtn.style.display = 'none'; renderCalendar(); } window.renderCalendar = function() { if(!calendarDays || !monthYear) return; const year = currentDate.getFullYear(); const month = currentDate.getMonth(); monthYear.textContent = currentDate.toLocaleDateString('default', { month: 'long', year: 'numeric' }); const firstDay = new Date(year, month, 1).getDay(); const daysInMonth = new Date(year, month + 1, 0).getDate(); calendarDays.innerHTML = ''; const days = ['S','M','T','W','T','F','S']; days.forEach(d => { const div = document.createElement('div'); div.className = 'day-name'; div.innerText = d; calendarDays.appendChild(div); }); for(let i=0; i
-      < firstDay;
-      i++) {
-      calendarDays.appendChild(document.createElement('div'));
+  (function() { 
+    // --- 1. SCOPED CONSTANTS --- 
+    const translations = { 
+        en: { nav_services: "Services", nav_process: "Process", nav_contact: "Contact", nav_cta: "Book a Call", nav_company: "Company", nav_social: "Social", hero_title_1: "Build digital experiences", hero_title_2: "that convert", hero_desc: "We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.", btn_explore: "Explore Services", btn_talk: "Talk to Us", btn_book: "Book 1:1 Call", stat_projects: "Projects", stat_clients: "Clients", stat_users: "Users", card_packs_title: "Ready Packs", card_packs_desc: "Mock papers & marketing assets ready to use.", card_fast_title: "Fast Deploy", card_fast_desc: "Launch your MVP in days, not months.", feat_badge: "✨ New for Coaches", feat_title_1: "Launch Your Own", feat_title_2: "AI Laughter App", feat_desc: "Rebrand our proven AI Laughter Coach for your audience. No coding required.", feat_li_1: "PWA Ready (No App Store fees)", feat_li_2: "24/7 AI Coach for students", feat_li_3: "Your Logo & Brand Colors", feat_cta: "Claim Your App →", srv_title: "Our Services", srv_sub: "Complete digital growth solutions tailored for you.", srv_web: "Web Apps", srv_tools: "Interactive Tools", srv_funnels: "Funnels", srv_design: "Design", srv_portals: "Course Portals", srv_mobile: "Mobile Solutions", proc_title: "How We Work", proc_1_title: "Brief & Strategy", proc_1_desc: "We understand your goals through a discovery call.", proc_2_title: "Wireframes & Roadmap", proc_2_desc: "Project mapping so expectations are clear.", proc_3_title: "Design & Develop", proc_3_desc: "Coding and design with regular review loops.", proc_4_title: "Deploy & Support", proc_4_desc: "Handover files and provide ongoing maintenance.", contact_title: "Let's Build Something", lbl_name: "Name", lbl_email: "Email", lbl_msg: "Message", btn_send: "Send Message", info_title: "Contact Info", ready_title: "Ready to start?", ready_desc: "Typical response time: 24 hours.", footer_desc: "Helping creators build better digital products with tech and design.", book_title: "Book a Call", book_subtitle: "Select a slot (IST 08:00 AM - 09:00 PM)", book_slots: "Available Slots", book_confirm: "Confirm Booking" }, 
+        hi: { nav_services: "सेवाएं", nav_process: "प्रक्रिया", nav_contact: "संपर्क", nav_cta: "कॉल बुक करें", hero_title_1: "डिजिटल अनुभव बनाएं", hero_title_2: "जो बदलते हैं", btn_explore: "सेवाएं देखें", btn_talk: "बात करें", btn_book: "कॉल बुक करें", book_title: "कॉल बुक करें", book_subtitle: "समय चुनें (IST 08:00 AM - 09:00 PM)", book_slots: "उपलब्ध समय", book_confirm: "बुकिंग कन्फर्म करें" }, 
+        es: { nav_services: "Servicios", nav_process: "Proceso", nav_contact: "Contacto", nav_cta: "Reservar", hero_title_1: "Crea experiencias digitales", hero_title_2: "que convierten", btn_explore: "Explorar Servicios", btn_talk: "Hablemos", btn_book: "Reservar Llamada", book_title: "Reservar Llamada", book_subtitle: "Selecciona hora (IST 08:00 AM - 09:00 PM)", book_slots: "Horarios Disponibles", book_confirm: "Confirmar Reserva" }, 
+        fr: { nav_services: "Services", nav_process: "Processus", nav_contact: "Contact", nav_cta: "Réserver", hero_title_1: "Créez des expériences", hero_title_2: "numériques qui convertissent", btn_explore: "Explorer", btn_talk: "Discutons", btn_book: "Réserver un appel", book_title: "Réserver un appel", book_subtitle: "Choisir un créneau (IST 08h00 - 21h00)", book_slots: "Créneaux disponibles", book_confirm: "Confirmer" } 
+    }; 
+    const root = document.getElementById('skrm-bliss-root'); 
+    
+    // --- 2. LANGUAGE LOGIC --- 
+    const langSelect = root.querySelector('#langSelect'); 
+    function updateLanguage(lang) { 
+        root.querySelectorAll('[data-i18n]').forEach(el => { 
+            const key = el.getAttribute('data-i18n'); 
+            if(translations[lang] && translations[lang][key]) { el.textContent = translations[lang][key]; } 
+        }); 
+        localStorage.setItem('skrm_lang', lang); 
+    } 
+    if(langSelect) { 
+        langSelect.addEventListener('change', (e) => { updateLanguage(e.target.value); }); 
+        const savedLang = localStorage.getItem('skrm_lang') || 'en'; 
+        langSelect.value = savedLang; 
+        updateLanguage(savedLang); 
+    } 
+    
+    // --- 3. THEME TOGGLE LOGIC --- 
+    const themeBtn = root.querySelector('#themeToggle'); 
+    const themeIcon = root.querySelector('#themeIcon'); 
+    const savedTheme = localStorage.getItem('theme'); 
+    if(savedTheme === 'light') { 
+        root.setAttribute('data-theme', 'light'); 
+        if(themeIcon) themeIcon.textContent = '🌙'; 
+    } else {
+        root.setAttribute('data-theme', 'dark'); // Default
     }
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    for (let i = 1; i <= daysInMonth; i++) {
-      const div = document.createElement('div');
-      div.className = 'calendar-day';
-      div.innerText = i;
-      const thisDate = new Date(year, month, i);
-      if (thisDate < today) div.classList.add('disabled');
-      else {
-        div.onclick = () => selectDate(thisDate, div);
-      }
-      if (selectedDate && thisDate.toDateString() === selectedDate.toDateString()) {
-        div.classList.add('selected');
-      }
-      calendarDays.appendChild(div);
+
+    if(themeBtn) { 
+        themeBtn.addEventListener('click', () => { 
+            if(root.getAttribute('data-theme') === 'dark') { 
+                root.setAttribute('data-theme', 'light'); 
+                localStorage.setItem('theme', 'light'); 
+                themeIcon.textContent = '🌙'; 
+            } else { 
+                root.setAttribute('data-theme', 'dark'); 
+                localStorage.setItem('theme', 'dark'); 
+                themeIcon.textContent = '☀️'; 
+            } 
+        }); 
+    } 
+    
+    // --- 4. COOKIE BANNER --- 
+    const cookieBanner = root.querySelector('#cookieBanner'); 
+    if(!localStorage.getItem('cookieConsent') && cookieBanner) { 
+        setTimeout(() => cookieBanner.classList.add('show'), 1500); 
+    } 
+    window.acceptCookies = function() { 
+        localStorage.setItem('cookieConsent', 'true'); 
+        window.hideCookieBanner(); 
+    }; 
+    window.hideCookieBanner = function() { 
+        if(cookieBanner) cookieBanner.classList.remove('show'); 
+    }; 
+    
+    // --- 5. UTILITIES --- 
+    const yearEl = root.querySelector('#year'); 
+    if(yearEl) yearEl.textContent = new Date().getFullYear(); 
+    
+    // Form Handling (With Fallback)
+    const form = root.querySelector('#contactForm'); 
+    if(form) { 
+        form.addEventListener('submit', async (e) => { 
+            e.preventDefault(); 
+            const status = root.querySelector('#formStatus'); 
+            const btn = form.querySelector('button'); 
+            const ogText = btn.textContent; 
+            btn.textContent = '...'; 
+            
+            // Collect data for fallback
+            const formData = new FormData(form);
+            
+            try { 
+                const response = await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } }); 
+                if (response.ok) { 
+                    status.textContent = "Message sent successfully!"; 
+                    status.style.color = "#ABCEC9"; 
+                    form.reset(); 
+                } else { 
+                    fallbackToMailto(formData);
+                } 
+            } catch (err) { 
+                fallbackToMailto(formData);
+            } 
+            btn.textContent = ogText; 
+        }); 
+    } 
+    
+    function fallbackToMailto(formData) {
+       const name = formData.get('name') || '';
+       const body = `Name: ${name}%0AMessage: ${formData.get('message')}`;
+       window.location.href = `mailto:connect@skrmblissai.in?subject=Contact Request&body=${body}`;
     }
-  }
-  window.changeMonth = function(step) {
-    currentDate.setMonth(currentDate.getMonth() + step);
-    renderCalendar();
-  }
-  window.selectDate = function(date, el) {
-    root.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedDate = date;
-    generateTimeSlots();
-  }
-  window.generateTimeSlots = function() {
-      if (!slotTitle || !timeSlots) return;
-      slotTitle.style.display = 'block';
-      timeSlots.innerHTML = ''; // IST 8 AM to 9 PM (21:00) for(let hour=8; hour<=21; hour++) { const btn = document.createElement('div'); btn.className = 'time-slot'; const ampm = hour >= 12 ? 'PM' : 'AM'; const displayHour = hour > 12 ? hour - 12 : hour; btn.innerText = ${displayHour}:00 ${ampm}; btn.onclick = () => selectTime(btn); timeSlots.appendChild(btn); } } window.selectTime = function(el) { root.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected')); el.classList.add('selected'); selectedTime = el.innerText; if(confirmBtn) confirmBtn.style.display = 'block'; } window.submitBooking = function() { if(!selectedDate || !selectedTime) return; const dateStr = selectedDate.toLocaleDateString(); const subject = Booking Request: ${dateStr} at ${selectedTime}; const body = Hi SKRMBliss,\n\nI would like to book a call on ${dateStr} at ${selectedTime} (IST).\n\nPlease confirm availability.; window.location.href = mailto:connect@skrmblissai.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}; closeBooking(); } })(); 
+
+    // --- 6. BOOKING CALENDAR LOGIC (IST 8am-9pm) --- 
+    const modal = root.querySelector('#bookingModal'); 
+    const calendarDays = root.querySelector('#calendarDays'); 
+    const timeSlots = root.querySelector('#timeSlots'); 
+    const slotTitle = root.querySelector('#slotTitle'); 
+    const confirmBtn = root.querySelector('#confirmBtn'); 
+    const monthYear = root.querySelector('#currentMonthYear'); 
+    let currentDate = new Date(); 
+    let selectedDate = null; 
+    let selectedTime = null; 
+    
+    window.openBooking = function() { modal.classList.add('active'); renderCalendar(); } 
+    window.closeBooking = function() { modal.classList.remove('active'); resetBooking(); } 
+    
+    function resetBooking() { 
+        selectedDate = null; selectedTime = null; 
+        if(timeSlots) timeSlots.innerHTML = ''; 
+        if(slotTitle) slotTitle.style.display = 'none'; 
+        if(confirmBtn) confirmBtn.style.display = 'none'; 
+        renderCalendar(); 
+    } 
+    
+    window.renderCalendar = function() { 
+        if(!calendarDays || !monthYear) return; 
+        const year = currentDate.getFullYear(); 
+        const month = currentDate.getMonth(); 
+        monthYear.textContent = currentDate.toLocaleDateString('default', { month: 'long', year: 'numeric' }); 
+        const firstDay = new Date(year, month, 1).getDay(); 
+        const daysInMonth = new Date(year, month + 1, 0).getDate(); 
+        calendarDays.innerHTML = ''; 
+        const days = ['S','M','T','W','T','F','S']; 
+        days.forEach(d => { 
+            const div = document.createElement('div'); div.className = 'day-name'; div.innerText = d; calendarDays.appendChild(div); 
+        }); 
+        for(let i=0; i < firstDay; i++) { calendarDays.appendChild(document.createElement('div')); } 
+        const today = new Date(); today.setHours(0, 0, 0, 0); 
+        for (let i = 1; i <= daysInMonth; i++) { 
+            const div = document.createElement('div'); div.className = 'calendar-day'; div.innerText = i; 
+            const thisDate = new Date(year, month, i); 
+            if (thisDate < today) div.classList.add('disabled'); 
+            else { div.onclick = () => selectDate(thisDate, div); } 
+            if (selectedDate && thisDate.toDateString() === selectedDate.toDateString()) { div.classList.add('selected'); } 
+            calendarDays.appendChild(div); 
+        } 
+    } 
+    
+    window.changeMonth = function(step) { 
+        currentDate.setMonth(currentDate.getMonth() + step); renderCalendar(); 
+    } 
+    
+    window.selectDate = function(date, el) { 
+        root.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected')); 
+        el.classList.add('selected'); selectedDate = date; generateTimeSlots(); 
+    } 
+    
+    window.generateTimeSlots = function() { 
+        if (!slotTitle || !timeSlots) return; 
+        slotTitle.style.display = 'block'; 
+        timeSlots.innerHTML = ''; 
+        // IST 8 AM to 9 PM (21:00) 
+        for(let hour=8; hour<=21; hour++) { 
+            const btn = document.createElement('div'); btn.className = 'time-slot'; 
+            const ampm = hour >= 12 ? 'PM' : 'AM'; 
+            const displayHour = hour > 12 ? hour - 12 : hour; 
+            btn.innerText = `${displayHour}:00 ${ampm}`; 
+            btn.onclick = () => selectTime(btn); 
+            timeSlots.appendChild(btn); 
+        } 
+    } 
+    
+    window.selectTime = function(el) { 
+        root.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected')); 
+        el.classList.add('selected'); selectedTime = el.innerText; 
+        if(confirmBtn) confirmBtn.style.display = 'block'; 
+    } 
+    
+    window.submitBooking = function() { 
+        if(!selectedDate || !selectedTime) return; 
+        const dateStr = selectedDate.toLocaleDateString(); 
+        const subject = `Booking Request: ${dateStr} at ${selectedTime}`; 
+        const body = `Hi SKRMBliss,\n\nI would like to book a call on ${dateStr} at ${selectedTime} (IST).\n\nPlease confirm availability.`; 
+        window.location.href = `mailto:connect@skrmblissai.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; 
+        closeBooking(); 
+    } 
+})(); 
 </script>
