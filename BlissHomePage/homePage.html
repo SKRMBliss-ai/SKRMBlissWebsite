@@ -658,6 +658,59 @@
 
     }
 
+    #skrm-bliss-root .smart-carousel-wrapper {
+        position: relative;
+        overflow: hidden;
+        margin: 6rem 0;
+        padding: 40px 0; /* Vertical breathing room only */
+        width: 100%;
+    }
+
+    #skrm-bliss-root .smart-track {
+        display: flex;
+        width: 100%; /* Let flexbox handle the width */
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    #skrm-bliss-root .smart-slide {
+        /* 🔥 CRITICAL FIX: These 2 lines force 1 card per view */
+        min-width: 100%; 
+        flex: 0 0 100%; 
+        
+        display: flex;
+        justify-content: center;
+        padding: 0 15px; /* Small side buffer for mobile edges */
+        box-sizing: border-box;
+    }
+
+    #skrm-bliss-root .smart-slide .feature-banner {
+        width: 100%;
+        max-width: 1100px; /* Matches your original card max-width */
+        margin: 0 auto;
+    }
+
+    /* Controls */
+    #skrm-bliss-root .carousel-controls {
+        display: flex; justify-content: center; gap: 20px; 
+        margin-top: -20px; position: relative; z-index: 5;
+    }
+    #skrm-bliss-root .slider-arrow {
+        background: var(--glass-surface); border: 1px solid var(--brand-primary);
+        color: var(--brand-primary); width: 50px; height: 50px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; cursor: pointer;
+        font-weight: bold; transition: 0.3s;
+        box-shadow: 0 0 15px var(--card-glow-base);
+    }
+    #skrm-bliss-root .slider-arrow:hover { background: var(--brand-primary); color: black; transform: scale(1.1); }
+    #skrm-bliss-root .slider-dots { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+    #skrm-bliss-root .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--glass-border); cursor: pointer; transition: 0.3s; }
+    #skrm-bliss-root .dot.active { background: var(--brand-primary); width: 25px; border-radius: 10px; }
+
+    /* Mobile Text Fit */
+    @media (max-width: 768px) {
+        #skrm-bliss-root .feature-banner { padding: 2rem 1.5rem !important; }
+        #skrm-bliss-root .feature-img { width: 100%; }
+    }
   </style>
 
 
@@ -797,45 +850,64 @@
     </header>
 
 
+<section id="featureCarousel" class="smart-carousel-wrapper">
+      <div class="smart-track" id="track">
+        
+        <div class="smart-slide">
+          <div class="feature-banner"> <div class="feature-visual">
+              <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App Interface" class="feature-img" loading="lazy">
+            </div>
+            <div class="feature-content">
+              <span class="badge" data-i18n="feat_badge">✨ New for Coaches</span>
+              <h2>
+                <span data-i18n="feat_title_1">Launch Your Own</span>
+                <br>
+                <span class="gradient-text" data-i18n="feat_title_2">AI Laughter App</span>
+              </h2>
+              <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;" data-i18n="feat_desc"> Rebrand our proven AI Laughter Coach for your audience. No coding required. </p>
+              <ul class="feature-list">
+                <li data-i18n="feat_li_1">PWA Ready (No App Store fees)</li>
+                <li data-i18n="feat_li_2">24/7 AI Coach for students</li>
+                <li data-i18n="feat_li_3">Your Logo & Brand Colors</li>
+              </ul>
+              <a href="https://www.skrmblissai.in/laughterapp" class="btn-primary" style="display:inline-block; margin-top:1rem;" data-i18n="feat_cta">Claim Your App →</a>
+            </div>
+          </div>
+        </div>
 
-    <section class="feature-banner">
-
-      <div class="feature-visual">
-
-        <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App Interface" class="feature-img" loading="lazy">
+        <div class="smart-slide">
+          <div class="feature-banner">
+            <div class="feature-visual">
+              <img src="https://placehold.co/600x400/1e1e1e/ABCEC9?text=Presence+Protocol+App" alt="Presence Protocol" class="feature-img" loading="lazy">
+            </div>
+            <div class="feature-content">
+              <span class="badge" style="border-color:var(--brand-secondary); color:var(--brand-secondary); background:rgba(195, 184, 213, 0.2);">🧠 Mental Clarity</span>
+              <h2>
+                <span data-i18n="pres_title_1">Master Your State</span>
+                <br>
+                <span class="gradient-text" style="background: linear-gradient(135deg, var(--brand-secondary), white); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">The Presence Protocol</span>
+              </h2>
+              <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;">A digital sanctuary for high-performers. Reclaim your focus, dissolve stress, and align your energy daily.</p>
+              <ul class="feature-list">
+                <li>Guided Presence Meditations</li>
+                <li>Stress Tracking Dashboard</li>
+                <li>Daily Alignment Rituals</li>
+              </ul>
+              <a href="https://www.skrmblissai.in/thepresenceprotocol" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black;">Start Journey →</a>
+            </div>
+          </div>
+        </div>
 
       </div>
 
-      <div class="feature-content">
-
-        <span class="badge" data-i18n="feat_badge">✨ New for Coaches</span>
-
-        <h2>
-
-          <span data-i18n="feat_title_1">Launch Your Own</span>
-
-          <br>
-
-          <span class="gradient-text" data-i18n="feat_title_2">AI Laughter App</span>
-
-        </h2>
-
-        <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;" data-i18n="feat_desc"> Rebrand our proven AI Laughter Coach for your audience. No coding required. </p>
-
-        <ul class="feature-list">
-
-          <li data-i18n="feat_li_1">PWA Ready (No App Store fees)</li>
-
-          <li data-i18n="feat_li_2">24/7 AI Coach for students</li>
-
-          <li data-i18n="feat_li_3">Your Logo & Brand Colors</li>
-
-        </ul>
-
-        <a href="https://www.skrmblissai.in/laughterapp" class="btn-primary" style="display:inline-block; margin-top:1rem;" data-i18n="feat_cta">Claim Your App →</a>
-
+      <div class="carousel-controls">
+        <button class="slider-arrow" id="prevBtn">&lt;</button>
+        <button class="slider-arrow" id="nextBtn">&gt;</button>
       </div>
-
+      <div class="slider-dots">
+        <div class="dot active" data-slide="0"></div>
+        <div class="dot" data-slide="1"></div>
+      </div>
     </section>
 
 
@@ -1193,381 +1265,154 @@
 
 
 <script>
-
   (function() { 
-
-    // --- 1. SCOPED CONSTANTS --- 
-
+    // --- 1. SCOPED CONSTANTS & TRANSLATIONS --- 
     const translations = { 
-
-        en: { nav_services: "Services", nav_process: "Process", nav_contact: "Contact", nav_cta: "Book a Call", nav_company: "Company", nav_social: "Social", hero_title_1: "Build digital experiences", hero_title_2: "that convert", hero_desc: "We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.", btn_explore: "Explore Services", btn_talk: "Talk to Us", btn_book: "Book 1:1 Call", stat_projects: "Projects", stat_clients: "Clients", stat_users: "Users", card_packs_title: "Ready Packs", card_packs_desc: "Mock papers & marketing assets ready to use.", card_fast_title: "Fast Deploy", card_fast_desc: "Launch your MVP in days, not months.", feat_badge: "✨ New for Coaches", feat_title_1: "Launch Your Own", feat_title_2: "AI Laughter App", feat_desc: "Rebrand our proven AI Laughter Coach for your audience. No coding required.", feat_li_1: "PWA Ready (No App Store fees)", feat_li_2: "24/7 AI Coach for students", feat_li_3: "Your Logo & Brand Colors", feat_cta: "Claim Your App →", srv_title: "Our Services", srv_sub: "Complete digital growth solutions tailored for you.", srv_web: "Web Apps", srv_tools: "Interactive Tools", srv_funnels: "Funnels", srv_design: "Design", srv_portals: "Course Portals", srv_mobile: "Mobile Solutions", proc_title: "How We Work", proc_1_title: "Brief & Strategy", proc_1_desc: "We understand your goals through a discovery call.", proc_2_title: "Wireframes & Roadmap", proc_2_desc: "Project mapping so expectations are clear.", proc_3_title: "Design & Develop", proc_3_desc: "Coding and design with regular review loops.", proc_4_title: "Deploy & Support", proc_4_desc: "Handover files and provide ongoing maintenance.", contact_title: "Let's Build Something", lbl_name: "Name", lbl_email: "Email", lbl_msg: "Message", btn_send: "Send Message", info_title: "Contact Info", ready_title: "Ready to start?", ready_desc: "Typical response time: 24 hours.", footer_desc: "Helping creators build better digital products with tech and design.", book_title: "Book a Call", book_subtitle: "Select a slot (IST 08:00 AM - 09:00 PM)", book_slots: "Available Slots", book_confirm: "Confirm Booking" }, 
-
-        hi: { nav_services: "सेवाएं", nav_process: "प्रक्रिया", nav_contact: "संपर्क", nav_cta: "कॉल बुक करें", hero_title_1: "डिजिटल अनुभव बनाएं", hero_title_2: "जो बदलते हैं", btn_explore: "सेवाएं देखें", btn_talk: "बात करें", btn_book: "कॉल बुक करें", book_title: "कॉल बुक करें", book_subtitle: "समय चुनें (IST 08:00 AM - 09:00 PM)", book_slots: "उपलब्ध समय", book_confirm: "बुकिंग कन्फर्म करें" }, 
-
-        es: { nav_services: "Servicios", nav_process: "Proceso", nav_contact: "Contacto", nav_cta: "Reservar", hero_title_1: "Crea experiencias digitales", hero_title_2: "que convierten", btn_explore: "Explorar Servicios", btn_talk: "Hablemos", btn_book: "Reservar Llamada", book_title: "Reservar Llamada", book_subtitle: "Selecciona hora (IST 08:00 AM - 09:00 PM)", book_slots: "Horarios Disponibles", book_confirm: "Confirmar Reserva" }, 
-
-        fr: { nav_services: "Services", nav_process: "Processus", nav_contact: "Contact", nav_cta: "Réserver", hero_title_1: "Créez des expériences", hero_title_2: "numériques qui convertissent", btn_explore: "Explorer", btn_talk: "Discutons", btn_book: "Réserver un appel", book_title: "Réserver un appel", book_subtitle: "Choisir un créneau (IST 08h00 - 21h00)", book_slots: "Créneaux disponibles", book_confirm: "Confirmer" } 
-
+        en: { nav_services: "Services", nav_process: "Process", nav_contact: "Contact", nav_cta: "Book a Call", hero_title_1: "Build digital experiences", hero_title_2: "that convert", hero_desc: "We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.", btn_explore: "Explore Services", btn_book: "Book 1:1 Call", stat_projects: "Projects", stat_clients: "Clients", stat_users: "Users", card_packs_title: "Ready Packs", card_packs_desc: "Mock papers & marketing assets ready to use.", card_fast_title: "Fast Deploy", card_fast_desc: "Launch your MVP in days, not months.", feat_badge: "✨ New for Coaches", feat_title_1: "Launch Your Own", feat_title_2: "AI Laughter App", feat_desc: "Rebrand our proven AI Laughter Coach for your audience. No coding required.", feat_li_1: "PWA Ready (No App Store fees)", feat_li_2: "24/7 AI Coach for students", feat_li_3: "Your Logo & Brand Colors", feat_cta: "Claim Your App →", srv_title: "Our Services", srv_sub: "Complete digital growth solutions tailored for you.", srv_web: "Web Apps", srv_tools: "Interactive Tools", srv_funnels: "Funnels", srv_design: "Design", srv_portals: "Course Portals", srv_mobile: "Mobile Solutions", proc_title: "How We Work", proc_1_title: "Brief & Strategy", proc_1_desc: "We understand your goals through a discovery call.", proc_2_title: "Wireframes & Roadmap", proc_2_desc: "Project mapping so expectations are clear.", proc_3_title: "Design & Develop", proc_3_desc: "Coding and design with regular review loops.", proc_4_title: "Deploy & Support", proc_4_desc: "Handover files and provide ongoing maintenance.", contact_title: "Let's Build Something", lbl_name: "Name", lbl_email: "Email", lbl_msg: "Message", btn_send: "Send Message", info_title: "Contact Info", ready_title: "Ready to start?", ready_desc: "Typical response time: 24 hours.", footer_desc: "Helping creators build better digital products with tech and design.", book_title: "Book a Call", book_subtitle: "Select a slot (IST 08:00 AM - 09:00 PM)", book_slots: "Available Slots", book_confirm: "Confirm Booking" }, 
+        hi: { nav_services: "सेवाएं", nav_contact: "संपर्क", nav_cta: "कॉल बुक करें", hero_title_1: "डिजिटल अनुभव बनाएं", hero_title_2: "जो बदलते हैं" }
     }; 
-
     const root = document.getElementById('skrm-bliss-root'); 
-
     
+    // --- 2. CAROUSEL LOGIC WITH SMART SCROLL ---
+    const track = root.querySelector('#track');
+    const container = root.querySelector('#featureCarousel');
+    const prevBtn = root.querySelector('#prevBtn');
+    const nextBtn = root.querySelector('#nextBtn');
+    const dots = root.querySelectorAll('.dot');
+    let currentSlide = 0;
+    const totalSlides = 2; // We have 2 cards
+    
+function updateCarousel() {
+        if(!track) return;
+        // Shift by 100% per slide (e.g. 0%, -100%)
+        track.style.transform = `translateX(-${currentSlide * 100}%)`; 
+        dots.forEach((dot, idx) => dot.classList.toggle('active', idx === currentSlide));
+    }
+    
+   if(nextBtn) nextBtn.addEventListener('click', () => { 
+        currentSlide = (currentSlide === totalSlides - 1) ? 0 : currentSlide + 1; 
+        updateCarousel(); 
+    });
+    if(prevBtn) prevBtn.addEventListener('click', () => { 
+        currentSlide = (currentSlide === 0) ? totalSlides - 1 : currentSlide - 1; 
+        updateCarousel(); 
+    });
 
-    // --- 2. LANGUAGE LOGIC --- 
+   // Touch Swipe
+    let startX = 0, endX = 0;
+    if(container) {
+        container.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+        container.addEventListener('touchmove', (e) => endX = e.touches[0].clientX);
+        container.addEventListener('touchend', () => {
+            if(!endX) return; 
+            if(startX - endX > 50) { // Swipe Left
+                currentSlide = (currentSlide === totalSlides - 1) ? 0 : currentSlide + 1; 
+                updateCarousel();
+            } else if(startX - endX < -50) { // Swipe Right
+                currentSlide = (currentSlide === 0) ? totalSlides - 1 : currentSlide - 1; 
+                updateCarousel();
+            }
+            startX = 0; endX = 0;
+        });
+    }
 
+    // 🔥 SMART SCROLL TRIGGER LOGIC 🔥
+  // Scroll Trigger (Down = Slide 2, Up = Slide 1)
+    let lastScrollY = window.pageYOffset;
+    let isScrolling = false;
+    window.addEventListener('scroll', () => {
+        if(!container || isScrolling) return;
+        isScrolling = true; setTimeout(() => isScrolling = false, 150);
+        
+        const scrollY = window.pageYOffset;
+        const rect = container.getBoundingClientRect();
+        // Check if fully visible
+        const isVisible = (rect.top >= -100 && rect.bottom <= (window.innerHeight + 100));
+
+        if(isVisible) {
+            if (scrollY > lastScrollY && currentSlide === 0) {
+                setTimeout(() => { if(currentSlide === 0) { currentSlide = 1; updateCarousel(); } }, 400);
+            } else if (scrollY < lastScrollY && currentSlide === 1) {
+                setTimeout(() => { if(currentSlide === 1) { currentSlide = 0; updateCarousel(); } }, 400);
+            }
+        }
+        lastScrollY = scrollY <= 0 ? 0 : scrollY;
+    });
+
+    // --- 3. STANDARD FUNCTIONS (Lang, Theme, Form) ---
     const langSelect = root.querySelector('#langSelect'); 
-
     function updateLanguage(lang) { 
-
         root.querySelectorAll('[data-i18n]').forEach(el => { 
-
             const key = el.getAttribute('data-i18n'); 
-
             if(translations[lang] && translations[lang][key]) { el.textContent = translations[lang][key]; } 
-
         }); 
-
         localStorage.setItem('skrm_lang', lang); 
-
     } 
-
     if(langSelect) { 
-
-        langSelect.addEventListener('change', (e) => { updateLanguage(e.target.value); }); 
-
+        langSelect.addEventListener('change', (e) => updateLanguage(e.target.value)); 
         const savedLang = localStorage.getItem('skrm_lang') || 'en'; 
-
         langSelect.value = savedLang; 
-
         updateLanguage(savedLang); 
-
     } 
-
     
-
-    // --- 3. THEME TOGGLE LOGIC --- 
-
     const themeBtn = root.querySelector('#themeToggle'); 
-
-    const themeIcon = root.querySelector('#themeIcon'); 
-
-    const savedTheme = localStorage.getItem('theme'); 
-
-    if(savedTheme === 'light') { 
-
-        root.setAttribute('data-theme', 'light'); 
-
-        if(themeIcon) themeIcon.textContent = '🌙'; 
-
-    } else {
-
-        root.setAttribute('data-theme', 'dark'); // Default
-
-    }
-
-
-
     if(themeBtn) { 
-
         themeBtn.addEventListener('click', () => { 
-
-            if(root.getAttribute('data-theme') === 'dark') { 
-
-                root.setAttribute('data-theme', 'light'); 
-
-                localStorage.setItem('theme', 'light'); 
-
-                themeIcon.textContent = '🌙'; 
-
-            } else { 
-
-                root.setAttribute('data-theme', 'dark'); 
-
-                localStorage.setItem('theme', 'dark'); 
-
-                themeIcon.textContent = '☀️'; 
-
-            } 
-
+            const isDark = root.getAttribute('data-theme') === 'dark';
+            root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('theme', isDark ? 'light' : 'dark'); 
+            root.querySelector('#themeIcon').textContent = isDark ? '🌙' : '☀️'; 
         }); 
-
-    } 
-
-    
-
-    // --- 4. COOKIE BANNER --- 
-
-    const cookieBanner = root.querySelector('#cookieBanner'); 
-
-    if(!localStorage.getItem('cookieConsent') && cookieBanner) { 
-
-        setTimeout(() => cookieBanner.classList.add('show'), 1500); 
-
-    } 
-
-    window.acceptCookies = function() { 
-
-        localStorage.setItem('cookieConsent', 'true'); 
-
-        window.hideCookieBanner(); 
-
-    }; 
-
-    window.hideCookieBanner = function() { 
-
-        if(cookieBanner) cookieBanner.classList.remove('show'); 
-
-    }; 
-
-    
-
-    // --- 5. UTILITIES --- 
-
-    const yearEl = root.querySelector('#year'); 
-
-    if(yearEl) yearEl.textContent = new Date().getFullYear(); 
-
-    
-
-    // Form Handling (With Fallback)
-
-    const form = root.querySelector('#contactForm'); 
-
-    if(form) { 
-
-        form.addEventListener('submit', async (e) => { 
-
-            e.preventDefault(); 
-
-            const status = root.querySelector('#formStatus'); 
-
-            const btn = form.querySelector('button'); 
-
-            const ogText = btn.textContent; 
-
-            btn.textContent = '...'; 
-
-            
-
-            // Collect data for fallback
-
-            const formData = new FormData(form);
-
-            
-
-            try { 
-
-                const response = await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } }); 
-
-                if (response.ok) { 
-
-                    status.textContent = "Message sent successfully!"; 
-
-                    status.style.color = "#ABCEC9"; 
-
-                    form.reset(); 
-
-                } else { 
-
-                    fallbackToMailto(formData);
-
-                } 
-
-            } catch (err) { 
-
-                fallbackToMailto(formData);
-
-            } 
-
-            btn.textContent = ogText; 
-
-        }); 
-
-    } 
-
-    
-
-    function fallbackToMailto(formData) {
-
-       const name = formData.get('name') || '';
-
-       const body = `Name: ${name}%0AMessage: ${formData.get('message')}`;
-
-       window.location.href = `mailto:connect@skrmblissai.in?subject=Contact Request&body=${body}`;
-
     }
 
-
-
-    // --- 6. BOOKING CALENDAR LOGIC (IST 8am-9pm) --- 
-
-    const modal = root.querySelector('#bookingModal'); 
-
-    const calendarDays = root.querySelector('#calendarDays'); 
-
-    const timeSlots = root.querySelector('#timeSlots'); 
-
-    const slotTitle = root.querySelector('#slotTitle'); 
-
-    const confirmBtn = root.querySelector('#confirmBtn'); 
-
-    const monthYear = root.querySelector('#currentMonthYear'); 
-
-    let currentDate = new Date(); 
-
-    let selectedDate = null; 
-
-    let selectedTime = null; 
-
-    
-
-    window.openBooking = function() { modal.classList.add('active'); renderCalendar(); } 
-
-    window.closeBooking = function() { modal.classList.remove('active'); resetBooking(); } 
-
-    
-
-    function resetBooking() { 
-
-        selectedDate = null; selectedTime = null; 
-
-        if(timeSlots) timeSlots.innerHTML = ''; 
-
-        if(slotTitle) slotTitle.style.display = 'none'; 
-
-        if(confirmBtn) confirmBtn.style.display = 'none'; 
-
-        renderCalendar(); 
-
-    } 
-
-    
-
-    window.renderCalendar = function() { 
-
-        if(!calendarDays || !monthYear) return; 
-
-        const year = currentDate.getFullYear(); 
-
-        const month = currentDate.getMonth(); 
-
-        monthYear.textContent = currentDate.toLocaleDateString('default', { month: 'long', year: 'numeric' }); 
-
-        const firstDay = new Date(year, month, 1).getDay(); 
-
-        const daysInMonth = new Date(year, month + 1, 0).getDate(); 
-
-        calendarDays.innerHTML = ''; 
-
-        const days = ['S','M','T','W','T','F','S']; 
-
-        days.forEach(d => { 
-
-            const div = document.createElement('div'); div.className = 'day-name'; div.innerText = d; calendarDays.appendChild(div); 
-
-        }); 
-
-        for(let i=0; i < firstDay; i++) { calendarDays.appendChild(document.createElement('div')); } 
-
-        const today = new Date(); today.setHours(0, 0, 0, 0); 
-
-        for (let i = 1; i <= daysInMonth; i++) { 
-
-            const div = document.createElement('div'); div.className = 'calendar-day'; div.innerText = i; 
-
-            const thisDate = new Date(year, month, i); 
-
-            if (thisDate < today) div.classList.add('disabled'); 
-
-            else { div.onclick = () => selectDate(thisDate, div); } 
-
-            if (selectedDate && thisDate.toDateString() === selectedDate.toDateString()) { div.classList.add('selected'); } 
-
-            calendarDays.appendChild(div); 
-
-        } 
-
-    } 
-
-    
-
-    window.changeMonth = function(step) { 
-
-        currentDate.setMonth(currentDate.getMonth() + step); renderCalendar(); 
-
-    } 
-
-    
-
-    window.selectDate = function(date, el) { 
-
-        root.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected')); 
-
-        el.classList.add('selected'); selectedDate = date; generateTimeSlots(); 
-
-    } 
-
-    
-
-    window.generateTimeSlots = function() { 
-
-        if (!slotTitle || !timeSlots) return; 
-
-        slotTitle.style.display = 'block'; 
-
-        timeSlots.innerHTML = ''; 
-
-        // IST 8 AM to 9 PM (21:00) 
-
-        for(let hour=8; hour<=21; hour++) { 
-
-            const btn = document.createElement('div'); btn.className = 'time-slot'; 
-
-            const ampm = hour >= 12 ? 'PM' : 'AM'; 
-
-            const displayHour = hour > 12 ? hour - 12 : hour; 
-
-            btn.innerText = `${displayHour}:00 ${ampm}`; 
-
-            btn.onclick = () => selectTime(btn); 
-
-            timeSlots.appendChild(btn); 
-
-        } 
-
-    } 
-
-    
-
-    window.selectTime = function(el) { 
-
-        root.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected')); 
-
-        el.classList.add('selected'); selectedTime = el.innerText; 
-
-        if(confirmBtn) confirmBtn.style.display = 'block'; 
-
-    } 
-
-    
-
-    window.submitBooking = function() { 
-
-        if(!selectedDate || !selectedTime) return; 
-
-        const dateStr = selectedDate.toLocaleDateString(); 
-
-        const subject = `Booking Request: ${dateStr} at ${selectedTime}`; 
-
-        const body = `Hi SKRMBliss,\n\nI would like to book a call on ${dateStr} at ${selectedTime} (IST).\n\nPlease confirm availability.`; 
-
-        window.location.href = `mailto:connect@skrmblissai.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; 
-
-        closeBooking(); 
-
-    } 
-
-})(); 
-
+    const cookieBanner = root.querySelector('#cookieBanner');
+    if(!localStorage.getItem('cookieConsent') && cookieBanner) setTimeout(() => cookieBanner.classList.add('show'), 1500);
+    window.acceptCookies = () => { localStorage.setItem('cookieConsent','true'); window.hideCookieBanner(); };
+    window.hideCookieBanner = () => cookieBanner?.classList.remove('show');
+
+    const form = root.querySelector('#contactForm');
+    if(form) form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const status = root.querySelector('#formStatus');
+        const fd = new FormData(form);
+        try {
+            const res = await fetch(form.action, { method: 'POST', body: fd, headers: {'Accept': 'application/json'} });
+            if(res.ok) { status.textContent = "Sent!"; form.reset(); } else fallbackToMailto(fd);
+        } catch(e) { fallbackToMailto(fd); }
+    });
+    function fallbackToMailto(fd) { window.location.href = `mailto:connect@skrmblissai.in?subject=Contact&body=${fd.get('message')}`; }
+
+    // --- 4. CALENDAR ---
+    const modal = root.querySelector('#bookingModal');
+    const cDays = root.querySelector('#calendarDays');
+    const tSlots = root.querySelector('#timeSlots');
+    const mYear = root.querySelector('#currentMonthYear');
+    let cDate = new Date(), selDate = null, selTime = null;
+    window.openBooking = () => { modal.classList.add('active'); renderCalendar(); };
+    window.closeBooking = () => modal.classList.remove('active');
+    window.changeMonth = (s) => { cDate.setMonth(cDate.getMonth()+s); renderCalendar(); };
+    window.renderCalendar = () => {
+        if(!cDays) return;
+        mYear.textContent = cDate.toLocaleDateString('default', {month:'long', year:'numeric'});
+        cDays.innerHTML = '';
+        const fDay = new Date(cDate.getFullYear(), cDate.getMonth(), 1).getDay();
+        const days = new Date(cDate.getFullYear(), cDate.getMonth()+1, 0).getDate();
+        for(let i=0;i<fDay;i++) cDays.appendChild(document.createElement('div'));
+        for(let i=1;i<=days;i++) {
+            const d = document.createElement('div'); d.className='calendar-day'; d.innerText=i;
+            d.onclick=()=>{ root.querySelectorAll('.calendar-day').forEach(x=>x.classList.remove('selected')); d.classList.add('selected'); selDate=new Date(cDate.getFullYear(), cDate.getMonth(), i); genSlots(); };
+            cDays.appendChild(d);
+        }
+    };
+    function genSlots() {
+        tSlots.innerHTML='';
+        for(let h=8;h<=21;h++) {
+            const b=document.createElement('div'); b.className='time-slot'; b.innerText=`${h>12?h-12:h}:00 ${h>=12?'PM':'AM'}`;
+            b.onclick=()=>{ root.querySelectorAll('.time-slot').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); selTime=b.innerText; root.querySelector('#confirmBtn').style.display='block'; };
+            tSlots.appendChild(b);
+        }
+    }
+    window.submitBooking = () => { window.location.href=`mailto:connect@skrmblissai.in?subject=Booking ${selDate.toLocaleDateString()}&body=Time: ${selTime}`; closeBooking(); };
+    const yEl = root.querySelector('#year'); if(yEl) yEl.textContent = new Date().getFullYear();
+  })(); 
 </script>
