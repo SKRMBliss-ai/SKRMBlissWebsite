@@ -28,24 +28,24 @@
     /* ===== 1. GLOBAL DESIGN TOKENS (Strict Adherence) ===== */
     #skrm-bliss-wrapper {
       /* --- COLOR PALETTE (Dark Default) --- */
-      --bg-body: #050505; /* Deepest Charcoal [cite: 23] */
+      --bg-body: #050505; /* Deepest Charcoal */
       --bg-gradient: linear-gradient(180deg, #050505 0%, #121214 100%);
       
-      --brand-primary: #ABCEC9; /* Soft Mint [cite: 20] */
-      --brand-secondary: #C3B8D5; /* Muted Lavender [cite: 20] */
+      --brand-primary: #ABCEC9; /* Soft Mint */
+      --brand-secondary: #C3B8D5; /* Muted Lavender */
       --text-on-brand: #000000;
       
-      --text-main: #f8fafc; /* Slate 50 [cite: 23] */
-      --text-muted: #94a3b8; /* Slate 400 [cite: 23] */
+      --text-main: #f8fafc; /* Slate 50 */
+      --text-muted: #94a3b8; /* Slate 400 */
       
       /* --- GLASSMORPHISM TOKENS --- */
-      --glass-surface: rgba(30, 30, 35, 0.65); /* Dark Glass [cite: 23] */
-      --glass-border: rgba(255, 255, 255, 0.08); /* Faint White [cite: 23] */
+      --glass-surface: rgba(30, 30, 35, 0.65); /* Dark Glass */
+      --glass-border: rgba(255, 255, 255, 0.08); /* Faint White */
       
       /* --- HEARTBEAT & SURGE ENGINE --- */
-      --card-glow-base: rgba(171, 206, 201, 0.25); /* Mint @ 25% [cite: 29] */
-      --card-glow-pulse: rgba(171, 206, 201, 0.45); /* Mint @ 45% [cite: 30] */
-      --card-glow-surge: rgba(171, 206, 201, 0.75); /* Mint @ 75% [cite: 31] */
+      --card-glow-base: rgba(171, 206, 201, 0.25); /* Mint @ 25% */
+      --card-glow-pulse: rgba(171, 206, 201, 0.45); /* Mint @ 45% */
+      --card-glow-surge: rgba(171, 206, 201, 0.75); /* Mint @ 75% */
       
       --brand-gradient: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
       
@@ -55,24 +55,49 @@
       color: var(--text-main);
       width: 100%;
       min-height: 100vh;
-      padding-bottom: 50px;
+      padding-bottom: 0; /* Remove padding here, footer handles it */
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* --- LIGHT MODE OVERRIDES (Toggleable) [cite: 26] --- */
+    /* --- LIGHT MODE OVERRIDES (Matches Image Footer) --- */
     #skrm-bliss-wrapper[data-theme="light"] {
+      /* Background: Matches Reference Site */
       --bg-body: #ffffff;
       --bg-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, #EDE8F8 100%);
       
-      --text-main: #1e293b; /* Dark Slate */
-      --text-muted: #64748b; /* Slate Grey */
+      /* Typography: Dark Slate (Matches Image) */
+      --text-main: #1e293b; 
+      --text-muted: #64748b; 
       
-      --glass-surface: rgba(255, 255, 255, 0.55); /* Frosted White */
-      --glass-border: rgba(255, 255, 255, 0.6); /* Semi-Opaque White */
+      /* Glass: Frosty White (Matches Image Footer Background) */
+      --glass-surface: rgba(255, 255, 255, 0.65); 
+      --glass-border: rgba(0, 0, 0, 0.08); /* Darker border for light mode visibility */
       
-      /* Keep glows consistent but adjust visibility if needed, per brand rules colors stay consistent [cite: 19] */
+      /* GLOWS: Darker Teal */
+      --card-glow-base: rgba(125, 185, 179, 0.45);
+      --card-glow-pulse: rgba(125, 185, 179, 0.65);
+      --card-glow-surge: rgba(125, 185, 179, 0.85);
     }
 
-    /* ===== 2. THE HEARTBEAT ANIMATION ENGINE [cite: 45] ===== */
+    /* Light Mode Specific Form Fixes */
+    #skrm-bliss-wrapper[data-theme="light"] input,
+    #skrm-bliss-wrapper[data-theme="light"] select,
+    #skrm-bliss-wrapper[data-theme="light"] textarea {
+        background: rgba(0, 0, 0, 0.04) !important;
+        color: #1e293b !important;
+        border-color: rgba(0,0,0,0.1);
+    }
+    
+    #skrm-bliss-wrapper[data-theme="light"] .lang-select {
+        color: #1e293b !important;
+    }
+    
+    #skrm-bliss-wrapper[data-theme="light"] option {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    /* ===== 2. THE HEARTBEAT ANIMATION ENGINE ===== */
     
     /* A. "Always On" High Intensity (Idle State) */
     @keyframes heartbeat-pulse {
@@ -102,16 +127,16 @@
       border-radius: 24px;
       padding: 28px;
       
-      /* Animation Application [cite: 49] */
+      /* Animation Application */
       animation: heartbeat-pulse 4s infinite ease-in-out;
       
-      /* Performance Optimization [cite: 58] */
+      /* Performance Optimization */
       transform: translateZ(0);
       will-change: box-shadow, transform;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    /* B. "High Energy" Surge (Hover State) [cite: 53] */
+    /* B. "High Energy" Surge (Hover State) */
     #skrm-bliss-wrapper .card:hover,
     #skrm-bliss-wrapper .ready-packs:hover {
       animation: none; /* Stop heartbeat */
@@ -148,7 +173,7 @@
       display: inline-flex; align-items: center; justify-content: center;
       padding: 12px 28px; border-radius: 50px;
       background: var(--brand-primary); /* Primary Brand */
-      color: var(--text-on-brand); /* Black on Mint [cite: 20] */
+      color: var(--text-on-brand); /* Black on Mint */
       font-weight: 700; border: none; cursor: pointer;
       box-shadow: 0 0 20px var(--card-glow-base);
       transition: transform 0.2s;
@@ -251,7 +276,7 @@
       line-height: 1; margin-bottom: -10px; 
     }
 
-    /* ===== 7. FORMS & INPUTS [cite: 36] ===== */
+    /* ===== 7. FORMS & INPUTS ===== */
     /* Updated for high visibility on glass */
     input, select, textarea {
       width: 100%;
@@ -278,18 +303,47 @@
     .checkbox-wrap { display: flex; align-items: center; gap: 10px; }
     input[type="checkbox"] { width: auto; margin: 0; accent-color: var(--brand-primary); }
 
-    /* ===== 8. FOOTER & MODALS ===== */
+    /* ===== 8. FOOTER (UPDATED to Match Image) ===== */
+    /* Use glass variables instead of hardcoded black */
     footer {
       border-top: 1px solid var(--glass-border);
-      background: rgba(0,0,0,0.4);
-      padding: 60px 0; margin-top: 100px;
+      background: var(--glass-surface); /* Dynamic Background */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 60px 0 20px; /* Added bottom padding for copyright */
+      margin-top: 100px;
+      color: var(--text-main); /* Ensure text is dark in light mode */
     }
+    
     .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; }
-    .footer-col h4 { font-size: 0.9rem; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
-    .footer-col a { display: block; margin-bottom: 12px; color: var(--text-muted); }
+    
+    .footer-col h4 { 
+        font-size: 0.9rem; 
+        text-transform: uppercase; 
+        margin-bottom: 20px; 
+        letter-spacing: 1px; 
+        color: var(--text-main); /* Explicitly use theme color */
+    }
+    
+    .footer-col a { 
+        display: block; 
+        margin-bottom: 12px; 
+        color: var(--text-muted); /* Grey in light mode */
+        font-size: 0.9rem;
+    }
     .footer-col a:hover { color: var(--brand-primary); }
 
-    /* Widgets [cite: 33, 34] */
+    /* Copyright Section */
+    .footer-copy {
+        text-align: center; 
+        padding-top: 20px; 
+        margin-top: 40px; 
+        font-size: 0.8rem; 
+        color: var(--text-muted);
+        border-top: 1px solid var(--glass-border); /* Matches image line */
+    }
+
+    /* Widgets */
     .widgets-container { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; flex-direction: column; gap: 15px; }
     .fab {
       width: 60px; height: 60px; border-radius: 50%;
@@ -302,7 +356,7 @@
     .fab.whatsapp { background: #25D366; } /* Official Green */
     .fab.calendar { background: var(--brand-gradient); color: black; font-size: 1.5rem; }
 
-    /* Modals [cite: 35] */
+    /* Modals */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.8);
       display: none; align-items: center; justify-content: center; z-index: 3000;
@@ -310,7 +364,7 @@
     }
     .modal-overlay.active { display: flex; opacity: 1; }
     .modal-box {
-      background: #0f1014; /* Modal specific bg [cite: 35] */
+      background: #0f1014; /* Default Dark Modal */
       border: 1px solid var(--glass-border);
       width: 100%; max-width: 600px; border-radius: 20px; overflow: hidden;
       box-shadow: 0 0 60px rgba(0,0,0,0.5);
@@ -325,7 +379,7 @@
     }
     .cookie-bar.show { display: flex; }
 
-    /* ===== 9. RESPONSIVE [cite: 104] ===== */
+    /* ===== 9. RESPONSIVE ===== */
     @media (max-width: 768px) {
       .hero { grid-template-columns: 1fr; text-align: center; }
       .hero-visual { order: -1; margin-bottom: 30px; }
@@ -345,7 +399,7 @@
   
   /* START: HEADER & MOBILE FIXES */
 
-/* 1. Custom Language Pill (Matches Image) */
+/* 1. Custom Language Pill */
 .lang-wrapper {
   display: flex;
   align-items: center;
@@ -389,7 +443,7 @@
 }
 .btn-header:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(167, 139, 250, 0.4); }
 
-/* 3. MOBILE LAYOUT FIX (Ensures visibility) */
+/* 3. MOBILE LAYOUT FIX */
 @media (max-width: 768px) {
   #skrm-bliss-wrapper nav {
     flex-direction: column;
@@ -407,11 +461,10 @@
   
   .controls {
     width: 100%;
-    justify-content: space-between; /* Spreads Lang, Theme, and Button evenly */
+    justify-content: space-between; 
     gap: 10px;
   }
   
-  /* Make button slightly smaller on mobile to fit */
   .btn-header { padding: 10px 16px; font-size: 0.85rem; }
 }
 /* END: HEADER & MOBILE FIXES */
@@ -482,7 +535,7 @@
         </div>
       </section>
 
-     <style>
+      <style>
   /* CSS Update for 4-Column Grid */
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
   
@@ -620,26 +673,29 @@
       <footer>
         <div class="wrap footer-grid">
           <div class="footer-col">
-            <h3 style="margin-bottom:10px;" data-i18n="brand_footer">SKRMBliss.AI</h3>
-            <p style="font-size:0.9rem;" data-i18n="brand_tag">Helping coaches build better digital products.</p>
+            <h3 style="margin-bottom:10px;" data-i18n="brand_footer">SKRMBliss.ai</h3>
+            <p style="font-size:0.9rem;" data-i18n="brand_tag">Helping creators build better digital products with tech and design.</p>
           </div>
           <div class="footer-col">
             <h4 data-i18n="foot_services">Services</h4>
-            <a href="#features" data-i18n="foot_appdev">App Dev</a>
-            <a href="#features" data-i18n="foot_aitools">AI Tools</a>
+            <a href="#features" data-i18n="foot_appdev">Web Apps</a>
+            <a href="#features" data-i18n="foot_aitools">Tools</a>
+            <a href="#features" data-i18n="foot_funnels">Funnels</a>
           </div>
           <div class="footer-col">
             <h4 data-i18n="foot_company">Company</h4>
+            <a href="#process" data-i18n="foot_process">Process</a>
             <a href="#contact" data-i18n="foot_contact">Contact</a>
           </div>
           <div class="footer-col">
-            <h4 data-i18n="foot_follow">Follow</h4>
+            <h4 data-i18n="foot_follow">Social</h4>
             <a href="https://www.facebook.com/skrmbliss" target="_blank">Facebook</a>
+            <a href="#" target="_blank">Discord</a>
             <a href="https://wa.me/+918217581238" target="_blank">WhatsApp</a>
           </div>
         </div>
-        <div style="text-align:center; padding-top:20px; font-size:0.8rem; color:var(--text-muted);">
-          © 2025 SKRM Bliss AI • Built in Bengaluru
+        <div class="footer-copy">
+          © 2025 SKRM Bliss AI — Built with Care in Bengaluru.
         </div>
       </footer>
 
@@ -653,7 +709,7 @@
     <div id="cookieBanner" class="cookie-bar">
       <p style="margin:0; font-size:0.9rem;">🍪 <span data-i18n="cookie_text">We use cookies to improve your experience.</span></p>
       <div style="display:flex; gap:10px;">
-         <button class="btn" onclick="acceptCookies()" style="padding:8px 16px; font-size:0.8rem;" data-i18n="btn_accept">Accept</button>
+          <button class="btn" onclick="acceptCookies()" style="padding:8px 16px; font-size:0.8rem;" data-i18n="btn_accept">Accept</button>
       </div>
     </div>
 
@@ -705,7 +761,7 @@
     (function(){
        const root = document.getElementById('skrm-bliss-wrapper');
        
-       /* --- 1. THEME LOGIC (Dark Mode First) [cite: 118] --- */
+       /* --- 1. THEME LOGIC (Dark Mode First) --- */
        const toggleBtn = document.getElementById('themeToggle');
        // Logic: Check local storage. If null, default to 'dark'.
        const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -720,9 +776,9 @@
          toggleBtn.textContent = next === 'dark' ? '☀️' : '🌙';
        });
 
-       /* --- 2. SCROLL REVEAL [cite: 116] --- */
+       /* --- 2. SCROLL REVEAL --- */
        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+         entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
        }, { threshold: 0.1 });
        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
@@ -751,69 +807,68 @@
        document.getElementById('fabBookCall').onclick = () => toggleModal('bookCallOverlay', 'open');
        document.querySelectorAll('.close-modal-call').forEach(b => b.onclick = () => toggleModal('bookCallOverlay', 'close'));
 
-       /* --- 5. FORMS & FALLBACK [cite: 121] --- */
+       /* --- 5. FORMS & FALLBACK --- */
        async function handleForm(formId, statusId, modalId) {
-          const form = document.getElementById(formId);
-          if(!form) return;
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = form.querySelector('button[type="submit"]');
-            const originalText = btn.textContent;
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-            
-            const data = new FormData(form);
-            try {
-               const res = await fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} });
-               if(res.ok){
-                 document.getElementById(statusId).style.color = '#ABCEC9';
-                 document.getElementById(statusId).textContent = "Success! We will contact you.";
-                 form.reset();
-                 if(modalId) setTimeout(() => toggleModal(modalId, 'close'), 2000);
-               } else {
-                 fallbackToMailto(data);
-               }
-            } catch(err) {
-               fallbackToMailto(data);
-            } finally {
-               btn.textContent = originalText;
-               btn.disabled = false;
-            }
-          });
+         const form = document.getElementById(formId);
+         if(!form) return;
+         form.addEventListener('submit', async (e) => {
+           e.preventDefault();
+           const btn = form.querySelector('button[type="submit"]');
+           const originalText = btn.textContent;
+           btn.textContent = 'Sending...';
+           btn.disabled = true;
+           
+           const data = new FormData(form);
+           try {
+              const res = await fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} });
+              if(res.ok){
+                document.getElementById(statusId).style.color = '#ABCEC9';
+                document.getElementById(statusId).textContent = "Success! We will contact you.";
+                form.reset();
+                if(modalId) setTimeout(() => toggleModal(modalId, 'close'), 2000);
+              } else {
+                fallbackToMailto(data);
+              }
+           } catch(err) {
+              fallbackToMailto(data);
+           } finally {
+              btn.textContent = originalText;
+              btn.disabled = false;
+           }
+         });
        }
 
        function fallbackToMailto(data){
-          const email = data.get('email') || '';
-          const name = data.get('name') || '';
-          const subject = "SKRMBliss Inquiry";
-          const body = `Name: ${name}%0AEmail: ${email}%0APlease process my request.`;
-          window.location.href = `mailto:connect@skrmblissai.in?subject=${encodeURIComponent(subject)}&body=${body}`;
+         const email = data.get('email') || '';
+         const name = data.get('name') || '';
+         const subject = "SKRMBliss Inquiry";
+         const body = `Name: ${name}%0AEmail: ${email}%0APlease process my request.`;
+         window.location.href = `mailto:connect@skrmblissai.in?subject=${encodeURIComponent(subject)}&body=${body}`;
        }
 
        handleForm('contactForm', 'formStatus', null);
        handleForm('bookingForm', 'bookingStatus', 'bookCallOverlay');
 
-       /* --- 6. TRANSLATIONS (i18n) [cite: 109] --- */
+       /* --- 6. TRANSLATIONS (i18n) --- */
        const translations = {
          en: { hero_title:"Launch Your Own", hero_accent:"AI Laughter App", btn_claim:"Claim Your App", btn_book_demo:"Book Demo" },
          fr: { hero_title:"Lancez votre propre", hero_accent:"App de Rire IA", btn_claim:"Réclamer votre App", btn_book_demo:"Réserver Démo" }
-         // ... (Full dictionary would go here, kept brief for token limits)
        };
        
        const langSelect = document.getElementById('skrmLang');
        langSelect.addEventListener('change', (e) => {
-          const lang = e.target.value;
-          document.querySelectorAll('[data-i18n]').forEach(el => {
-             const key = el.getAttribute('data-i18n');
-             if(translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
-             else if(translations['en'][key]) el.textContent = translations['en'][key];
-          });
+         const lang = e.target.value;
+         document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if(translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+            else if(translations['en'][key]) el.textContent = translations['en'][key];
+         });
        });
 
        /* --- 7. COOKIES --- */
        window.acceptCookies = function() {
-          document.getElementById('cookieBanner').classList.remove('show');
-          localStorage.setItem('cookiesAccepted', 'true');
+         document.getElementById('cookieBanner').classList.remove('show');
+         localStorage.setItem('cookiesAccepted', 'true');
        }
        if(!localStorage.getItem('cookiesAccepted')) setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 1500);
 
