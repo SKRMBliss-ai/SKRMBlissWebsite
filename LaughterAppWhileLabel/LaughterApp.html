@@ -1,736 +1,1058 @@
-<div id="skrm-bliss-wrapper">
+<div id="skrm-bliss-root">
 
-<style>
-  /* --- 1. CORE & ANIMATIONS --- */
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-  #skrm-bliss-wrapper {
-    /* Theme Variables */
-    --bg-body: #EDE8F8;
-    --bg-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, #EDE8F8 100%);
-    --glass-bg: rgba(255, 255, 255, 0.95);
-    --glass-border: rgba(255, 255, 255, 0.6);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
-    --text-main: #071026;
-    --text-muted: #6b7280;
-    --card-hover-shadow: 0 20px 40px rgba(184, 172, 214, 0.4);
-    --brand-teal: #96c9c4;
-    --brand-lavender: #b8acd6;
-    --brand-gradient: linear-gradient(135deg, #7db9b3 0%, #b8acd6 100%);
-    --accent-glow: rgba(125, 185, 179, 0.4);
-
-    font-family: 'Inter', sans-serif;
-    background: var(--bg-gradient);
-    color: var(--text-main);
-    overflow-x: hidden;
-    line-height: 1.6;
-    width: 100%;
-    margin: 0; padding: 0;
-    padding-bottom: 50px;
-  }
-
-  /* Scroll Animations */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
-  }
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Float Animation */
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-  }
-
-  /* Pulse Glow Animation (Mobile) */
-  @keyframes pulse-glow {
-    0% { box-shadow: 0 0 15px rgba(125, 185, 179, 0.2); border-color: rgba(125, 185, 179, 0.3); }
-    50% { box-shadow: 0 0 25px rgba(125, 185, 179, 0.5); border-color: rgba(125, 185, 179, 0.8); }
-    100% { box-shadow: 0 0 15px rgba(125, 185, 179, 0.2); border-color: rgba(125, 185, 179, 0.3); }
-  }
-
-  /* Dark Mode */
-  #skrm-bliss-wrapper[data-theme="dark"] {
-    --bg-body: #0f172a;
-    --bg-gradient: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
-    --glass-bg: rgba(30, 41, 59, 0.95);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --card-hover-shadow: 0 20px 40px rgba(125, 185, 179, 0.15);
-  }
-
-  #skrm-bliss-wrapper * { box-sizing: border-box; }
-  #skrm-bliss-wrapper img { max-width: 100%; height: auto; display: block; }
-  #skrm-bliss-wrapper a { text-decoration: none; color: inherit; transition: 0.3s; }
-  
-  #skrm-bliss-wrapper .wrap {
-    max-width: 1200px; margin: 0 auto; padding: 20px; width: 100%;
-  }
-
-  /* --- 2. NAVIGATION --- */
-  #skrm-bliss-wrapper nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 20px; 
-    border-radius: 16px;
-    background: var(--glass-bg); 
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    position: sticky; top: 15px; z-index: 9999;
-    margin-bottom: 40px; 
-  }
-
-  #skrm-bliss-wrapper .brand { display: flex; align-items: center; gap: 10px; }
-  #skrm-bliss-wrapper .logo-img {
-    width: 36px; height: 36px; border-radius: 10px;
-    background: var(--brand-gradient); display: grid; place-items: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  #skrm-bliss-wrapper .brand-title { font-weight: 800; font-size: 1rem; line-height: 1.2; }
-  #skrm-bliss-wrapper .brand-sub { font-size: 0.7rem; color: var(--text-muted); }
-
-  #skrm-bliss-wrapper .nav-links { display: flex; gap: 20px; align-items: center; }
-  #skrm-bliss-wrapper .nav-links a { font-weight: 600; color: var(--text-muted); font-size: 0.9rem; }
-  #skrm-bliss-wrapper .nav-links a:hover { color: var(--text-main); }
-
-  #skrm-bliss-wrapper .controls { display: flex; align-items: center; gap: 10px; }
-
-  /* --- 3. GOOGLE TRANSLATE FIXES --- */
-  .goog-te-banner-frame { display: none !important; }
-  body { top: 0px !important; }
-
-  #google_translate_element { display: inline-block; vertical-align: middle; }
-
-  .goog-te-gadget-simple {
-    background-color: transparent !important;
-    border: 1px solid var(--glass-border) !important;
-    padding: 6px 10px !important;
-    border-radius: 50px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 13px !important;
-    display: flex !important;
-    align-items: center;
-    white-space: nowrap;
-  }
-
-  .goog-te-gadget-simple span { color: var(--text-main) !important; font-weight: 600 !important; }
-  .goog-te-gadget-simple img { display: none !important; }
-  .goog-te-gadget-icon { display: none !important; }
-
-  /* Utilities */
-  .utility-btn {
-    background: none; border: none; cursor: pointer; font-size: 1.2rem;
-    padding: 6px; border-radius: 50%; transition: 0.3s;
-    color: var(--text-main);
-  }
-  .utility-btn:hover { background: rgba(125, 185, 179, 0.2); }
-
-  /* --- 4. HERO SECTION --- */
-  #skrm-bliss-wrapper .hero {
-    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px;
-    align-items: center;
-    padding-top: 10px; 
-  }
-  #skrm-bliss-wrapper .hero h1 {
-    font-size: 3rem; line-height: 1.1; margin: 15px 0; font-weight: 900; letter-spacing: -1px;
-  }
-  #skrm-bliss-wrapper .hero .accent {
-    background: var(--brand-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  #skrm-bliss-wrapper .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 500px; margin-bottom: 25px; }
-  #skrm-bliss-wrapper .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-
-  /* Hero Stats */
-  #skrm-bliss-wrapper .hero-stats { margin-top: 30px; }
-  #skrm-bliss-wrapper .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
-  #skrm-bliss-wrapper .stat .n { font-size: 1.6rem; font-weight: 900; color: #7db9b3; }
-  #skrm-bliss-wrapper .stat .l { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-
-  /* Buttons */
-  #skrm-bliss-wrapper .btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    padding: 10px 24px; border-radius: 50px;
-    background: var(--brand-gradient);
-    color: white; font-weight: 700; border: none; cursor: pointer;
-    box-shadow: 0 4px 15px var(--accent-glow);
-    transition: transform 0.2s;
-    font-size: 0.9rem; text-decoration: none;
-  }
-  #skrm-bliss-wrapper .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--accent-glow); }
-  
-  #skrm-bliss-wrapper .btn.ghost {
-    background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: none;
-  }
-  #skrm-bliss-wrapper .btn.ghost:hover { background: rgba(255,255,255,0.1); border-color: var(--text-main); }
-
-  /* Image & Mockup */
-  .hero-visual {
-    position: relative; display: flex; justify-content: center; align-items: center;
-    margin-bottom: 30px;
-    animation: float 6s ease-in-out infinite; /* Floating Animation */
-  }
-  .app-mockup {
-    width: 100%; max-width: 360px; border-radius: 20px;
-    box-shadow: -10px 10px 40px rgba(0,0,0,0.2);
-    border: 4px solid var(--glass-border);
-  }
-
-  /* Cards */
-  #skrm-bliss-wrapper .card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 28px;
-    box-shadow: var(--glass-shadow);
-    transition: all 0.4s ease;
-  }
-  #skrm-bliss-wrapper .card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--card-hover-shadow);
-    border-color: #7db9b3;
-  }
-
-  .ready-packs {
-    background: var(--glass-bg); padding: 30px; border-radius: 24px;
-    border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
-  }
-  .features-list { list-style: none; padding: 0; margin: 20px 0; }
-  .features-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: 500; color: var(--text-muted); font-size: 0.9rem; }
-  .features-list li::before {
-    content: "✓"; width: 20px; height: 20px; border-radius: 50%;
-    background: rgba(125, 185, 179, 0.2); color: #7db9b3;
-    display: grid; place-items: center; font-size: 10px; font-weight: 900;
-  }
-
-  /* --- 5. GRIDS --- */
-  #skrm-bliss-wrapper .section-header { margin: 80px 0 30px; }
-  #skrm-bliss-wrapper .section-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
-  #skrm-bliss-wrapper .section-sub { font-size: 1.1rem; color: var(--text-muted); }
-
-  #skrm-bliss-wrapper .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  #skrm-bliss-wrapper .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-
-  #skrm-bliss-wrapper .card .icon {
-    width: 60px; height: 60px; border-radius: 16px;
-    background: var(--brand-gradient); display: grid; place-items: center;
-    font-size: 28px; margin-bottom: 20px; color: white;
-    box-shadow: 0 8px 20px rgba(125, 185, 179, 0.2);
-  }
-  #skrm-bliss-wrapper .process .num {
-    width: 48px; height: 48px; border-radius: 12px;
-    background: var(--brand-gradient); color: white; font-weight: 800; font-size: 20px;
-    display: grid; place-items: center; margin-bottom: 15px;
-  }
-  #skrm-bliss-wrapper h3, #skrm-bliss-wrapper strong { color: var(--text-main); }
-  #skrm-bliss-wrapper p { color: var(--text-muted); }
-
-  /* --- 6. ROI & CONTACT --- */
-  #skrm-bliss-wrapper .final-cta {
-    margin-top: 80px; padding: 50px; border-radius: 24px;
-    background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(255,255,255,0.05) 100%);
-    border: 1px solid var(--glass-border);
-    display: flex; align-items: center; justify-content: space-between; gap: 30px;
-    box-shadow: var(--glass-shadow);
-    backdrop-filter: blur(10px);
-  }
-  #skrm-bliss-wrapper .final-cta h2 { font-size: 2rem; font-weight: 800; margin: 0 0 10px; }
-
-  #skrm-bliss-wrapper .contact-grid {
-    display: grid; grid-template-columns: 1fr 380px; gap: 40px; margin-top: 40px;
-  }
-  #skrm-bliss-wrapper .input, select, textarea {
-    width: 100%; padding: 16px; border-radius: 12px;
-    border: 1px solid var(--glass-border); background: rgba(255,255,255,0.8);
-    font-size: 15px; margin-top: 8px; outline: none; transition: 0.2s;
-    color: #071026;
-  }
-  #skrm-bliss-wrapper .input:focus { border-color: #7db9b3; box-shadow: 0 0 0 3px rgba(125,185,179,0.1); }
-  #skrm-bliss-wrapper label { display: block; margin-bottom: 20px; font-weight: 600; font-size: 0.95rem; }
-  #skrm-bliss-wrapper .checkbox-group { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-  #skrm-bliss-wrapper input[type="checkbox"] { width: 18px; height: 18px; accent-color: #7db9b3; }
-
-  /* --- 7. FOOTER --- */
-  #skrm-bliss-wrapper footer {
-    margin-top: 100px; padding: 60px 0; 
-    background: var(--glass-bg); 
-    border-top: 1px solid var(--glass-border);
-  }
-  #skrm-bliss-wrapper .footer-content {
-    display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding: 0 20px; max-width: 1200px; margin: 0 auto;
-  }
-  #skrm-bliss-wrapper .footer-nav { display: flex; gap: 60px; }
-  #skrm-bliss-wrapper .nav-col h4 { font-size: 0.9rem; text-transform: uppercase; color: var(--text-main); margin-bottom: 20px; letter-spacing: 1px; }
-  #skrm-bliss-wrapper .nav-col a { display: block; color: var(--text-muted); margin-bottom: 12px; font-size: 0.95rem; }
-  #skrm-bliss-wrapper .nav-col a:hover { color: #7db9b3; }
-  #skrm-bliss-wrapper .footer-btm { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.9rem; }
-
-  /* --- 8. MODALS & WIDGETS --- */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
-    display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px;
-    opacity: 0; transition: opacity 0.3s ease;
-  }
-  .modal-overlay.active { display: flex; opacity: 1; }
-  .modal-box {
-    background: #EDE8F8; width: 100%; max-width: 700px; border-radius: 24px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4); overflow: hidden; border: 1px solid var(--glass-border);
-    color: #071026;
-  }
-  .modal-header {
-    background: var(--brand-gradient); padding: 20px 30px; color: white;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .modal-body { padding: 30px; color: #071026; }
-  
-  .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
-  .roi-result { background: rgba(125, 185, 179, 0.1); padding: 20px; border-radius: 16px; text-align: center; border: 1px solid rgba(125, 185, 179, 0.3); }
-  .roi-val { font-size: 2.5rem; font-weight: 900; color: #7db9b3; line-height: 1; margin-top: 5px; }
-
-  .widgets {
-    position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 999;
-  }
-  .fab {
-    width: 60px; height: 60px; border-radius: 50%; background: #fff;
-    display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    cursor: pointer; transition: 0.3s; border: none;
-  }
-  .fab:hover { transform: scale(1.1); box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
-  .fab.whatsapp { background: #25D366; } .fab.whatsapp svg { fill: white; width: 32px; }
-  .fab.call-fab { background: var(--brand-gradient); color: white; font-size: 24px; }
-
-  .cookie-banner {
-    position: fixed; bottom: 0; left: 0; width: 100%;
-    background: var(--glass-bg); backdrop-filter: blur(20px);
-    border-top: 1px solid var(--glass-border);
-    padding: 15px 20px; z-index: 3000;
-    display: none; justify-content: center; align-items: center; gap: 20px;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-  }
-  .cookie-banner p { margin: 0; font-size: 0.9rem; color: #071026; }
-  .cookie-banner.show { display: flex; }
-
-  /* --- 9. MOBILE & RESPONSIVE FIXES --- */
-  @media (max-width: 980px) {
-    #skrm-bliss-wrapper .hero { grid-template-columns: 1fr; text-align: center; }
-    #skrm-bliss-wrapper .hero-visual { order: -1; }
-    #skrm-bliss-wrapper .nav-links { display: none; }
-    #skrm-bliss-wrapper .hero-ctas { justify-content: center; }
-    #skrm-bliss-wrapper .hero p { margin: 0 auto 30px; }
-  }
-
-  @media (max-width: 640px) {
-    #skrm-bliss-wrapper .hero h1 { font-size: 2.2rem; }
-    
-    /* MOBILE HEADER: Vertical Stack */
-    #skrm-bliss-wrapper nav { 
-        flex-direction: column; 
-        gap: 15px; 
-        padding: 15px;
+  <style>
+    /* ===== 0. GLOBAL RESET & VIEWPORT FIX (Fixes White Border) ===== */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      background-color: #0f172a; /* Prevents white flash on load */
     }
-    #skrm-bliss-wrapper .brand { 
-        width: 100%; 
-        justify-content: center; 
-        padding-bottom: 10px;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-    #skrm-bliss-wrapper .controls { 
-        width: 100%; 
-        justify-content: space-between; 
-        flex-wrap: wrap; 
-        gap: 10px;
-    }
-    
-    /* Hide 'Select Language' text on Mobile to save space */
-    .goog-te-gadget-simple span { display: none !important; }
-    .goog-te-gadget-simple::after { content: '🌐'; font-size: 16px; } 
-    
-    /* MOBILE CARD ANIMATIONS (Make it less boring) */
-    #skrm-bliss-wrapper .card {
-        animation: pulse-glow 3s infinite ease-in-out; /* Permanent Glow */
-        transform: scale(1);
-    }
-    
-    /* Stacking Grids */
-    #skrm-bliss-wrapper .grid-3, 
-    #skrm-bliss-wrapper .process, 
-    #skrm-bliss-wrapper .stat-row, 
-    #skrm-bliss-wrapper .contact-grid { grid-template-columns: 1fr; }
-    
-    #skrm-bliss-wrapper .final-cta { flex-direction: column; text-align: center; }
-    #skrm-bliss-wrapper .final-cta button { width: 100%; margin-top: 20px; }
-    #skrm-bliss-wrapper .footer-content { flex-direction: column; gap: 40px; text-align: center; }
-    #skrm-bliss-wrapper .footer-nav { flex-direction: column; gap: 30px; }
-    .roi-grid { grid-template-columns: 1fr; }
-    .widgets { right: 20px; bottom: 80px; }
-    .cookie-banner { flex-direction: column; text-align: center; gap: 10px; }
-    
-    .app-mockup { max-width: 80%; margin: 0 auto; transform: none !important; }
-  }
-</style>
 
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      // LIMITED: English + Major
-      includedLanguages: 'en,fr,es,de,it,pt,ja,zh-CN,ru',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    /* ===== SKRMBliss Root & Systeme.io-safe rules ===== */
+    #skrm-bliss-root {
+      margin: 0 !important;
+      padding: 0 !important;
+      
+      /* 🔥 FORCE FULL WIDTH (Breakout Strategy) 🔥 */
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-height: 100vh;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw !important;
+      margin-right: -50vw !important;
+      
+      overflow-x: hidden !important;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased; 
+      -moz-osx-font-smoothing: grayscale;
+      box-sizing: border-box;
+    }
+    #skrm-bliss-root * { box-sizing: border-box; max-width: 100% !important; }
 
-<div class="wrap">
-  
-  <nav>
-    <div class="brand">
-<a href="https://www.skrmblissai.in" class="logo-img">
-  <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png" alt="Logo" style="width:24px;">
-</a>
+    /* ===== Global Design Tokens ===== */
+    :root {
+      --brand-primary: #ABCEC9;
+      --brand-secondary: #C3B8D5;
+      --col-lavender: #EDE8F8;
+      --text-main: #071026;
+      --text-muted: #6b7280;
+      --glass-surface: rgba(255,255,255,0.95);
+      --glass-border: rgba(255,255,255,0.6);
+      --brand-gradient: linear-gradient(135deg, #7db9b3 0%, #b8acd6 100%);
+    }
+  </style>
 
+  <div id="skrm-bliss-wrapper">
+
+  <style>
+    /* --- 1. CORE & ANIMATIONS --- */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    #skrm-bliss-wrapper {
+      /* Theme Variables - Light Mode */
+      --bg-body: #EDE8F8;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #ffffff 0%, #EDE8F8 100%);
+      --glass-bg: rgba(255, 255, 255, 0.95);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      
+      /* 🔥 HIGH INTENSITY GLOW CONFIGURATION 🔥 */
+      --card-glow-base: rgba(125, 185, 179, 0.45); 
+      --card-glow-pulse: rgba(125, 185, 179, 0.65);
+      --card-glow-hover: rgba(125, 185, 179, 0.85);
+      
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+      
+      --text-main: #071026;
+      --text-muted: #6b7280;
+      --brand-teal: #96c9c4;
+      --brand-lavender: #b8acd6;
+      --brand-gradient: linear-gradient(135deg, #7db9b3 0%, #b8acd6 100%);
+      --accent-glow: rgba(125, 185, 179, 0.6);
+
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+      width: 100%;
+      margin: 0; padding: 0;
+      padding-bottom: 50px;
+    }
+
+    /* Scroll Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Float Animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* 🔥 HEARTBEAT: Always-on Breathing (Idle State) */
+    @keyframes intense-pulse {
+      0% { 
+        box-shadow: 0 0 30px var(--card-glow-base); 
+        border-color: rgba(125, 185, 179, 0.3);
+      }
+      50% { 
+        box-shadow: 0 0 50px var(--card-glow-pulse); 
+        border-color: rgba(125, 185, 179, 0.6);
+      }
+      100% { 
+        box-shadow: 0 0 30px var(--card-glow-base); 
+        border-color: rgba(125, 185, 179, 0.3);
+      }
+    }
+
+    /* Dark Mode Overrides */
+    #skrm-bliss-wrapper[data-theme="dark"] {
+      --bg-body: #0f172a;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+      --glass-bg: rgba(30, 41, 59, 0.95);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      
+      /* Dark Mode High Intensity */
+      --card-glow-base: rgba(125, 185, 179, 0.25);
+      --card-glow-pulse: rgba(125, 185, 179, 0.45);
+      --card-glow-hover: rgba(125, 185, 179, 0.65);
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    #skrm-bliss-wrapper * { box-sizing: border-box; }
+    #skrm-bliss-wrapper img { max-width: 100%; height: auto; display: block; }
+    #skrm-bliss-wrapper a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    #skrm-bliss-wrapper .wrap {
+      max-width: 1200px; margin: 0 auto; padding: 20px; width: 100%;
+    }
+
+    /* --- 2. NAVIGATION --- */
+    #skrm-bliss-wrapper nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 20px;
+      border-radius: 16px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      
+      /* Nav gets the pulse! */
+      animation: intense-pulse 4s infinite ease-in-out;
+      transform: translateZ(0); /* Mobile optimization */
+      
+      position: sticky; top: 15px; z-index: 9999;
+      margin-bottom: 40px;
+    }
+
+    #skrm-bliss-wrapper .brand { display: flex; align-items: center; gap: 10px; }
+    #skrm-bliss-wrapper .logo-img {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--brand-gradient); display: grid; place-items: center;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+    #skrm-bliss-wrapper .brand-title { font-weight: 800; font-size: 1rem; line-height: 1.2; }
+    #skrm-bliss-wrapper .brand-sub { font-size: 0.7rem; color: var(--text-muted); }
+
+    #skrm-bliss-wrapper .nav-links { display: flex; gap: 20px; align-items: center; }
+    #skrm-bliss-wrapper .nav-links a { font-weight: 600; color: var(--text-muted); font-size: 0.9rem; }
+    #skrm-bliss-wrapper .nav-links a:hover { color: var(--text-main); }
+
+    #skrm-bliss-wrapper .controls { display: flex; align-items: center; gap: 10px; }
+
+    /* Language Selector */
+    #skrm-bliss-wrapper .skrm-lang-select {
+      background-color: transparent;
+      border: 1px solid var(--glass-border);
+      padding: 6px 10px;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      display:inline-flex; align-items:center; gap:8px;
+      color: var(--text-main);
+    }
+    #skrm-bliss-wrapper .skrm-lang-select select {
+      background: transparent; border: none; outline: none; color: inherit; font-weight:600;
+    }
+
+    /* Utilities */
+    .utility-btn {
+      background: none; border: none; cursor: pointer; font-size: 1.2rem;
+      padding: 6px; border-radius: 50%; transition: 0.3s;
+      color: var(--text-main);
+    }
+    .utility-btn:hover { background: rgba(125, 185, 179, 0.3); }
+
+    /* --- 4. HERO SECTION --- */
+    #skrm-bliss-wrapper .hero {
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px;
+      align-items: center;
+      padding-top: 10px;
+    }
+    #skrm-bliss-wrapper .hero h1 {
+      font-size: 3rem; line-height: 1.1; margin: 15px 0; font-weight: 900; letter-spacing: -1px;
+    }
+    #skrm-bliss-wrapper .hero .accent {
+      background: var(--brand-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    #skrm-bliss-wrapper .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 500px; margin-bottom: 25px; }
+    #skrm-bliss-wrapper .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Hero Stats */
+    #skrm-bliss-wrapper .hero-stats { margin-top: 30px; }
+    #skrm-bliss-wrapper .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+    #skrm-bliss-wrapper .stat .n { font-size: 1.6rem; font-weight: 900; color: #7db9b3; text-shadow: 0 0 10px rgba(125,185,179,0.4); }
+    #skrm-bliss-wrapper .stat .l { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Buttons */
+    #skrm-bliss-wrapper .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 24px; border-radius: 50px;
+      background: var(--brand-gradient);
+      color: white; font-weight: 700; border: none; cursor: pointer;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transition: transform 0.2s;
+      font-size: 0.9rem; text-decoration: none;
+      animation: intense-pulse 3s infinite reverse;
+      will-change: box-shadow, transform;
+    }
+    #skrm-bliss-wrapper .btn:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 0 40px var(--accent-glow);
+      animation: none;
+    }
+
+    #skrm-bliss-wrapper .btn.ghost {
+      background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); box-shadow: none; animation: none;
+    }
+    #skrm-bliss-wrapper .btn.ghost:hover { background: rgba(255,255,255,0.1); border-color: var(--text-main); }
+
+    /* Image & Mockup */
+    .hero-visual {
+      position: relative; display: flex; justify-content: center; align-items: center;
+      margin-bottom: 30px;
+      animation: float 6s ease-in-out infinite;
+    }
+    .app-mockup {
+      width: 100%; max-width: 360px; border-radius: 20px;
+      box-shadow: 0 0 40px var(--card-glow-base);
+      border: 4px solid var(--glass-border);
+    }
+
+    /* ===== 🔥 INTENSIFIED CARDS (THE HEARTBEAT SYSTEM) ===== */
+    #skrm-bliss-wrapper .card,
+    #skrm-bliss-wrapper .ready-packs {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 28px;
+      
+      /* Mobile Performance */
+      transform: translateZ(0);
+      will-change: box-shadow, transform;
+      
+      /* State A: Always-on Heartbeat */
+      animation: intense-pulse 4s infinite ease-in-out;
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+
+    /* State B: Surge (Hover) */
+    #skrm-bliss-wrapper .card:hover,
+    #skrm-bliss-wrapper .ready-packs:hover {
+      animation: none; /* Stop heartbeat */
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 0 60px var(--card-glow-hover) !important; /* Massive Glow */
+      border-color: #7db9b3;
+      z-index: 10;
+    }
+
+    .features-list { list-style: none; padding: 0; margin: 20px 0; }
+    .features-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: 500; color: var(--text-muted); font-size: 0.9rem; }
+    .features-list li::before {
+      content: "✓"; width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(125, 185, 179, 0.2); color: #7db9b3;
+      display: grid; place-items: center; font-size: 10px; font-weight: 900;
+      box-shadow: 0 0 10px rgba(125,185,179,0.3);
+    }
+
+    /* --- 5. GRIDS --- */
+    #skrm-bliss-wrapper .section-header { margin: 80px 0 30px; }
+    #skrm-bliss-wrapper .section-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+    #skrm-bliss-wrapper .section-sub { font-size: 1.1rem; color: var(--text-muted); }
+
+    #skrm-bliss-wrapper .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    #skrm-bliss-wrapper .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+    #skrm-bliss-wrapper .card .icon {
+      width: 60px; height: 60px; border-radius: 16px;
+      background: var(--brand-gradient); display: grid; place-items: center;
+      font-size: 28px; margin-bottom: 20px; color: white;
+      box-shadow: 0 0 20px rgba(125, 185, 179, 0.4);
+    }
+    #skrm-bliss-wrapper .process .num {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--brand-gradient); color: white; font-weight: 800; font-size: 20px;
+      display: grid; place-items: center; margin-bottom: 15px;
+      box-shadow: 0 0 15px rgba(125, 185, 179, 0.4);
+    }
+    #skrm-bliss-wrapper h3, #skrm-bliss-wrapper strong { color: var(--text-main); }
+    #skrm-bliss-wrapper p { color: var(--text-muted); }
+
+    /* --- 6. ROI & CONTACT --- */
+    #skrm-bliss-wrapper .final-cta {
+      margin-top: 80px; padding: 50px; border-radius: 24px;
+      background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(255,255,255,0.05) 100%);
+      border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: space-between; gap: 30px;
+      
+      animation: intense-pulse 5s infinite ease-in-out;
+      backdrop-filter: blur(10px);
+      transform: translateZ(0);
+    }
+    #skrm-bliss-wrapper .final-cta h2 { font-size: 2rem; font-weight: 800; margin: 0 0 10px; }
+
+    #skrm-bliss-wrapper .contact-grid {
+      display: grid; grid-template-columns: 1fr 380px; gap: 40px; margin-top: 40px;
+    }
+    #skrm-bliss-wrapper .input, select, textarea {
+      width: 100%; padding: 16px; border-radius: 12px;
+      border: 1px solid var(--glass-border); background: rgba(255,255,255,0.8);
+      font-size: 15px; margin-top: 8px; outline: none; transition: 0.2s;
+      color: #071026;
+    }
+    #skrm-bliss-wrapper .input:focus { border-color: #7db9b3; box-shadow: 0 0 15px rgba(125,185,179,0.3); }
+    #skrm-bliss-wrapper label { display: block; margin-bottom: 20px; font-weight: 600; font-size: 0.95rem; }
+    #skrm-bliss-wrapper .checkbox-group { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    #skrm-bliss-wrapper input[type="checkbox"] { width: 18px; height: 18px; accent-color: #7db9b3; }
+
+    /* --- 7. FOOTER --- */
+    #skrm-bliss-wrapper footer {
+      margin-top: 100px; padding: 60px 0;
+      background: var(--glass-bg);
+      border-top: 1px solid var(--glass-border);
+    }
+    #skrm-bliss-wrapper .footer-content {
+      display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding: 0 20px; max-width: 1200px; margin: 0 auto;
+    }
+    #skrm-bliss-wrapper .footer-nav { display: flex; gap: 60px; }
+    #skrm-bliss-wrapper .nav-col h4 { font-size: 0.9rem; text-transform: uppercase; color: var(--text-main); margin-bottom: 20px; letter-spacing: 1px; }
+    #skrm-bliss-wrapper .nav-col a { display: block; color: var(--text-muted); margin-bottom: 12px; font-size: 0.95rem; }
+    #skrm-bliss-wrapper .nav-col a:hover { color: #7db9b3; text-shadow: 0 0 10px rgba(125,185,179,0.5); }
+    #skrm-bliss-wrapper .footer-btm { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.9rem; }
+
+    /* --- 8. MODALS & WIDGETS --- */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active { display: flex; opacity: 1; }
+    .modal-box {
+      background: #EDE8F8; width: 100%; max-width: 700px; border-radius: 24px;
+      box-shadow: 0 0 80px rgba(0,0,0,0.5); overflow: hidden; border: 1px solid var(--glass-border);
+      color: #071026;
+    }
+    .modal-header {
+      background: var(--brand-gradient); padding: 20px 30px; color: white;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .modal-body { padding: 30px; color: #071026; }
+
+    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+    .roi-result { background: rgba(125, 185, 179, 0.1); padding: 20px; border-radius: 16px; text-align: center; border: 1px solid rgba(125, 185, 179, 0.3); }
+    .roi-val { font-size: 2.5rem; font-weight: 900; color: #7db9b3; line-height: 1; margin-top: 5px; text-shadow: 0 0 15px rgba(125,185,179,0.3); }
+
+    .widgets {
+      position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 999;
+    }
+    .fab {
+      width: 60px; height: 60px; border-radius: 50%; background: #fff;
+      display: grid; place-items: center; box-shadow: 0 0 25px rgba(0,0,0,0.2);
+      cursor: pointer; transition: 0.3s; border: none;
+      animation: intense-pulse 3s infinite;
+      transform: translateZ(0);
+    }
+    .fab:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(125,185,179,0.5); animation: none; }
+    .fab.whatsapp { background: #25D366; } .fab.whatsapp svg { fill: white; width: 32px; }
+    .fab.call-fab { background: var(--brand-gradient); color: white; font-size: 24px; }
+
+    .cookie-banner {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      background: var(--glass-bg); backdrop-filter: blur(20px);
+      border-top: 1px solid var(--glass-border);
+      padding: 15px 20px; z-index: 3000;
+      display: none; justify-content: center; align-items: center; gap: 20px;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+    }
+    .cookie-banner p { margin: 0; font-size: 0.9rem; color: #071026; }
+    .cookie-banner.show { display: flex; }
+
+    /* --- 9. MOBILE & RESPONSIVE FIXES --- */
+    @media (max-width: 980px) {
+      #skrm-bliss-wrapper .hero { grid-template-columns: 1fr; text-align: center; }
+      #skrm-bliss-wrapper .hero-visual { order: -1; }
+      #skrm-bliss-wrapper .nav-links { display: none; }
+      #skrm-bliss-wrapper .hero-ctas { justify-content: center; }
+      #skrm-bliss-wrapper .hero p { margin: 0 auto 30px; }
+    }
+
+    @media (max-width: 640px) {
+      #skrm-bliss-wrapper .hero h1 { font-size: 2.2rem; }
+
+      /* MOBILE HEADER */
+      #skrm-bliss-wrapper nav {
+          flex-direction: column; gap: 15px; padding: 15px;
+      }
+      #skrm-bliss-wrapper .brand {
+          width: 100%; justify-content: center; padding-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
+      #skrm-bliss-wrapper .controls {
+          width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      }
+
+      /* Hide 'Select Language' text on Mobile */
+      #skrm-bliss-wrapper .skrm-lang-select span { display: none !important; }
+      #skrm-bliss-wrapper .skrm-lang-select::after { content: '🌐'; font-size: 16px; }
+
+      /* Stacking Grids */
+      #skrm-bliss-wrapper .grid-3,
+      #skrm-bliss-wrapper .process,
+      #skrm-bliss-wrapper .stat-row,
+      #skrm-bliss-wrapper .contact-grid { grid-template-columns: 1fr; }
+
+      #skrm-bliss-wrapper .final-cta { flex-direction: column; text-align: center; }
+      #skrm-bliss-wrapper .final-cta button { width: 100%; margin-top: 20px; }
+      #skrm-bliss-wrapper .footer-content { flex-direction: column; gap: 40px; text-align: center; }
+      #skrm-bliss-wrapper .footer-nav { flex-direction: column; gap: 30px; }
+      .roi-grid { grid-template-columns: 1fr; }
+      .widgets { right: 20px; bottom: 80px; }
+      .cookie-banner { flex-direction: column; text-align: center; gap: 10px; }
+
+      .app-mockup { max-width: 80%; margin: 0 auto; transform: none !important; }
+    }
+  </style>
+
+  <div class="wrap">
+
+    <nav>
+      <div class="brand">
+        <div class="logo-img">
+          <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1762506135/SKRMBlissAILogo1_rzcopu.png" alt="Logo" style="width:24px;">
+        </div>
+        <div>
+          <div class="brand-title" data-i18n="brand_title">SKRMBliss.AI</div>
+          <div class="brand-sub" data-i18n="brand_sub">White-Label Solutions</div>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#features" data-i18n="nav_features">Features</a>
+        <a href="#process" data-i18n="nav_process">How it Works</a>
+        <a href="#contact" data-i18n="nav_pricing">Pricing</a>
+      </div>
+      <div class="controls">
+        <div class="skrm-lang-select" aria-label="Language selector">
+          <span style="font-weight:700; color:var(--text-muted); font-size:13px;">🌐</span>
+          <select id="skrmLang" aria-label="Choose language">
+            <option value="en">EN</option>
+            <option value="fr">FR</option>
+          </select>
+        </div>
+
+        <button class="utility-btn" id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
+
+        <a href="#contact" class="btn" data-i18n="btn_book_demo">Book Demo</a>
+      </div>
+    </nav>
+
+    <section class="hero reveal">
       <div>
-       <a href="https://www.skrmblissai.in" class="brand-title">SKRMBliss.AI</a>
-        <div class="brand-sub">White-Label Solutions</div>
-      </div>
-    </div>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#process">How it Works</a>
-      <a href="#contact">Pricing</a>
-    </div>
-    <div class="controls">
-      <div id="google_translate_element"></div>
-      
-      <button class="utility-btn" id="themeToggle" aria-label="Toggle Dark Mode">🌙</button>
-      
-      <a href="#contact" class="btn">Book Demo</a>
-    </div>
-  </nav>
-
-  <section class="hero reveal">
-    <div>
-      <div style="display:inline-block; padding:6px 14px; border-radius:50px; background:rgba(125,185,179,0.1); color:#6aa8a2; font-weight:700; font-size:11px; margin-bottom:15px;">
-        ✨ For Coaches & Studios
-      </div>
-      <h1>Launch Your Own <span class="accent">AI Laughter App</span> in 7 Days</h1>
-      <p>Don't spend $20,000 on development. We provide the technology. You provide the brand.</p>
-      
-      <div class="hero-ctas">
-        <a href="#contact" class="btn">Claim Your App</a>
-        <a href="https://sumansuneja-laughterhub1-498377085294.me-central1.run.app/" target="_blank" class="btn ghost">View Demo</a>
-      </div>
-
-      <div class="card hero-stats reveal">
-        <div style="font-weight:800; margin-bottom:15px; font-size:1rem; color:var(--text-main);">Why Coaches Choose Us</div>
-        <div class="stat-row">
-          <div class="stat"><div class="n">10x</div><div class="l">Cheaper</div></div>
-          <div class="stat"><div class="n">24/7</div><div class="l">AI Support</div></div>
-          <div class="stat"><div class="n">100%</div><div class="l">Ownership</div></div>
+        <div style="display:inline-block; padding:6px 14px; border-radius:50px; background:rgba(125,185,179,0.1); color:#6aa8a2; font-weight:700; font-size:11px; margin-bottom:15px;" data-i18n="hero_badge">
+          ✨ For Coaches & Studios
         </div>
-      </div>
-    </div>
+        <h1><span data-i18n="hero_title">Launch Your Own</span> <span class="accent" data-i18n="hero_accent">AI Laughter App</span> <span data-i18n="hero_in">in 7 Days</span></h1>
+        <p data-i18n="hero_sub">Don't spend $20,000 on development. We provide the technology. You provide the brand.</p>
 
-    <aside>
-      <div class="hero-visual">
-        <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App Mobile Interface" class="app-mockup">
-      </div>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn" data-i18n="btn_claim">Claim Your App</a>
+          <a href="https://sumansuneja-laughterhub1-498377085294.me-central1.run.app/" target="_blank" class="btn ghost" data-i18n="btn_view_demo">View Demo</a>
+        </div>
 
-      <div class="ready-packs reveal">
-        <h3 style="font-size:1.3rem; font-weight:800; margin-bottom:10px; color:var(--text-main);">The Advantage</h3>
-        <p style="color:var(--text-muted); font-size:0.9rem;">Proven "Laughter OS" wrapped in your brand.</p>
-        <ul class="features-list">
-          <li>Your Logo & Colors</li>
-          <li>Your Video Content</li>
-          <li>Gemini AI trained on YOU</li>
-        </ul>
-      </div>
-    </aside>
-  </section>
-
-  <section id="features" class="section-header reveal">
-    <h2 class="section-title">What You Get</h2>
-    <p class="section-sub">A complete digital ecosystem.</p>
-    <div class="grid-3">
-      <div class="card"><div class="icon">🤖</div><h3>AI Coach</h3><p>Your students talk to the app; AI responds with exercises.</p></div>
-      <div class="card"><div class="icon">🎨</div><h3>White-Label</h3><p>Your brand, your domain. We remain invisible.</p></div>
-      <div class="card"><div class="icon">📲</div><h3>PWA Tech</h3><p>Installs on iPhone/Android without App Store fees.</p></div>
-      <div class="card"><div class="icon">📊</div><h3>Analytics</h3><p>Track student joy scores and streaks.</p></div>
-      <div class="card"><div class="icon">🎥</div><h3>Hosting</h3><p>Optimized video streaming for your sessions.</p></div>
-      <div class="card"><div class="icon">🌍</div><h3>Multi-Lang</h3><p>AI adapts to 7+ languages automatically.</p></div>
-    </div>
-  </section>
-
-  <section id="process" class="section-header reveal">
-    <h2 class="section-title">How It Works</h2>
-    <div class="process">
-      <div class="card"><div class="num">1</div><strong>Assets</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Send logo & videos.</p></div>
-      <div class="card"><div class="num">2</div><strong>Setup</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">We customize the AI.</p></div>
-      <div class="card"><div class="num">3</div><strong>Review</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Test private link.</p></div>
-      <div class="card"><div class="num">4</div><strong>Launch</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;">Go live on your domain.</p></div>
-    </div>
-  </section>
-
-  <section class="final-cta reveal">
-    <div>
-      <h2>ROI: How this pays for itself</h2>
-      <p style="max-width:600px; margin-top:10px; color:var(--text-muted);">Sell subscriptions, bundle with workshops, or sell corporate licenses.</p>
-    </div>
-    <button class="btn" id="openRoiBtn">Calculate ROI</button>
-  </section>
-
-  <section id="contact" class="reveal">
-    <h2 class="section-title">Claim Your App</h2>
-    <p class="section-sub">Limited availability to ensure quality onboarding.</p>
-    
-    <div class="contact-grid">
-      <div class="card">
-        <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
-          <label>Name <input name="name" class="input" type="text" required placeholder="Your Name"></label>
-          <label>Email <input name="email" class="input" type="email" required placeholder="you@domain.com"></label>
-          <label>Business Name <input name="business" class="input" type="text" required></label>
-          <div class="checkbox-group">
-            <input type="checkbox" id="consent" checked required>
-            <label for="consent" style="margin:0; font-weight:400;">I agree to be contacted.</label>
+        <div class="card hero-stats reveal">
+          <div style="font-weight:800; margin-bottom:15px; font-size:1rem; color:var(--text-main);" data-i18n="why_title">Why Coaches Choose Us</div>
+          <div class="stat-row">
+            <div class="stat"><div class="n">10x</div><div class="l" data-i18n="stat_cheaper">Cheaper</div></div>
+            <div class="stat"><div class="n">24/7</div><div class="l" data-i18n="stat_support">AI Support</div></div>
+            <div class="stat"><div class="n">100%</div><div class="l" data-i18n="stat_ownership">Ownership</div></div>
           </div>
-          <button type="submit" class="btn" style="width:100%; margin-top:20px;">Request Demo</button>
-          <div id="formStatus" style="margin-top:15px; font-weight:600; font-size:14px;"></div>
-        </form>
-      </div>
-      
-      <aside class="card" style="display:flex; flex-direction:column; gap:20px;">
-        <strong style="font-size:1.2rem; color:var(--text-main);">Contact Us</strong>
-        <div>
-          <div style="font-size:0.9rem; color:var(--text-muted);">Email</div>
-          <a href="mailto:connect@skrmblissai.in" style="font-weight:600; color:var(--text-main);">connect@skrmblissai.in</a>
         </div>
-        <div style="font-style:italic; color:var(--text-muted); font-size:0.95rem;">"We handle the code, you handle the laughter."</div>
-        <a href="https://wa.me/+918217581238" target="_blank" class="btn ghost" style="text-align:center;">Chat on WhatsApp</a>
+      </div>
+
+      <aside>
+        <div class="hero-visual">
+          <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App Mobile Interface" class="app-mockup">
+        </div>
+
+        <div class="ready-packs reveal">
+          <h3 style="font-size:1.3rem; font-weight:800; margin-bottom:10px; color:var(--text-main);" data-i18n="adv_title">The Advantage</h3>
+          <p style="color:var(--text-muted); font-size:0.9rem;" data-i18n="adv_sub">Proven "Laughter OS" wrapped in your brand.</p>
+          <ul class="features-list">
+            <li data-i18n="feat_logo">Your Logo & Colors</li>
+            <li data-i18n="feat_video">Your Video Content</li>
+            <li data-i18n="feat_ai">Gemini AI trained on YOU</li>
+          </ul>
+        </div>
       </aside>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <div class="footer-content">
-      <div style="max-width:300px;">
-        <h3 style="font-weight:900; margin:0 0 10px;">SKRMBliss.AI</h3>
-        <p style="font-size:0.9rem; color:var(--text-muted);">Helping coaches build better digital products.</p>
+    <section id="features" class="section-header reveal">
+      <h2 class="section-title" data-i18n="what_title">What You Get</h2>
+      <p class="section-sub" data-i18n="what_sub">A complete digital ecosystem.</p>
+      <div class="grid-3">
+        <div class="card"><div class="icon">🤖</div><h3 data-i18n="f_ai">AI Coach</h3><p data-i18n="f_ai_sub">Your students talk to the app; AI responds with exercises.</p></div>
+        <div class="card"><div class="icon">🎨</div><h3 data-i18n="f_wl">White-Label</h3><p data-i18n="f_wl_sub">Your brand, your domain. We remain invisible.</p></div>
+        <div class="card"><div class="icon">📲</div><h3 data-i18n="f_pwa">PWA Tech</h3><p data-i18n="f_pwa_sub">Installs on iPhone/Android without App Store fees.</p></div>
+        <div class="card"><div class="icon">📊</div><h3 data-i18n="f_analytics">Analytics</h3><p data-i18n="f_analytics_sub">Track student joy scores and streaks.</p></div>
+        <div class="card"><div class="icon">🎥</div><h3 data-i18n="f_hosting">Hosting</h3><p data-i18n="f_hosting_sub">Optimized video streaming for your sessions.</p></div>
+        <div class="card"><div class="icon">🌍</div><h3 data-i18n="f_lang">Multi-Lang</h3><p data-i18n="f_lang_sub">AI adapts to 7+ languages automatically.</p></div>
       </div>
-      <div class="footer-nav">
-        <div class="nav-col">
-          <h4>Services</h4>
-          <a href="#features">App Dev</a>
-          <a href="#features">AI Tools</a>
+    </section>
+
+    <section id="process" class="section-header reveal">
+      <h2 class="section-title" data-i18n="process_title">How It Works</h2>
+      <div class="process">
+        <div class="card"><div class="num">1</div><strong data-i18n="proc_assets">Assets</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;" data-i18n="proc_assets_sub">Send logo & videos.</p></div>
+        <div class="card"><div class="num">2</div><strong data-i18n="proc_setup">Setup</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;" data-i18n="proc_setup_sub">We customize the AI.</p></div>
+        <div class="card"><div class="num">3</div><strong data-i18n="proc_review">Review</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;" data-i18n="proc_review_sub">Test private link.</p></div>
+        <div class="card"><div class="num">4</div><strong data-i18n="proc_launch">Launch</strong><p style="font-size:13px; color:var(--text-muted); margin-top:5px;" data-i18n="proc_launch_sub">Go live on your domain.</p></div>
+      </div>
+    </section>
+
+    <section class="final-cta reveal">
+      <div>
+        <h2 data-i18n="roi_title">ROI: How this pays for itself</h2>
+        <p style="max-width:600px; margin-top:10px; color:var(--text-muted);" data-i18n="roi_sub">Sell subscriptions, bundle with workshops, or sell corporate licenses.</p>
+      </div>
+      <button class="btn" id="openRoiBtn" data-i18n="btn_calc_roi">Calculate ROI</button>
+    </section>
+
+    <section id="contact" class="reveal">
+      <h2 class="section-title" data-i18n="contact_title">Claim Your App</h2>
+      <p class="section-sub" data-i18n="contact_sub">Limited availability to ensure quality onboarding.</p>
+
+      <div class="contact-grid">
+        <div class="card">
+          <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
+            <label data-i18n="label_name">Name
+              <input name="name" class="input" type="text" required placeholder="Your Name">
+            </label>
+            <label data-i18n="label_email">Email
+              <input name="email" class="input" type="email" required placeholder="you@domain.com">
+            </label>
+            <label data-i18n="label_business">Business Name
+              <input name="business" class="input" type="text" required>
+            </label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="consent" checked required>
+              <label for="consent" style="margin:0; font-weight:400;" data-i18n="consent_text">I agree to be contacted.</label>
+            </div>
+            <button type="submit" class="btn" style="width:100%; margin-top:20px;" data-i18n="btn_request_demo">Request Demo</button>
+            <div id="formStatus" style="margin-top:15px; font-weight:600; font-size:14px;"></div>
+          </form>
         </div>
-        <div class="nav-col">
-          <h4>Company</h4>
-          <a href="#contact">Contact</a>
-          <a href="#">Privacy</a>
+
+        <aside class="card" style="display:flex; flex-direction:column; gap:20px;">
+          <strong style="font-size:1.2rem; color:var(--text-main);" data-i18n="contact_us">Contact Us</strong>
+          <div>
+            <div style="font-size:0.9rem; color:var(--text-muted);" data-i18n="label_email_small">Email</div>
+            <a href="mailto:connect@skrmblissai.in" style="font-weight:600; color:var(--text-main);">connect@skrmblissai.in</a>
+          </div>
+          <div style="font-style:italic; color:var(--text-muted); font-size:0.95rem;" data-i18n="tagline">"We handle the code, you handle the laughter."</div>
+          <a href="https://wa.me/+918217581238" target="_blank" class="btn ghost" style="text-align:center;" data-i18n="btn_whatsapp">Chat on WhatsApp</a>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-content">
+        <div style="max-width:300px;">
+          <h3 style="font-weight:900; margin:0 0 10px;" data-i18n="brand_footer">SKRMBliss.AI</h3>
+          <p style="font-size:0.9rem; color:var(--text-muted);" data-i18n="brand_tag">Helping coaches build better digital products.</p>
         </div>
-        <div class="nav-col">
-          <h4>Follow</h4>
-          <a href="https://www.facebook.com/skrmbliss" target="_blank">Facebook</a>
-          <a href="https://wa.me/+918217581238" target="_blank">WhatsApp</a>
+        <div class="footer-nav">
+          <div class="nav-col">
+            <h4 data-i18n="foot_services">Services</h4>
+            <a href="#features" data-i18n="foot_appdev">App Dev</a>
+            <a href="#features" data-i18n="foot_aitools">AI Tools</a>
+          </div>
+          <div class="nav-col">
+            <h4 data-i18n="foot_company">Company</h4>
+            <a href="#contact" data-i18n="foot_contact">Contact</a>
+            <a href="#" data-i18n="foot_privacy">Privacy</a>
+          </div>
+          <div class="nav-col">
+            <h4 data-i18n="foot_follow">Follow</h4>
+            <a href="https://www.facebook.com/skrmbliss" target="_blank">Facebook</a>
+            <a href="https://wa.me/+918217581238" target="_blank">WhatsApp</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="footer-btm">
-      © 2025 SKRM Bliss AI • Built in Bengaluru
-    </div>
-  </footer>
+      <div class="footer-btm">
+        © 2025 SKRM Bliss AI • Built in Bengaluru
+      </div>
+    </footer>
 
-</div> 
-
-<div class="widgets">
-  <a href="https://wa.me/+918217581238" target="_blank" class="fab whatsapp">
-    <svg viewBox="0 0 24 24"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
-  </a>
-  <button class="fab call-fab" id="fabBookCall" title="Book a Call">📅</button>
-</div>
-
-<div id="cookieBanner" class="cookie-banner">
-  <p>🍪 We use cookies to improve your experience.</p>
-  <div style="display:flex; gap:10px;">
-      <button class="btn" onclick="acceptCookies()">Accept</button>
-      <button class="btn ghost" onclick="acceptCookies()" style="padding: 10px 20px;">Close</button>
+  </div> <div class="widgets">
+    <a href="https://wa.me/+918217581238" target="_blank" class="fab whatsapp" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5C18.4 1.4 15.5 .5 12.8 1.1 7.8 2.2 4 6.9 4 12.1c0 1.8.4 3.5 1.1 5.1L4 22l4-1.1c1.4.8 3 1.2 4.7 1.2 5 0 9.6-3.9 10.7-8.9.6-2.7-.1-5.6-2-7.6z"/></svg>
+    </a>
+    <button class="fab call-fab" id="fabBookCall" title="Book a Call">📅</button>
   </div>
-</div>
 
-<div id="roiOverlay" class="modal-overlay">
-  <div class="modal-box">
-    <div class="modal-header">
-      <h3 style="margin:0;">ROI Calculator</h3>
-      <button class="close-modal" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
+    <p>🍪 <span data-i18n="cookie_text">We use cookies to improve your experience.</span></p>
+    <div style="display:flex; gap:10px;">
+        <button class="btn" onclick="acceptCookies()" data-i18n="btn_accept">Accept</button>
+        <button class="btn ghost" onclick="acceptCookies()" style="padding: 10px 20px;" data-i18n="btn_close">Close</button>
     </div>
-    <div class="modal-body">
-      <div class="roi-grid">
-        <div>
-          <label>Students: <span id="valStudents">50</span></label>
-          <input type="range" id="inStudents" min="10" max="500" value="50" style="width:100%">
-        </div>
-        <div>
-          <label>Monthly Fee: $<span id="valFee">5</span></label>
-          <input type="range" id="inFee" min="5" max="50" value="5" style="width:100%">
-        </div>
+  </div>
+
+  <div id="roiOverlay" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="roiHeading">
+      <div class="modal-header">
+        <h3 id="roiHeading" style="margin:0;">ROI Calculator</h3>
+        <button class="close-modal" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button>
       </div>
-      <div class="roi-result">
-        <div style="font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">Potential Monthly Revenue</div>
-        <div class="roi-val" id="valTotal">$250</div>
-      </div>
-      <div style="text-align:center; margin-top:20px;">
-        <button class="btn close-modal-action">Get This Result</button>
+      <div class="modal-body">
+        <div class="roi-grid">
+          <div>
+            <label>Students: <span id="valStudents">50</span></label>
+            <input type="range" id="inStudents" min="10" max="500" value="50" style="width:100%">
+          </div>
+          <div>
+            <label>Monthly Fee: $<span id="valFee">5</span></label>
+            <input type="range" id="inFee" min="5" max="50" value="5" style="width:100%">
+          </div>
+        </div>
+        <div class="roi-result">
+          <div style="font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">Potential Monthly Revenue</div>
+          <div class="roi-val" id="valTotal">$250</div>
+        </div>
+        <div style="text-align:center; margin-top:20px;">
+          <button class="btn close-modal-action" data-i18n="btn_get_result">Get This Result</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div id="bookCallOverlay" class="modal-overlay">
-  <div class="modal-box" style="max-width:500px;">
-    <div class="modal-header">
-      <h3 style="margin:0;">Book a 15-min Call</h3>
-      <button class="close-modal-call" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button>
-    </div>
-    <div class="modal-body" style="text-align:center;">
-      <p style="margin-bottom:20px;">Ready to discuss your app? Pick a time below.</p>
-      
-      <div style="background: var(--glass-bg); padding: 40px; border-radius: 12px; margin-bottom:20px; border: 1px dashed var(--text-muted);">
-          📅 Calendly / Booking Widget Loads Here
+  <div id="bookCallOverlay" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box" style="max-width:600px;" role="dialog" aria-modal="true" aria-labelledby="bookHeading">
+      <div class="modal-header">
+        <h3 id="bookHeading" style="margin:0;" data-i18n="book_title">Book a 15-min Call</h3>
+        <button class="close-modal-call" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button>
       </div>
+      <div class="modal-body" style="text-align:center;">
+        <p style="margin-bottom:20px;" data-i18n="book_intro">Ready to discuss your app? Pick a time below.</p>
 
-      <a href="tel:+918217581238" class="btn" style="width:100%;">Call Now: +91 82175 81238</a>
-      <br><br>
-      <button class="btn ghost close-modal-call">Close</button>
+        <div style="background: var(--glass-bg); padding: 20px; border-radius: 12px; margin-bottom:20px; border: 1px dashed var(--text-muted);">
+            <form id="bookingForm" action="https://formspree.io/f/mrbnakoj" method="POST" style="display:grid; gap:10px; text-align:left;">
+              <label>Name <input name="name" class="input" type="text" required></label>
+              <label>Email <input name="email" class="input" type="email" required></label>
+              <label>Phone <input name="phone" class="input" type="tel" required></label>
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <label>Date <input name="date" class="input" type="date" required></label>
+                <label>Time <input name="time" class="input" type="time" required></label>
+              </div>
+              <label>Notes <textarea name="notes" class="input" style="min-height:80px;"></textarea></label>
+              <label style="font-weight:500;"><input type="checkbox" name="consent" required> <span data-i18n="consent_booking">I agree to be contacted about this booking.</span></label>
+              <div style="display:flex; gap:10px;">
+                <button id="bookingSubmit" type="submit" class="btn" style="flex:1;">Confirm Booking</button>
+                <button type="button" class="btn ghost close-modal-call" style="flex:1;">Close</button>
+              </div>
+              <div id="bookingStatus" style="font-weight:600; margin-top:8px;"></div>
+            </form>
+        </div>
+
+        <a href="tel:+918217581238" class="btn" style="width:100%;">Call Now: +91 82175 81238</a>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-(function(){
-  const wrapper = document.getElementById('skrm-bliss-wrapper');
-  const toggleBtn = document.getElementById('themeToggle');
-  const storedTheme = localStorage.getItem('theme');
-  
-  if (storedTheme) {
-    wrapper.setAttribute('data-theme', storedTheme);
-    toggleBtn.textContent = storedTheme === 'dark' ? '☀️' : '🌙';
-  }
-
-  toggleBtn.addEventListener('click', () => {
-    const currentTheme = wrapper.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    wrapper.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    toggleBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-  });
-
-  // SCROLL ANIMATION
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // --- COOKIE BANNER LOGIC ---
-  const cookieBanner = document.getElementById('cookieBanner');
-  if(!localStorage.getItem('cookiesAccepted')) {
-      setTimeout(() => cookieBanner.classList.add('show'), 1000);
-  }
-  window.acceptCookies = function() {
-      cookieBanner.classList.remove('show');
-      localStorage.setItem('cookiesAccepted', 'true');
-  }
-
-  // --- FORMSPREE SUBMISSION ---
-  const form = document.getElementById('contactForm');
-  if(form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const status = document.getElementById('formStatus');
-      const btn = form.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
+  </div> <script>
+    /* =================== SKRMBliss Main Script (scoped) =================== */
+    (function(){
+      const root = document.getElementById('skrm-bliss-wrapper');
       
-      btn.textContent = 'Sending...';
-      
-      const data = new FormData(form);
-      fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          status.textContent = "Thanks! We'll be in touch soon.";
-          status.style.color = "green";
-          form.reset();
-        } else {
-          status.textContent = "Oops! There was a problem.";
-          status.style.color = "red";
-        }
-        btn.textContent = originalText;
-      }).catch(error => {
-        status.textContent = "Error sending message.";
-        status.style.color = "red";
-        btn.textContent = originalText;
+      /* ----------------- Theme (Default to dark per SKRMBliss rule) ----------------- */
+      const toggleBtn = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('theme');
+
+      if(!savedTheme) {
+        root.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        if(toggleBtn) toggleBtn.textContent = '☀️';
+      } else {
+        root.setAttribute('data-theme', savedTheme);
+        toggleBtn && (toggleBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙');
+      }
+
+      toggleBtn && toggleBtn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        toggleBtn.textContent = next === 'dark' ? '☀️' : '🌙';
       });
-    });
-  }
 
-  // --- MODAL HANDLERS ---
-  function setupModal(triggerIds, overlayId, closeClass) {
-    const overlay = document.getElementById(overlayId);
-    if(!overlay) return;
-    
-    triggerIds.forEach(id => {
-        const btn = document.getElementById(id);
-        if(btn) btn.onclick = () => overlay.classList.add('active');
-    });
+      /* ----------------- Intersection Observer ----------------- */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+      }, { threshold: 0.1 });
 
-    const closeBtns = document.getElementsByClassName(closeClass);
-    for(let btn of closeBtns) {
-        btn.onclick = () => overlay.classList.remove('active');
-    }
-  }
+      document.querySelectorAll('#skrm-bliss-wrapper .reveal').forEach(el => observer.observe(el));
 
-  setupModal(['openRoiBtn'], 'roiOverlay', 'close-modal');
-  const modalAction = document.querySelector('.close-modal-action');
-  if(modalAction) {
-      modalAction.addEventListener('click', () => {
-         document.getElementById('roiOverlay').classList.remove('active');
-         document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+      /* ----------------- COOKIE BANNER ----------------- */
+      const cookieBanner = document.getElementById('cookieBanner');
+      if(!localStorage.getItem('cookiesAccepted')) {
+          setTimeout(() => cookieBanner && cookieBanner.classList.add('show'), 1000);
+      }
+      window.acceptCookies = function() {
+          cookieBanner && cookieBanner.classList.remove('show');
+          localStorage.setItem('cookiesAccepted', 'true');
+      }
+
+      /* ----------------- Contact Form (Formspree) ----------------- */
+      const form = document.getElementById('contactForm');
+      if(form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const status = document.getElementById('formStatus');
+          const btn = form.querySelector('button[type="submit"]');
+          const originalText = btn.textContent;
+
+          btn.textContent = 'Sending...';
+          btn.disabled = true;
+
+          const data = new FormData(form);
+          fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          }).then(response => {
+            if (response.ok) {
+              status.textContent = "Thanks! We'll be in touch soon.";
+              status.style.color = "green";
+              form.reset();
+            } else {
+              status.textContent = "Oops! There was a problem.";
+              status.style.color = "red";
+            }
+            btn.textContent = originalText;
+            btn.disabled = false;
+          }).catch(error => {
+            status.textContent = "Error sending message.";
+            status.style.color = "red";
+            btn.textContent = originalText;
+            btn.disabled = false;
+          });
+        });
+      }
+
+      /* ----------------- Modals ----------------- */
+      function setupModal(triggerIds, overlayId, closeClass) {
+        const overlay = document.getElementById(overlayId);
+        if(!overlay) return;
+
+        triggerIds.forEach(id => {
+            const btn = document.getElementById(id);
+            if(btn) btn.onclick = () => overlay.classList.add('active');
+        });
+
+        const closeBtns = document.getElementsByClassName(closeClass);
+        for(let btn of closeBtns) {
+            btn.onclick = () => overlay.classList.remove('active');
+        }
+      }
+
+      setupModal(['openRoiBtn'], 'roiOverlay', 'close-modal');
+      const modalAction = document.querySelector('.close-modal-action');
+      if(modalAction) {
+          modalAction.addEventListener('click', () => {
+             document.getElementById('roiOverlay').classList.remove('active');
+             document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+          });
+      }
+
+      setupModal(['navBookCall', 'fabBookCall'], 'bookCallOverlay', 'close-modal-call');
+
+      const fabBookCall = document.getElementById('fabBookCall');
+      if(fabBookCall) fabBookCall.addEventListener('click', () => {
+        document.getElementById('bookCallOverlay').classList.add('active');
       });
-  }
 
-  setupModal(['navBookCall', 'fabBookCall'], 'bookCallOverlay', 'close-modal-call');
+      /* ----------------- ROI Calculator ----------------- */
+      const sInput = document.getElementById('inStudents');
+      const fInput = document.getElementById('inFee');
 
-  // --- ROI MATH ---
-  const sInput = document.getElementById('inStudents');
-  const fInput = document.getElementById('inFee');
-  
-  function calc() {
-    const s = parseInt(sInput.value);
-    const f = parseInt(fInput.value);
-    document.getElementById('valStudents').innerText = s;
-    document.getElementById('valFee').innerText = f;
-    document.getElementById('valTotal').innerText = '$' + (s * f).toLocaleString();
-  }
-  
-  if(sInput && fInput) {
-    sInput.oninput = calc;
-    fInput.oninput = calc;
-  }
-})();
-</script>
+      function calc() {
+        if(!sInput || !fInput) return;
+        const s = parseInt(sInput.value);
+        const f = parseInt(fInput.value);
+        document.getElementById('valStudents').innerText = s;
+        document.getElementById('valFee').innerText = f;
+        document.getElementById('valTotal').innerText = '$' + (s * f).toLocaleString();
+      }
+
+      if(sInput && fInput) {
+        sInput.oninput = calc;
+        fInput.oninput = calc;
+        calc();
+      }
+
+      /* =================== Booking Form: Formspree + Mailto Fallback =================== */
+      (function(){
+        const bookingForm = document.getElementById('bookingForm');
+        if(!bookingForm) return;
+        const btn = document.getElementById('bookingSubmit');
+        const status = document.getElementById('bookingStatus');
+
+        bookingForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          btn.disabled = true;
+          const original = btn.textContent;
+          btn.textContent = 'Sending...';
+          const data = new FormData(bookingForm);
+
+          try {
+            const res = await fetch(bookingForm.action, { method: bookingForm.method, body: data, headers: {'Accept': 'application/json'} });
+            if(res.ok) {
+              status.style.color = 'green';
+              status.textContent = 'Booking request sent! We will contact you.';
+              bookingForm.reset();
+              setTimeout(() => {
+                  document.getElementById('bookCallOverlay').classList.remove('active');
+                  status.textContent = '';
+              }, 2000);
+            } else {
+              fallbackToMailto(data);
+            }
+          } catch(err) {
+            fallbackToMailto(data);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = original;
+          }
+        });
+
+        function fallbackToMailto(formData) {
+          const name = formData.get('name') || '';
+          const email = formData.get('email') || '';
+          const phone = formData.get('phone') || '';
+          const date = formData.get('date') || '';
+          const time = formData.get('time') || '';
+          const notes = formData.get('notes') || '';
+          const subject = `Booking Request: ${date} ${time}`;
+          let body = `Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0ADate: ${date}%0ATime: ${time}%0ANotes: ${notes}`;
+          window.location.href = `mailto:connect@skrmblissai.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+      })();
+
+      /* =================== SKRMBliss Native i18n/Translation =================== */
+      const translations = {
+        en: {
+          brand_title: "SKRMBliss.AI",
+          brand_sub: "White-Label Solutions",
+          nav_features: "Features",
+          nav_process: "How it Works",
+          nav_pricing: "Pricing",
+          btn_book_demo: "Book Demo",
+          hero_badge: "✨ For Coaches & Studios",
+          hero_title: "Launch Your Own",
+          hero_accent: "AI Laughter App",
+          hero_in: "in 7 Days",
+          hero_sub: "Don't spend $20,000 on development. We provide the technology. You provide the brand.",
+          btn_claim: "Claim Your App",
+          btn_view_demo: "View Demo",
+          why_title: "Why Coaches Choose Us",
+          stat_cheaper: "Cheaper",
+          stat_support: "AI Support",
+          stat_ownership: "Ownership",
+          adv_title: "The Advantage",
+          adv_sub: "Proven \"Laughter OS\" wrapped in your brand.",
+          feat_logo: "Your Logo & Colors",
+          feat_video: "Your Video Content",
+          feat_ai: "Gemini AI trained on YOU",
+          what_title: "What You Get",
+          what_sub: "A complete digital ecosystem.",
+          f_ai: "AI Coach",
+          f_ai_sub: "Your students talk to the app; AI responds with exercises.",
+          f_wl: "White-Label",
+          f_wl_sub: "Your brand, your domain. We remain invisible.",
+          f_pwa: "PWA Tech",
+          f_pwa_sub: "Installs on iPhone/Android without App Store fees.",
+          f_analytics: "Analytics",
+          f_analytics_sub: "Track student joy scores and streaks.",
+          f_hosting: "Hosting",
+          f_hosting_sub: "Optimized video streaming for your sessions.",
+          f_lang: "Multi-Lang",
+          f_lang_sub: "AI adapts to 7+ languages automatically.",
+          process_title: "How It Works",
+          proc_assets: "Assets",
+          proc_assets_sub: "Send logo & videos.",
+          proc_setup: "Setup",
+          proc_setup_sub: "We customize the AI.",
+          proc_review: "Review",
+          proc_review_sub: "Test private link.",
+          proc_launch: "Launch",
+          proc_launch_sub: "Go live on your domain.",
+          roi_title: "ROI: How this pays for itself",
+          roi_sub: "Sell subscriptions, bundle with workshops, or sell corporate licenses.",
+          btn_calc_roi: "Calculate ROI",
+          contact_title: "Claim Your App",
+          contact_sub: "Limited availability to ensure quality onboarding.",
+          label_name: "Name",
+          label_email: "Email",
+          label_business: "Business Name",
+          consent_text: "I agree to be contacted.",
+          btn_request_demo: "Request Demo",
+          contact_us: "Contact Us",
+          label_email_small: "Email",
+          tagline: "\"We handle the code, you handle the laughter.\"",
+          btn_whatsapp: "Chat on WhatsApp",
+          brand_footer: "SKRMBliss.AI",
+          brand_tag: "Helping coaches build better digital products.",
+          foot_services: "Services",
+          foot_appdev: "App Dev",
+          foot_aitools: "AI Tools",
+          foot_company: "Company",
+          foot_contact: "Contact",
+          foot_privacy: "Privacy",
+          foot_follow: "Follow",
+          cookie_text: "We use cookies to improve your experience.",
+          btn_accept: "Accepter",
+          btn_close: "Fermer",
+          btn_get_result: "Get This Result",
+          book_title: "Book a 15-min Call",
+          book_intro: "Ready to discuss your app? Pick a time below.",
+          consent_booking: "I agree to be contacted about this booking."
+        },
+        fr: {
+          brand_title: "SKRMBliss.AI",
+          brand_sub: "Solutions White-Label",
+          nav_features: "Fonctionnalités",
+          nav_process: "Comment ça marche",
+          nav_pricing: "Tarifs",
+          btn_book_demo: "Réserver une démo",
+          hero_badge: "✨ Pour coachs & studios",
+          hero_title: "Lancez votre propre",
+          hero_accent: "Application d'IA pour le rire",
+          hero_in: "en 7 jours",
+          hero_sub: "Ne dépensez pas 20 000 $ en développement. Nous fournissons la technologie. Vous fournissez la marque.",
+          btn_claim: "Réclamez votre application",
+          btn_view_demo: "Voir la démo",
+          why_title: "Pourquoi les coachs nous choisissent",
+          stat_cheaper: "Moins cher",
+          stat_support: "Support IA",
+          stat_ownership: "Propriété",
+          adv_title: "L'avantage",
+          adv_sub: "Système \"Laughter OS\" éprouvé, sous votre marque.",
+          feat_logo: "Votre logo & couleurs",
+          feat_video: "Votre contenu vidéo",
+          feat_ai: "Gemini AI entraînée sur VOUS",
+          what_title: "Ce que vous obtenez",
+          what_sub: "Un écosystème numérique complet.",
+          f_ai: "Coach IA",
+          f_ai_sub: "Vos étudiants parlent à l'app; l'IA répond avec des exercices.",
+          f_wl: "Marque Blanche",
+          f_wl_sub: "Votre marque, votre domaine. Nous restons invisibles.",
+          f_pwa: "Technologie PWA",
+          f_pwa_sub: "S'installe sur iPhone/Android sans frais d'App Store.",
+          f_analytics: "Analytique",
+          f_analytics_sub: "Suivez les scores de joie et les séries.",
+          f_hosting: "Hébergement",
+          f_hosting_sub: "Streaming vidéo optimisé pour vos sessions.",
+          f_lang: "Multilingue",
+          f_lang_sub: "L'IA s'adapte automatiquement à 7+ langues.",
+          process_title: "Comment ça marche",
+          proc_assets: "Actifs",
+          proc_assets_sub: "Envoyez logo & vidéos.",
+          proc_setup: "Configuration",
+          proc_setup_sub: "Nous personnalisons l'IA.",
+          proc_review: "Revue",
+          proc_review_sub: "Testez le lien privé.",
+          proc_launch: "Lancement",
+          proc_launch_sub: "Mettez en ligne sur votre domaine.",
+          roi_title: "ROI : Comment cela se rembourse",
+          roi_sub: "Vendez des abonnements, regroupez avec des ateliers ou vendez des licences d'entreprise.",
+          btn_calc_roi: "Calculer le ROI",
+          contact_title: "Réclamez votre application",
+          contact_sub: "Disponibilité limitée pour garantir un onboarding de qualité.",
+          label_name: "Nom",
+          label_email: "Email",
+          label_business: "Nom de l'entreprise",
+          consent_text: "J'accepte d'être contacté.",
+          btn_request_demo: "Demander une démo",
+          contact_us: "Contactez-nous",
+          label_email_small: "Email",
+          tagline: "\"Nous gérons le code, vous gérez le rire.\"",
+          btn_whatsapp: "Discuter sur WhatsApp",
+          brand_footer: "SKRMBliss.AI",
+          brand_tag: "Aider les coachs à construire de meilleurs produits numériques.",
+          foot_services: "Services",
+          foot_appdev: "Dev App",
+          foot_aitools: "Outils IA",
+          foot_company: "Entreprise",
+          foot_contact: "Contact",
+          foot_privacy: "Confidentialité",
+          foot_follow: "Suivre",
+          cookie_text: "Nous utilisons des cookies pour améliorer votre expérience.",
+          btn_accept: "Accepter",
+          btn_close: "Fermer",
+          btn_get_result: "Obtenir ce résultat",
+          book_title: "Réserver un appel de 15 min",
+          book_intro: "Prêt à discuter de votre application ? Choisissez un créneau ci-dessous.",
+          consent_booking: "J'accepte d'être contacté à propos de cette réservation."
+        }
+      };
+
+      function updateLanguage(lang) {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if(translations[lang] && translations[lang][key]) {
+            el.textContent = translations[lang][key];
+          } else if(translations['en'][key]) {
+            el.textContent = translations['en'][key];
+          }
+        });
+        localStorage.setItem('skrm_lang', lang);
+      }
+
+      const langSelect = document.getElementById('skrmLang');
+      const savedLang = localStorage.getItem('skrm_lang') || 'en';
+      langSelect.value = savedLang;
+      updateLanguage(savedLang);
+
+      langSelect.addEventListener('change', (e) => {
+        updateLanguage(e.target.value);
+      });
+
+    })();
+  </script>
 
 </div>
