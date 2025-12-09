@@ -1317,23 +1317,37 @@ function updateCarousel() {
     }
 
     // 🔥 SMART SCROLL TRIGGER LOGIC 🔥
-  // Scroll Trigger (Down = Slide 2, Up = Slide 1)
+ // 🔥 SMART SCROLL TRIGGER LOGIC (FIXED FOR MOBILE) 🔥
     let lastScrollY = window.pageYOffset;
     let isScrolling = false;
+    
     window.addEventListener('scroll', () => {
         if(!container || isScrolling) return;
-        isScrolling = true; setTimeout(() => isScrolling = false, 150);
+        
+        // Debounce to prevent stuttering
+        isScrolling = true; 
+        setTimeout(() => isScrolling = false, 150);
         
         const scrollY = window.pageYOffset;
         const rect = container.getBoundingClientRect();
-        // Check if fully visible
-        const isVisible = (rect.top >= -100 && rect.bottom <= (window.innerHeight + 100));
+        const viewHeight = window.innerHeight;
+
+        // ✅ NEW LOGIC: Triggers if the carousel overlaps the middle of the screen
+        // (Works even if the card is taller than the phone screen)
+        const isVisible = (rect.top < viewHeight * 0.6) && (rect.bottom > viewHeight * 0.4);
 
         if(isVisible) {
+            // User Scrolling DOWN -> Go to Slide 2
             if (scrollY > lastScrollY && currentSlide === 0) {
-                setTimeout(() => { if(currentSlide === 0) { currentSlide = 1; updateCarousel(); } }, 400);
-            } else if (scrollY < lastScrollY && currentSlide === 1) {
-                setTimeout(() => { if(currentSlide === 1) { currentSlide = 0; updateCarousel(); } }, 400);
+                setTimeout(() => { 
+                    if(currentSlide === 0) { currentSlide = 1; updateCarousel(); } 
+                }, 400);
+            } 
+            // User Scrolling UP -> Go back to Slide 1
+            else if (scrollY < lastScrollY && currentSlide === 1) {
+                setTimeout(() => { 
+                    if(currentSlide === 1) { currentSlide = 0; updateCarousel(); } 
+                }, 400);
             }
         }
         lastScrollY = scrollY <= 0 ? 0 : scrollY;
