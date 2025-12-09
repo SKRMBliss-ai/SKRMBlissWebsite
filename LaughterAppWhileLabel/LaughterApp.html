@@ -312,6 +312,7 @@
     #skrm-bliss-wrapper p { color: var(--text-muted); }
 
     /* --- 6. ROI & CONTACT --- */
+/* --- 6. ROI & CONTACT (UPDATED) --- */
     #skrm-bliss-wrapper .final-cta {
       margin-top: 80px; padding: 50px; border-radius: 24px;
       background: linear-gradient(135deg, var(--glass-bg) 0%, rgba(255,255,255,0.05) 100%);
@@ -327,14 +328,49 @@
     #skrm-bliss-wrapper .contact-grid {
       display: grid; grid-template-columns: 1fr 380px; gap: 40px; margin-top: 40px;
     }
-    #skrm-bliss-wrapper .input, select, textarea {
-      width: 100%; padding: 16px; border-radius: 12px;
-      border: 1px solid var(--glass-border); background: rgba(255,255,255,0.8);
-      font-size: 15px; margin-top: 8px; outline: none; transition: 0.2s;
-      color: #071026;
+
+    /* 🚨 FIX: Force Inputs to be Visible against Dark Glass */
+    #skrm-bliss-wrapper input:not([type="checkbox"]), 
+    #skrm-bliss-wrapper textarea, 
+    #skrm-bliss-wrapper select {
+      width: 100% !important;
+      display: block !important;
+      padding: 16px !important;
+      border-radius: 12px !important;
+      margin-top: 8px !important;
+      margin-bottom: 16px !important;
+      font-size: 16px !important;
+      transition: 0.2s;
+      
+      /* High Visibility Colors */
+      background-color: rgba(255, 255, 255, 0.9) !important; 
+      border: 1px solid rgba(255, 255, 255, 0.5) !important;
+      color: #071026 !important; /* Dark text for readability */
+      
+      /* Reset Browser Defaults */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none !important;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
     }
-    #skrm-bliss-wrapper .input:focus { border-color: #7db9b3; box-shadow: 0 0 15px rgba(125,185,179,0.3); }
-    #skrm-bliss-wrapper label { display: block; margin-bottom: 20px; font-weight: 600; font-size: 0.95rem; }
+
+    /* Focus State */
+    #skrm-bliss-wrapper input:focus, 
+    #skrm-bliss-wrapper textarea:focus { 
+        border-color: #7db9b3 !important; 
+        box-shadow: 0 0 0 3px rgba(125, 185, 179, 0.3) !important;
+        background-color: #ffffff !important;
+    }
+
+    #skrm-bliss-wrapper label { 
+        display: block; 
+        margin-bottom: 4px; 
+        font-weight: 700; 
+        font-size: 0.95rem; 
+        color: var(--text-main); /* Ensure label is visible */
+    }
+
     #skrm-bliss-wrapper .checkbox-group { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
     #skrm-bliss-wrapper input[type="checkbox"] { width: 18px; height: 18px; accent-color: #7db9b3; }
 
@@ -548,28 +584,36 @@
       <button class="btn" id="openRoiBtn" data-i18n="btn_calc_roi">Calculate ROI</button>
     </section>
 
-    <section id="contact" class="reveal">
+   <section id="contact" class="reveal">
       <h2 class="section-title" data-i18n="contact_title">Claim Your App</h2>
       <p class="section-sub" data-i18n="contact_sub">Limited availability to ensure quality onboarding.</p>
 
       <div class="contact-grid">
         <div class="card">
           <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
-            <label data-i18n="label_name">Name
-              <input name="name" class="input" type="text" required placeholder="Your Name">
-            </label>
-            <label data-i18n="label_email">Email
-              <input name="email" class="input" type="email" required placeholder="you@domain.com">
-            </label>
-            <label data-i18n="label_business">Business Name
-              <input name="business" class="input" type="text" required>
-            </label>
+            
+            <div style="margin-bottom: 20px;">
+                <label data-i18n="label_name">Name</label>
+                <input name="name" type="text" required placeholder="Your Name">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label data-i18n="label_email">Email</label>
+                <input name="email" type="email" required placeholder="you@domain.com">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label data-i18n="label_business">Business Name</label>
+                <input name="business" type="text" required placeholder="Your Business">
+            </div>
+
             <div class="checkbox-group">
               <input type="checkbox" id="consent" checked required>
-              <label for="consent" style="margin:0; font-weight:400;" data-i18n="consent_text">I agree to be contacted.</label>
+              <label for="consent" style="margin:0; font-weight:400; cursor:pointer;" data-i18n="consent_text">I agree to be contacted.</label>
             </div>
+
             <button type="submit" class="btn" style="width:100%; margin-top:20px;" data-i18n="btn_request_demo">Request Demo</button>
-            <div id="formStatus" style="margin-top:15px; font-weight:600; font-size:14px;"></div>
+            <div id="formStatus" style="margin-top:15px; font-weight:600; font-size:14px; min-height: 20px;"></div>
           </form>
         </div>
 
@@ -737,41 +781,57 @@
           localStorage.setItem('cookiesAccepted', 'true');
       }
 
-      /* ----------------- Contact Form (Formspree) ----------------- */
-      const form = document.getElementById('contactForm');
-      if(form) {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const status = document.getElementById('formStatus');
-          const btn = form.querySelector('button[type="submit"]');
-          const originalText = btn.textContent;
+      /* =================== 🚨 UPDATED CONTACT FORM LOGIC 🚨 =================== */
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+          contactForm.addEventListener('submit', async function(e) {
+              e.preventDefault();
+              const btn = contactForm.querySelector('button[type="submit"]');
+              const status = document.getElementById('formStatus');
+              const ogText = btn.textContent;
 
-          btn.textContent = 'Sending...';
-          btn.disabled = true;
+              btn.textContent = 'Sending...';
+              btn.disabled = true;
+              status.textContent = '';
 
-          const data = new FormData(form);
-          fetch(form.action, {
-            method: form.method,
-            body: data,
-            headers: { 'Accept': 'application/json' }
-          }).then(response => {
-            if (response.ok) {
-              status.textContent = "Thanks! We'll be in touch soon.";
-              status.style.color = "green";
-              form.reset();
-            } else {
-              status.textContent = "Oops! There was a problem.";
-              status.style.color = "red";
-            }
-            btn.textContent = originalText;
-            btn.disabled = false;
-          }).catch(error => {
-            status.textContent = "Error sending message.";
-            status.style.color = "red";
-            btn.textContent = originalText;
-            btn.disabled = false;
+              const formData = new FormData(contactForm);
+
+              try {
+                  const response = await fetch(contactForm.action, {
+                      method: 'POST',
+                      body: formData,
+                      headers: { 'Accept': 'application/json' }
+                  });
+
+                  if (response.ok) {
+                      status.style.color = '#7db9b3';
+                      status.textContent = "Thanks! We'll be in touch soon.";
+                      contactForm.reset();
+                  } else {
+                      contactFallback(formData);
+                  }
+              } catch (error) {
+                  contactFallback(formData);
+              } finally {
+                  btn.textContent = ogText;
+                  btn.disabled = false;
+              }
           });
-        });
+      }
+
+      function contactFallback(formData) {
+          const name = formData.get('name') || '';
+          const email = formData.get('email') || '';
+          const business = formData.get('business') || '';
+          
+          const subject = `App Claim Request: ${business}`;
+          const body = `Name: ${name}%0AEmail: ${email}%0ABusiness: ${business}%0A%0APlease process my app claim.`;
+          
+          window.location.href = `mailto:connect@skrmblissai.in?subject=${encodeURIComponent(subject)}&body=${body}`;
+          
+          const status = document.getElementById('formStatus');
+          status.style.color = '#C3B8D5';
+          status.textContent = "Opening email client...";
       }
 
       /* ----------------- Modals ----------------- */
