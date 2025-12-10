@@ -196,17 +196,15 @@
     }
 
     /* Buttons */
+
+    /* Update Primary Button to be Oval */
     #skrm-bliss-root .btn-primary {
-      padding: 0.8rem 2rem;
-      border-radius: 12px;
+      border-radius: 50px !important; /* Changed from 12px to 50px */
+      padding: 12px 28px; /* Ensure padding matches other oval buttons */
       background: var(--brand-primary);
-      color: var(--text-on-brand);
-      font-weight: 700;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
       box-shadow: 0 0 20px var(--card-glow-base);
       transition: 0.3s;
+      font-weight: 700;
     }
 
     #skrm-bliss-root .btn-primary:hover {
@@ -850,6 +848,185 @@
         width: 100%;
       }
     }
+
+    /* === NEW CONTACT STYLES (Add this to CSS) === */
+    /* Fancy Form Inputs */
+    .glass-form-fancy {
+      padding: 3rem;
+    }
+
+    .fancy-input {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-family: inherit;
+      margin-bottom: 1.2rem;
+      transition: 0.3s;
+      outline: none;
+    }
+
+    .fancy-input:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--brand-primary);
+      border-left: 4px solid var(--brand-primary);
+      box-shadow: 0 0 20px var(--card-glow-base);
+    }
+
+    .fancy-checkbox-label {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Icon Boxes for Info */
+    .contact-details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem;
+      border-radius: 12px;
+      transition: background 0.3s ease;
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(171, 206, 201, 0.1);
+      border: 1px solid rgba(171, 206, 201, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--brand-primary);
+      flex-shrink: 0;
+    }
+
+    .contact-text label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .contact-text span {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Map */
+    .map-wrapper {
+      width: 100%;
+      height: 200px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .map-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(100%) invert(92%) contrast(83%);
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .map-wrapper:hover .map-frame {
+      opacity: 1;
+      filter: grayscale(0%) invert(0%);
+    }
+    
+    /* =========================================
+       DELTA STYLES: HERO BUTTONS
+       ========================================= */
+    
+    /* 1. Start Learning (Lavender/Physics Vibe) */
+    .btn-learning {
+      padding: 12px 28px; 
+      border-radius: 50px; 
+      font-weight: 700; 
+      cursor: pointer;
+      border: none; 
+      transition: 0.3s ease;
+      
+      /* Lavender Background + Black Text */
+      background: var(--brand-secondary); 
+      color: #000000; 
+      box-shadow: 0 0 20px rgba(195, 184, 213, 0.3); /* Soft Lavender Glow */
+    }
+
+    .btn-learning:hover {
+      transform: translateY(-3px);
+      background: #dcd4ec; /* Slightly lighter on hover */
+      box-shadow: 0 0 40px rgba(195, 184, 213, 0.8); /* Intense Glow */
+    }
+
+    /* 2. Soul Seeking (Tubelight Effect) */
+    .btn-soul {
+      padding: 12px 28px; 
+      border-radius: 50px; 
+      font-weight: 700; 
+      cursor: pointer;
+      background: transparent;
+      transition: all 0.3s ease;
+      
+      /* Default: Simple Border */
+      border: 2px solid var(--text-main); 
+      color: var(--text-main);
+    }
+
+    /* HOVER: The Tubelight Glow */
+    .btn-soul:hover {
+      transform: translateY(-3px);
+      
+      /* Text Glow */
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      
+      /* Border & Box Glow */
+      border-color: #fff;
+      box-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),  /* Inner White Halo */
+        0 0 30px var(--brand-primary),      /* Outer Mint Glow */
+        inset 0 0 10px rgba(255, 255, 255, 0.1); /* Inner lighting */
+    }
+
+    /* --- LIGHT MODE ADJUSTMENTS --- */
+    #skrm-bliss-root[data-theme="light"] .btn-soul {
+      border-color: #000;
+      color: #000;
+    }
+    
+    #skrm-bliss-root[data-theme="light"] .btn-soul:hover {
+      /* In light mode, glow needs to be darker/colored to be seen */
+      color: var(--brand-primary); 
+      border-color: var(--brand-primary);
+      text-shadow: 0 0 1px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(171, 206, 201, 0.8); /* Mint Glow */
+      background: rgba(255,255,255,0.8);
+    }
+    
   </style>
   <div style="position: absolute; inset: 0; background: radial-gradient(circle at 15% 50%, var(--bg-blob-1) 0%, transparent 50%), radial-gradient(circle at 85% 80%, var(--bg-blob-2) 0%, transparent 50%); pointer-events: none; z-index: 0;"></div>
   <nav>
@@ -881,43 +1058,39 @@
     </div>
   </nav>
   <div class="container">
-    <header class="hero">
+<header class="hero">
       <div class="hero-content">
         <h1>
-          <span data-i18n="hero_title_1">Build digital experiences</span>
-          <br>
-          <span class="gradient-text" data-i18n="hero_title_2">that convert</span>
+          Technology for <br>
+          <span class="gradient-text">Business Growth</span> & 
+          <span class="gradient-text">Inner Balance</span>
         </h1>
-        <p data-i18n="hero_desc">We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.</p>
-        <div class="hero-btns">
-          <a href="#services" class="btn-primary" data-i18n="btn_explore">Explore Services</a>
-          <button onclick="openBooking()" class="btn-glass" data-i18n="btn_book">Book 1:1 Call</button>
+        <p style="color:var(--text-muted);">
+          Whether you need to launch a white-label app, master physics, or deepen your spiritual practice, we build the digital tools to get you there.
+        </p>
+        
+<div class="hero-btns">
+          <button class="btn-primary" onclick="goToSlide(0)">Build an App</button>
+          
+          <button class="btn-learning" onclick="goToSlide(2)">Start Learning</button>
+          
+          <button class="btn-soul" onclick="goToSlide(1)">Soul Seeking</button>
         </div>
       </div>
+
       <div class="hero-bento">
         <div class="bento-card bento-wide">
-          <div class="stat-block">
-            <div class="stat-num">120+</div>
-            <div class="stat-label" data-i18n="stat_projects">Projects</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-num">40+</div>
-            <div class="stat-label" data-i18n="stat_clients">Clients</div>
-          </div>
-          <div class="stat-block">
-            <div class="stat-num">10k+</div>
-            <div class="stat-label" data-i18n="stat_users">Users</div>
-          </div>
+          <div class="stat-block"><div class="stat-num">120+</div><div class="stat-label">Projects</div></div>
+          <div class="stat-block"><div class="stat-num">40+</div><div class="stat-label">Clients</div></div>
+          <div class="stat-block"><div class="stat-num">10k+</div><div class="stat-label">Users</div></div>
         </div>
         <div class="bento-card">
           <div class="bento-icon">📄</div>
-          <h3 data-i18n="card_packs_title">Ready Packs</h3>
-          <p data-i18n="card_packs_desc">Mock papers & marketing assets ready to use.</p>
+          <h3>Ready Packs</h3><p style="font-size:0.9rem; color:var(--text-muted);">Mock papers & marketing assets ready to use.</p>
         </div>
         <div class="bento-card">
           <div class="bento-icon">⚡</div>
-          <h3 data-i18n="card_fast_title">Fast Deploy</h3>
-          <p data-i18n="card_fast_desc">Launch your MVP in days, not months.</p>
+          <h3>Fast Deploy</h3><p style="font-size:0.9rem; color:var(--text-muted);">Launch your MVP in days, not months.</p>
         </div>
       </div>
     </header>
@@ -1078,31 +1251,40 @@
       </div>
     </section>
     <section id="contact" class="contact-section">
-      <div class="glass-form">
-        <h2 style="margin-bottom:1.5rem;" data-i18n="contact_title">Let's Build Something</h2>
+      <div class="glass-form-fancy">
+        <h2 style="margin-bottom:0.5rem;">Send a Message</h2>
+        <p style="color:var(--text-muted); margin-bottom:2rem;">We typically reply within 24 hours.</p>
         <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
-          <label data-i18n="lbl_name">Name</label>
-          <input type="text" name="name" required placeholder="John Doe">
-          <label data-i18n="lbl_email">Email</label>
-          <input type="email" name="email" required placeholder="john@example.com">
-          <label data-i18n="lbl_msg">Message</label>
-          <textarea name="message" rows="4" required placeholder="Tell us about your project..."></textarea>
-          <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer;" data-i18n="btn_send">Send Message</button>
-          <div id="formStatus" style="margin-top:1rem; font-weight:600; color:var(--brand-primary);"></div>
+          <input type="text" name="name" class="fancy-input" placeholder="Your Name" required>
+          <input type="email" name="email" class="fancy-input" placeholder="Your Email" required>
+          <textarea name="message" class="fancy-input" rows="4" placeholder="How can we help?" required></textarea>
+          <label class="fancy-checkbox-label">
+            <input type="checkbox" name="consent" required style="width:auto; margin:0;">
+            <span>I agree to be contacted by SKRMBliss.</span>
+          </label>
+          <button type="submit" class="btn-primary" style="width:100%;">Send Message 🚀</button>
+          <div id="formStatus" style="margin-top:1rem; color:var(--brand-primary); font-weight:700;"></div>
         </form>
       </div>
-      <div style="display:flex; flex-direction:column; justify-content:center; gap:2rem;">
-        <div class="service-card">
-          <h3 data-i18n="info_title">Contact Info</h3>
-          <p>
-            <strong>Email:</strong> connect@skrmblissai.in <br>
-            <strong>Phone:</strong> +91 82175 81238 <br>
-            <strong>Location:</strong> Bengaluru, India
-          </p>
+
+      <div class="service-card">
+        <h3 style="margin-bottom: 1.5rem; color: #ABCEC9;">Contact Info</h3>
+        <div class="contact-details-list">
+          <div class="contact-item">
+            <div class="icon-box">✉️</div>
+            <div class="contact-text"><label>Email Us</label><span>connect@skrmblissai.in</span></div>
+          </div>
+          <div class="contact-item">
+            <div class="icon-box">📞</div>
+            <div class="contact-text"><label>Call Us</label><span>+91 82175 81238</span></div>
+          </div>
+          <div class="contact-item">
+            <div class="icon-box">🌍</div>
+            <div class="contact-text"><label>Global Presence</label><span>India & Bracknell, UK</span></div>
+          </div>
         </div>
-        <div class="service-card" style="background: var(--card-glow-base);">
-          <h3 data-i18n="ready_title">Ready to start?</h3>
-          <p data-i18n="ready_desc">Our typical response time is within 24 hours.</p>
+        <div class="map-wrapper">
+          <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39999.66468792067!2d-0.7788460596395567!3d51.41655848574135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48767eeb766c6d3d%3A0x6b772c6dcb41657!2sBracknell%2C%20UK!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" loading="lazy"></iframe>
         </div>
       </div>
     </section>
@@ -1222,7 +1404,7 @@
         btn_send: "Send Message",
         info_title: "Contact Info",
         ready_title: "Ready to start?",
-        ready_desc: "Typical response time: 24 hours.",
+        ready_desc: "Typical response time: 4-8 hours",
         footer_desc: "Helping creators build better digital products with tech and design.",
         book_title: "Book a Call",
         book_subtitle: "Select a slot (IST 08:00 AM - 09:00 PM)",
