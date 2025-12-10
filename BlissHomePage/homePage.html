@@ -1,19 +1,14 @@
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <div id="skrm-bliss-root" data-theme="dark">
   <style>
-    /* ===== 0. GLOBAL RESET & VIEWPORT FIX (End-to-End) ===== */
-    html,
-    body {
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow-x: hidden !important;
-      background-color: #050505;
-      /* Match dark theme base */
-    }
-
-    /* ===== SKRMBliss Root & Layout Engine ===== */
+    /* =========================================
+       0. GLOBAL RESET & CORE SETUP
+       ========================================= */
     #skrm-bliss-root {
-      /* 🔥 FORCE FULL WIDTH (Breakout Strategy) */
+      /* Scoped Reset */
+      all: initial;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
       width: 100vw !important;
       max-width: 100vw !important;
       position: relative;
@@ -22,46 +17,43 @@
       margin-left: -50vw !important;
       margin-right: -50vw !important;
       overflow-x: hidden !important;
-      /* Typography & Base */
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      isolation: isolate;
+      display: block;
+      box-sizing: border-box;
+      /* --- 1. DESIGN TOKENS --- */
+      --brand-primary: #ABCEC9;
+      /* Soft Mint */
+      --brand-secondary: #C3B8D5;
+      /* Muted Lavender */
+      --text-on-brand: #000000;
+      /* Dark Mode Defaults */
+      --bg-body: linear-gradient(135deg, #050505 0%, #121214 50%, #050505 100%);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      /* Glassmorphism */
+      --glass-surface: rgba(30, 30, 35, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-blur: 40px;
+      --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.02);
+      /* Heartbeat Animation Engine */
+      --card-glow-base: rgba(171, 206, 201, 0.25);
+      --card-glow-pulse: rgba(171, 206, 201, 0.45);
+      --card-surge-color: rgba(171, 206, 201, 0.75);
+      /* Blobs */
+      --bg-blob-1: rgba(171, 206, 201, 0.15);
+      --bg-blob-2: rgba(195, 184, 213, 0.15);
+      background: var(--bg-body);
+      color: var(--text-main);
       padding-bottom: 60px;
       transition: background 0.5s ease, color 0.5s ease;
     }
 
     #skrm-bliss-root * {
       box-sizing: border-box;
-      max-width: 100%;
     }
 
-    /* --- TOKENS & VARIABLES --- */
-    #skrm-bliss-root {
-      --brand-primary: #ABCEC9;
-      --brand-secondary: #C3B8D5;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-on-brand: #000000;
-      /* Glass & Glow Tokens */
-      --glass-surface: rgba(30, 30, 35, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-blur: 40px;
-      --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.02);
-      /* 🔥 HEARTBEAT SYSTEM TOKENS */
-      --card-glow-base: rgba(171, 206, 201, 0.25);
-      --card-glow-pulse: rgba(171, 206, 201, 0.45);
-      --card-surge-color: rgba(171, 206, 201, 0.75);
-      /* Backgrounds */
-      --bg-body: linear-gradient(135deg, #050505 0%, #121214 50%, #050505 100%);
-      --bg-blob-1: rgba(171, 206, 201, 0.15);
-      --bg-blob-2: rgba(195, 184, 213, 0.15);
-      --bg-blob-3: rgba(170, 187, 204, 0.1);
-      background: var(--bg-body);
-      color: var(--text-main);
-    }
-
-    /* Light Mode Overrides */
+    /* --- LIGHT MODE OVERRIDES --- */
     #skrm-bliss-root[data-theme="light"] {
+      --bg-body: radial-gradient(circle at 50% 0%, #ffffff 0%, #EDE8F8 100%);
       --text-main: #1e293b;
       --text-muted: #64748b;
       --glass-surface: rgba(255, 255, 255, 0.55);
@@ -69,13 +61,13 @@
       --card-glow-base: rgba(125, 185, 179, 0.45);
       --card-glow-pulse: rgba(125, 185, 179, 0.65);
       --card-surge-color: rgba(125, 185, 179, 0.85);
-      --bg-body: radial-gradient(circle at 50% 0%, #ffffff 0%, #EDE8F8 100%);
       --bg-blob-1: rgba(171, 206, 201, 0.6);
       --bg-blob-2: rgba(195, 184, 213, 0.6);
-      --bg-blob-3: rgba(170, 187, 204, 0.4);
     }
 
-    /* --- ANIMATIONS: HEARTBEAT & SURGE --- */
+    /* =========================================
+       2. HEARTBEAT & SURGE ANIMATION ENGINE
+       ========================================= */
     @keyframes skrm-heartbeat {
       0% {
         box-shadow: 0 0 30px var(--card-glow-base), var(--glass-inset);
@@ -90,42 +82,43 @@
       }
     }
 
-    /* Common Card Styles */
+    /* Base Card Style */
     #skrm-bliss-root .bento-card,
     #skrm-bliss-root .service-card,
-    #skrm-bliss-root .glass-form,
+    #skrm-bliss-root .glass-form-fancy,
     #skrm-bliss-root .feature-banner,
-    #skrm-bliss-root .timeline-content {
+    #skrm-bliss-root .timeline-content,
+    #skrm-bliss-root nav {
       background: var(--glass-surface);
       backdrop-filter: blur(var(--glass-blur));
       -webkit-backdrop-filter: blur(var(--glass-blur));
       border: 1px solid var(--glass-border);
       border-radius: 24px;
       position: relative;
-      overflow: hidden;
-      /* 🔥 PERFORMANCE (Mobile Safe) */
-      transform: translateZ(0);
-      will-change: box-shadow, transform;
-      /* 🔥 STATE A: HEARTBEAT */
+      /* Animation */
       animation: skrm-heartbeat 4s infinite ease-in-out;
+      transform: translateZ(0);
+      /* Hardware Accel */
+      will-change: box-shadow, transform;
       transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s ease;
     }
 
-    /* 🔥 STATE B: SURGE (Hover) */
+    /* Surge (Hover) State */
     #skrm-bliss-root .bento-card:hover,
     #skrm-bliss-root .service-card:hover,
-    #skrm-bliss-root .glass-form:hover,
+    #skrm-bliss-root .glass-form-fancy:hover,
     #skrm-bliss-root .feature-banner:hover,
     #skrm-bliss-root .timeline-content:hover {
       animation: none;
-      /* Stop heartbeat */
       transform: translateY(-6px) scale(1.01);
       box-shadow: 0 0 60px var(--card-surge-color), var(--glass-inset);
       border-color: var(--brand-primary);
       z-index: 10;
     }
 
-    /* --- LAYOUT UTILITIES --- */
+    /* =========================================
+       3. LAYOUT & TYPOGRAPHY
+       ========================================= */
     #skrm-bliss-root .container {
       max-width: 1280px;
       margin: 0 auto;
@@ -134,23 +127,107 @@
       z-index: 2;
     }
 
-    /* --- NAVIGATION --- */
+    #skrm-bliss-root h1,
+    #skrm-bliss-root h2,
+    #skrm-bliss-root h3 {
+      color: var(--text-main);
+      margin-top: 0;
+    }
+
+    #skrm-bliss-root .gradient-text {
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Buttons */
+    #skrm-bliss-root .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      border-radius: 50px;
+      background: var(--brand-primary);
+      color: var(--text-on-brand);
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 20px var(--card-glow-base);
+      transition: 0.3s;
+      font-size: 0.95rem;
+    }
+
+    #skrm-bliss-root .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px var(--brand-primary);
+    }
+
+    /* Specialized Hero Buttons */
+    #skrm-bliss-root .btn-learning {
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s ease;
+      background: var(--brand-secondary);
+      color: #000000;
+      box-shadow: 0 0 20px rgba(195, 184, 213, 0.3);
+      font-size: 0.95rem;
+    }
+
+    #skrm-bliss-root .btn-learning:hover {
+      transform: translateY(-3px);
+      background: #dcd4ec;
+      box-shadow: 0 0 40px rgba(195, 184, 213, 0.8);
+    }
+
+    #skrm-bliss-root .btn-soul {
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      background: transparent;
+      transition: all 0.3s ease;
+      border: 2px solid var(--text-main);
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    #skrm-bliss-root .btn-soul:hover {
+      transform: translateY(-3px);
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      border-color: #fff;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 30px var(--brand-primary);
+    }
+
+    #skrm-bliss-root[data-theme="light"] .btn-soul {
+      border-color: #000;
+      color: #000;
+    }
+
+    #skrm-bliss-root[data-theme="light"] .btn-soul:hover {
+      color: var(--brand-primary);
+      border-color: var(--brand-primary);
+      text-shadow: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    /* =========================================
+       4. NAVIGATION
+       ========================================= */
     #skrm-bliss-root nav {
       position: sticky;
       top: 1rem;
       z-index: 100;
       margin: 1rem auto 2rem;
       max-width: 1280px;
-      background: var(--glass-surface);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 50px;
       padding: 0.8rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      /* Nav pulses too */
-      animation: skrm-heartbeat 5s infinite ease-in-out;
     }
 
     #skrm-bliss-root .logo {
@@ -186,7 +263,6 @@
 
     #skrm-bliss-root .nav-links a:hover {
       color: var(--brand-primary);
-      text-shadow: 0 0 10px var(--brand-primary);
     }
 
     #skrm-bliss-root .controls {
@@ -195,40 +271,6 @@
       align-items: center;
     }
 
-    /* Buttons */
-
-    /* Update Primary Button to be Oval */
-    #skrm-bliss-root .btn-primary {
-      border-radius: 50px !important; /* Changed from 12px to 50px */
-      padding: 12px 28px; /* Ensure padding matches other oval buttons */
-      background: var(--brand-primary);
-      box-shadow: 0 0 20px var(--card-glow-base);
-      transition: 0.3s;
-      font-weight: 700;
-    }
-
-    #skrm-bliss-root .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 30px var(--brand-primary);
-    }
-
-    #skrm-bliss-root .btn-glass {
-      padding: 0.8rem 1.8rem;
-      border-radius: 12px;
-      background: transparent;
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    #skrm-bliss-root .btn-glass:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--brand-primary);
-    }
-
-    /* Controls */
     #skrm-bliss-root .theme-toggle,
     #skrm-bliss-root .lang-select {
       background: transparent;
@@ -252,7 +294,9 @@
       font-size: 1.5rem;
     }
 
-    /* --- HERO --- */
+    /* =========================================
+       5. HERO SECTION
+       ========================================= */
     #skrm-bliss-root .hero {
       margin: 4rem 0 6rem;
       display: grid;
@@ -262,30 +306,17 @@
     }
 
     #skrm-bliss-root .hero h1 {
-      font-size: 4rem;
+      font-size: 3.5rem;
       font-weight: 900;
       line-height: 1.1;
       margin-bottom: 1.5rem;
-      color: var(--text-main);
-    }
-
-    #skrm-bliss-root .gradient-text {
-      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    #skrm-bliss-root .hero p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 540px;
     }
 
     #skrm-bliss-root .hero-btns {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+      margin-top: 2rem;
     }
 
     /* Bento Grid */
@@ -324,23 +355,39 @@
       margin-bottom: 1rem;
     }
 
-    #skrm-bliss-root h3 {
-      color: var(--text-main);
-      margin: 0 0 0.5rem;
-    }
-
-    #skrm-bliss-root p {
-      color: var(--text-muted);
-      margin: 0;
-    }
-
-    /* Feature Banner */
-    #skrm-bliss-root .feature-banner {
+    /* =========================================
+       6. CAROUSEL
+       ========================================= */
+    #skrm-bliss-root .smart-carousel-wrapper {
+      position: relative;
+      overflow: hidden;
       margin: 6rem 0;
-      padding: 3rem;
+      padding: 40px 0;
+      width: 100%;
+    }
+
+    #skrm-bliss-root .smart-track {
+      display: flex;
+      width: 100%;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    #skrm-bliss-root .smart-slide {
+      min-width: 100%;
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: center;
+      padding: 0 15px;
+    }
+
+    #skrm-bliss-root .feature-banner {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       gap: 4rem;
+      padding: 3rem;
     }
 
     #skrm-bliss-root .feature-visual {
@@ -393,20 +440,62 @@
       font-weight: 900;
     }
 
-    /* Services Grid */
-    #skrm-bliss-root .section-header {
-      text-align: center;
-      margin-bottom: 4rem;
-      margin-top: 6rem;
+    #skrm-bliss-root .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: -20px;
+      position: relative;
+      z-index: 5;
     }
 
-    #skrm-bliss-root .section-title {
-      font-size: 3rem;
-      font-weight: 900;
-      margin-bottom: 1rem;
-      color: var(--text-main);
+    #skrm-bliss-root .slider-arrow {
+      background: var(--glass-surface);
+      border: 1px solid var(--brand-primary);
+      color: var(--brand-primary);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      box-shadow: 0 0 15px var(--card-glow-base);
     }
 
+    #skrm-bliss-root .slider-arrow:hover {
+      background: var(--brand-primary);
+      color: black;
+      transform: scale(1.1);
+    }
+
+    #skrm-bliss-root .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    #skrm-bliss-root .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--glass-border);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #skrm-bliss-root .dot.active {
+      background: var(--brand-primary);
+      width: 25px;
+      border-radius: 10px;
+    }
+
+    /* =========================================
+       7. SERVICES & PROCESS
+       ========================================= */
     #skrm-bliss-root .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -423,7 +512,6 @@
       display: inline-block;
     }
 
-    /* Timeline */
     #skrm-bliss-root .timeline {
       position: relative;
       max-width: 800px;
@@ -484,7 +572,9 @@
       display: block;
     }
 
-    /* Contact */
+    /* =========================================
+       8. CONTACT FORM & FOOTER
+       ========================================= */
     #skrm-bliss-root .contact-section {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -492,31 +582,68 @@
       margin: 6rem 0;
     }
 
-    #skrm-bliss-root .glass-form {
+    #skrm-bliss-root .glass-form-fancy {
       padding: 3rem;
     }
 
-    #skrm-bliss-root input,
-    #skrm-bliss-root textarea {
+    #skrm-bliss-root .fancy-input {
       width: 100%;
-      padding: 1rem;
-      margin-bottom: 1.2rem;
-      background: rgba(255, 255, 255, 0.05);
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--glass-border);
       border-radius: 12px;
       color: var(--text-main);
       font-family: inherit;
+      margin-bottom: 1.2rem;
       transition: 0.3s;
-    }
-
-    #skrm-bliss-root input:focus,
-    #skrm-bliss-root textarea:focus {
       outline: none;
-      border-color: var(--brand-primary);
-      box-shadow: 0 0 15px var(--card-glow-base);
     }
 
-    /* Footer */
+    #skrm-bliss-root .fancy-input:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--brand-primary);
+      border-left: 4px solid var(--brand-primary);
+      box-shadow: 0 0 20px var(--card-glow-base);
+    }
+
+    #skrm-bliss-root .fancy-checkbox-label {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+    }
+
+    #skrm-bliss-root .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem;
+      border-radius: 12px;
+      transition: background 0.3s ease;
+      margin-bottom: 1rem;
+    }
+
+    #skrm-bliss-root .contact-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    #skrm-bliss-root .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(171, 206, 201, 0.1);
+      border: 1px solid rgba(171, 206, 201, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--brand-primary);
+      flex-shrink: 0;
+    }
+
     #skrm-bliss-root footer {
       border-top: 1px solid var(--glass-border);
       padding: 4rem 0 2rem;
@@ -542,138 +669,9 @@
       color: var(--brand-primary);
     }
 
-    /* Widgets & Modals */
-    #skrm-bliss-root .fab-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      z-index: 9999;
-    }
-
-    #skrm-bliss-root .fab {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: var(--glass-surface);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      cursor: pointer;
-      text-decoration: none;
-      /* Heartbeat for FABs too */
-      animation: skrm-heartbeat 3s infinite ease-in-out;
-    }
-
-    #skrm-bliss-root .fab:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px var(--brand-primary);
-      animation: none;
-    }
-
-    #skrm-bliss-root .fab.whatsapp svg {
-      fill: #25D366;
-    }
-
-    #skrm-bliss-root .modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #skrm-bliss-root .modal-overlay.active {
-      display: flex;
-    }
-
-    #skrm-bliss-root .modal-content {
-      width: 90%;
-      max-width: 500px;
-      padding: 2rem;
-      border-radius: 24px;
-      background: #0f1014;
-      border: 1px solid var(--brand-primary);
-      box-shadow: 0 0 50px var(--card-glow-pulse);
-      color: white;
-    }
-
-    #skrm-bliss-root .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 5px;
-      margin: 15px 0;
-      text-align: center;
-    }
-
-    #skrm-bliss-root .calendar-day {
-      padding: 8px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #skrm-bliss-root .calendar-day:hover {
-      background: var(--brand-primary);
-      color: black;
-    }
-
-    #skrm-bliss-root .calendar-day.selected {
-      background: var(--brand-primary);
-      color: black;
-      font-weight: bold;
-    }
-
-    #skrm-bliss-root .time-slots {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      max-height: 200px;
-      overflow-y: auto;
-      margin: 15px 0;
-    }
-
-    #skrm-bliss-root .time-slot {
-      padding: 8px;
-      border: 1px solid #333;
-      text-align: center;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    #skrm-bliss-root .time-slot:hover,
-    #skrm-bliss-root .time-slot.selected {
-      background: var(--brand-primary);
-      color: black;
-    }
-
-    #skrm-bliss-root .cookie-banner {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      padding: 20px;
-      background: var(--glass-surface);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      backdrop-filter: blur(20px);
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 9998;
-      max-width: 300px;
-    }
-
-    #skrm-bliss-root .cookie-banner.show {
-      display: flex;
-    }
-
-    /* --- RESPONSIVE --- */
+    /* =========================================
+       9. RESPONSIVE
+       ========================================= */
     @media (max-width: 968px) {
       #skrm-bliss-root .hero {
         grid-template-columns: 1fr;
@@ -726,15 +724,6 @@
         text-align: center;
       }
 
-      /* Timeline Mobile */
-      #skrm-bliss-root .timeline::before {
-        left: 20px;
-      }
-
-      #skrm-bliss-root .timeline-dot {
-        left: 20px;
-      }
-
       #skrm-bliss-root .timeline-item {
         flex-direction: column;
         padding-left: 60px;
@@ -748,285 +737,135 @@
       #skrm-bliss-root .timeline-content {
         width: 100%;
       }
+
+      #skrm-bliss-root .timeline-dot,
+      #skrm-bliss-root .timeline::before {
+        left: 20px;
+      }
     }
 
-    #skrm-bliss-root .smart-carousel-wrapper {
-      position: relative;
-      overflow: hidden;
-      margin: 6rem 0;
-      padding: 40px 0;
-      /* Vertical breathing room only */
-      width: 100%;
-    }
-
-    #skrm-bliss-root .smart-track {
-      display: flex;
-      width: 100%;
-      /* Let flexbox handle the width */
-      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    #skrm-bliss-root .smart-slide {
-      /* 🔥 CRITICAL FIX: These 2 lines force 1 card per view */
-      min-width: 100%;
-      flex: 0 0 100%;
-      display: flex;
-      justify-content: center;
-      padding: 0 15px;
-      /* Small side buffer for mobile edges */
-      box-sizing: border-box;
-    }
-
-    #skrm-bliss-root .smart-slide .feature-banner {
-      width: 100%;
-      max-width: 1100px;
-      /* Matches your original card max-width */
-      margin: 0 auto;
-    }
-
-    /* Controls */
-    #skrm-bliss-root .carousel-controls {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: -20px;
-      position: relative;
-      z-index: 5;
-    }
-
-    #skrm-bliss-root .slider-arrow {
+    /* Extras: Cookie & FAB */
+    #skrm-bliss-root .cookie-banner {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      padding: 20px;
       background: var(--glass-surface);
-      border: 1px solid var(--brand-primary);
-      color: var(--brand-primary);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-      box-shadow: 0 0 15px var(--card-glow-base);
-    }
-
-    #skrm-bliss-root .slider-arrow:hover {
-      background: var(--brand-primary);
-      color: black;
-      transform: scale(1.1);
-    }
-
-    #skrm-bliss-root .slider-dots {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    #skrm-bliss-root .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--glass-border);
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    #skrm-bliss-root .dot.active {
-      background: var(--brand-primary);
-      width: 25px;
-      border-radius: 10px;
-    }
-
-    /* Mobile Text Fit */
-    @media (max-width: 768px) {
-      #skrm-bliss-root .feature-banner {
-        padding: 2rem 1.5rem !important;
-      }
-
-      #skrm-bliss-root .feature-img {
-        width: 100%;
-      }
-    }
-
-    /* === NEW CONTACT STYLES (Add this to CSS) === */
-    /* Fancy Form Inputs */
-    .glass-form-fancy {
-      padding: 3rem;
-    }
-
-    .fancy-input {
-      width: 100%;
-      padding: 14px 18px;
-      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      color: var(--text-main);
-      font-family: inherit;
-      margin-bottom: 1.2rem;
-      transition: 0.3s;
-      outline: none;
-    }
-
-    .fancy-input:focus {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--brand-primary);
-      border-left: 4px solid var(--brand-primary);
-      box-shadow: 0 0 20px var(--card-glow-base);
-    }
-
-    .fancy-checkbox-label {
-      display: flex;
+      border-radius: 16px;
+      backdrop-filter: blur(20px);
+      display: none;
+      flex-direction: column;
       gap: 10px;
-      align-items: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      cursor: pointer;
+      z-index: 9998;
+      max-width: 300px;
     }
 
-    /* Icon Boxes for Info */
-    .contact-details-list {
+    #skrm-bliss-root .cookie-banner.show {
+      display: flex;
+    }
+
+    #skrm-bliss-root .fab-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
       gap: 1rem;
-      padding: 0.8rem;
-      border-radius: 12px;
-      transition: background 0.3s ease;
+      z-index: 9999;
     }
 
-    .contact-item:hover {
-      background: rgba(255, 255, 255, 0.03);
+    #skrm-bliss-root .fab {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--glass-surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      cursor: pointer;
+      text-decoration: none;
+      animation: skrm-heartbeat 3s infinite ease-in-out;
     }
 
-    .icon-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: rgba(171, 206, 201, 0.1);
-      border: 1px solid rgba(171, 206, 201, 0.3);
-      display: flex;
+    #skrm-bliss-root .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px var(--brand-primary);
+      animation: none;
+    }
+
+    /* Modals */
+    #skrm-bliss-root .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: none;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      color: var(--brand-primary);
-      flex-shrink: 0;
     }
 
-    .contact-text label {
-      display: block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    #skrm-bliss-root .modal-overlay.active {
+      display: flex;
     }
 
-    .contact-text span {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-main);
+    #skrm-bliss-root .modal-content {
+      width: 90%;
+      max-width: 500px;
+      padding: 2rem;
+      border-radius: 24px;
+      background: #0f1014;
+      border: 1px solid var(--brand-primary);
+      box-shadow: 0 0 50px var(--card-glow-pulse);
+      color: white;
     }
 
-    /* Map */
-    .map-wrapper {
-      width: 100%;
-      height: 200px;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
+    #skrm-bliss-root .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin: 15px 0;
+      text-align: center;
     }
 
-    .map-frame {
-      width: 100%;
-      height: 100%;
-      border: none;
-      filter: grayscale(100%) invert(92%) contrast(83%);
-      opacity: 0.8;
-      transition: opacity 0.3s;
-    }
-
-    .map-wrapper:hover .map-frame {
-      opacity: 1;
-      filter: grayscale(0%) invert(0%);
-    }
-    
-    /* =========================================
-       DELTA STYLES: HERO BUTTONS
-       ========================================= */
-    
-    /* 1. Start Learning (Lavender/Physics Vibe) */
-    .btn-learning {
-      padding: 12px 28px; 
-      border-radius: 50px; 
-      font-weight: 700; 
+    #skrm-bliss-root .calendar-day {
+      padding: 8px;
+      border-radius: 5px;
       cursor: pointer;
-      border: none; 
-      transition: 0.3s ease;
-      
-      /* Lavender Background + Black Text */
-      background: var(--brand-secondary); 
-      color: #000000; 
-      box-shadow: 0 0 20px rgba(195, 184, 213, 0.3); /* Soft Lavender Glow */
     }
 
-    .btn-learning:hover {
-      transform: translateY(-3px);
-      background: #dcd4ec; /* Slightly lighter on hover */
-      box-shadow: 0 0 40px rgba(195, 184, 213, 0.8); /* Intense Glow */
+    #skrm-bliss-root .calendar-day:hover,
+    #skrm-bliss-root .calendar-day.selected {
+      background: var(--brand-primary);
+      color: black;
+      font-weight: bold;
     }
 
-    /* 2. Soul Seeking (Tubelight Effect) */
-    .btn-soul {
-      padding: 12px 28px; 
-      border-radius: 50px; 
-      font-weight: 700; 
+    #skrm-bliss-root .time-slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+      margin: 15px 0;
+    }
+
+    #skrm-bliss-root .time-slot {
+      padding: 8px;
+      border: 1px solid #333;
+      text-align: center;
       cursor: pointer;
-      background: transparent;
-      transition: all 0.3s ease;
-      
-      /* Default: Simple Border */
-      border: 2px solid var(--text-main); 
-      color: var(--text-main);
+      border-radius: 5px;
     }
 
-    /* HOVER: The Tubelight Glow */
-    .btn-soul:hover {
-      transform: translateY(-3px);
-      
-      /* Text Glow */
-      color: #fff;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-      
-      /* Border & Box Glow */
-      border-color: #fff;
-      box-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.8),  /* Inner White Halo */
-        0 0 30px var(--brand-primary),      /* Outer Mint Glow */
-        inset 0 0 10px rgba(255, 255, 255, 0.1); /* Inner lighting */
+    #skrm-bliss-root .time-slot:hover,
+    #skrm-bliss-root .time-slot.selected {
+      background: var(--brand-primary);
+      color: black;
     }
-
-    /* --- LIGHT MODE ADJUSTMENTS --- */
-    #skrm-bliss-root[data-theme="light"] .btn-soul {
-      border-color: #000;
-      color: #000;
-    }
-    
-    #skrm-bliss-root[data-theme="light"] .btn-soul:hover {
-      /* In light mode, glow needs to be darker/colored to be seen */
-      color: var(--brand-primary); 
-      border-color: var(--brand-primary);
-      text-shadow: 0 0 1px rgba(0,0,0,0.1);
-      box-shadow: 0 0 20px rgba(171, 206, 201, 0.8); /* Mint Glow */
-      background: rgba(255,255,255,0.8);
-    }
-    
   </style>
   <div style="position: absolute; inset: 0; background: radial-gradient(circle at 15% 50%, var(--bg-blob-1) 0%, transparent 50%), radial-gradient(circle at 85% 80%, var(--bg-blob-2) 0%, transparent 50%); pointer-events: none; z-index: 0;"></div>
   <nav>
@@ -1046,9 +885,10 @@
     <div class="controls">
       <select id="langSelect" class="lang-select">
         <option value="en">EN</option>
-        <option value="hi">HI</option>
-        <option value="es">ES</option>
+        <option value="hi">हिंदी</option>
         <option value="fr">FR</option>
+        <option value="es">ES</option>
+        <option value="zh">中文</option>
       </select>
       <button class="theme-toggle" id="themeToggle" title="Switch Theme">
         <span id="themeIcon">☀️</span>
@@ -1058,39 +898,44 @@
     </div>
   </nav>
   <div class="container">
-<header class="hero">
+    <header class="hero">
       <div class="hero-content">
         <h1>
-          Technology for <br>
-          <span class="gradient-text">Business Growth</span> & 
-          <span class="gradient-text">Inner Balance</span>
+          <span data-i18n="hero_line_1">Technology for</span>
+          <br>
+          <span class="gradient-text" data-i18n="hero_line_2">Business Growth</span> & <span class="gradient-text" data-i18n="hero_line_3">Inner Balance</span>
         </h1>
-        <p style="color:var(--text-muted);">
-          Whether you need to launch a white-label app, master physics, or deepen your spiritual practice, we build the digital tools to get you there.
-        </p>
-        
-<div class="hero-btns">
-          <button class="btn-primary" onclick="goToSlide(0)">Build an App</button>
-          
-          <button class="btn-learning" onclick="goToSlide(2)">Start Learning</button>
-          
-          <button class="btn-soul" onclick="goToSlide(1)">Soul Seeking</button>
+        <p style="color:var(--text-muted);" data-i18n="hero_sub"> Whether you need to launch a white-label app, master physics, or deepen your spiritual practice, we build the digital tools to get you there. </p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="goToSlide(0)" data-i18n="btn_app">Build an App</button>
+          <button class="btn-learning" onclick="goToSlide(2)" data-i18n="btn_learn">Start Learning</button>
+          <button class="btn-soul" onclick="goToSlide(1)" data-i18n="btn_soul">Soul Seeking</button>
         </div>
       </div>
-
       <div class="hero-bento">
         <div class="bento-card bento-wide">
-          <div class="stat-block"><div class="stat-num">120+</div><div class="stat-label">Projects</div></div>
-          <div class="stat-block"><div class="stat-num">40+</div><div class="stat-label">Clients</div></div>
-          <div class="stat-block"><div class="stat-num">10k+</div><div class="stat-label">Users</div></div>
+          <div class="stat-block">
+            <div class="stat-num">120+</div>
+            <div class="stat-label" data-i18n="stat_proj">Projects</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">40+</div>
+            <div class="stat-label" data-i18n="stat_cli">Clients</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">10k+</div>
+            <div class="stat-label" data-i18n="stat_users">Users</div>
+          </div>
         </div>
         <div class="bento-card">
           <div class="bento-icon">📄</div>
-          <h3>Ready Packs</h3><p style="font-size:0.9rem; color:var(--text-muted);">Mock papers & marketing assets ready to use.</p>
+          <h3 data-i18n="bento_ready">Ready Packs</h3>
+          <p style="font-size:0.9rem; color:var(--text-muted);" data-i18n="bento_ready_desc">Mock papers & marketing assets ready to use.</p>
         </div>
         <div class="bento-card">
           <div class="bento-icon">⚡</div>
-          <h3>Fast Deploy</h3><p style="font-size:0.9rem; color:var(--text-muted);">Launch your MVP in days, not months.</p>
+          <h3 data-i18n="bento_fast">Fast Deploy</h3>
+          <p style="font-size:0.9rem; color:var(--text-muted);" data-i18n="bento_fast_desc">Launch your MVP in days, not months.</p>
         </div>
       </div>
     </header>
@@ -1099,7 +944,7 @@
         <div class="smart-slide">
           <div class="feature-banner">
             <div class="feature-visual">
-              <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App Interface" class="feature-img" loading="lazy">
+              <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1764859253/LaughterAppWhiteLabel_zpf5wc.png" alt="Laughter App" class="feature-img" loading="lazy">
             </div>
             <div class="feature-content">
               <span class="badge" data-i18n="feat_badge">✨ New for Coaches</span>
@@ -1108,13 +953,13 @@
                 <br>
                 <span class="gradient-text" data-i18n="feat_title_2">AI Laughter App</span>
               </h2>
-              <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;" data-i18n="feat_desc"> Rebrand our proven AI Laughter Coach for your audience. No coding required. </p>
+              <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;" data-i18n="feat_desc">Rebrand our proven AI Laughter Coach for your audience. No coding required.</p>
               <ul class="feature-list">
                 <li data-i18n="feat_li_1">PWA Ready (No App Store fees)</li>
                 <li data-i18n="feat_li_2">24/7 AI Coach for students</li>
                 <li data-i18n="feat_li_3">Your Logo & Brand Colors</li>
               </ul>
-              <a href="https://www.skrmblissai.in/laughterapp" class="btn-primary" style="display:inline-block; margin-top:1rem;" data-i18n="feat_cta">Claim Your App →</a>
+              <a href="#" class="btn-primary" style="display:inline-block; margin-top:1rem;" data-i18n="feat_cta">Claim Your App →</a>
             </div>
           </div>
         </div>
@@ -1124,52 +969,53 @@
               <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1765300732/ThePresenceProtocol3_ecx6on.jpg" alt="Presence Protocol" class="feature-img" loading="lazy">
             </div>
             <div class="feature-content">
-              <span class="badge" style="border-color:var(--brand-secondary); color:var(--brand-secondary); background:rgba(195, 184, 213, 0.2);">🧠 Mental Clarity</span>
+              <span class="badge" style="border-color:var(--brand-secondary); color:var(--brand-secondary); background:rgba(195, 184, 213, 0.2);" data-i18n="pres_badge">🧠 Mental Clarity</span>
               <h2>
                 <span data-i18n="pres_title_1">Master Your State</span>
                 <br>
-                <span class="gradient-text" style="background: linear-gradient(135deg, var(--brand-secondary), white); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">The Presence Protocol</span>
+                <span class="gradient-text" style="background: linear-gradient(135deg, var(--brand-secondary), white); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-i18n="pres_title_2">The Presence Protocol</span>
               </h2>
-              <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;">A digital sanctuary for high-performers. Reclaim your focus, dissolve stress, and align your energy daily.</p>
+              <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;" data-i18n="pres_desc">A digital sanctuary for high-performers. Reclaim your focus, dissolve stress, and align your energy daily.</p>
               <ul class="feature-list">
-                <li>Guided Presence Meditations</li>
-                <li>Stress Tracking Dashboard</li>
-                <li>Daily Alignment Rituals</li>
+                <li data-i18n="pres_li_1">Guided Presence Meditations</li>
+                <li data-i18n="pres_li_2">Stress Tracking Dashboard</li>
+                <li data-i18n="pres_li_3">Daily Alignment Rituals</li>
               </ul>
-              <a href="https://www.skrmblissai.in/thepresenceprotocol" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black;">Start Journey →</a>
+              <a href="#" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black;" data-i18n="pres_cta">Start Journey →</a>
             </div>
           </div>
         </div>
         <div class="smart-slide">
           <div class="feature-banner">
             <div class="feature-visual">
-              <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1765350887/ChatGPT_Image_Dec_10_2025_12_44_09_PM_rh776d.png" alt="Simulator Lab Interface" class="feature-img" loading="lazy">
+              <img src="https://res.cloudinary.com/dfopoyt9v/image/upload/v1765350887/ChatGPT_Image_Dec_10_2025_12_44_09_PM_rh776d.png" alt="Simulator Lab" class="feature-img" loading="lazy">
             </div>
             <div class="feature-content">
-              <span class="badge" style="border-color:var(--brand-secondary); color:var(--brand-secondary); background:rgba(195, 184, 213, 0.2);">🧪 Interactive Learning</span>
+              <span class="badge" style="border-color:var(--brand-secondary); color:var(--brand-secondary); background:rgba(195, 184, 213, 0.2);" data-i18n="sim_badge">🧪 Interactive Learning</span>
               <h2>
                 <span data-i18n="sim_title_1">Practice. Fail. Master.</span>
                 <br>
-                <span class="gradient-text" style="background: linear-gradient(135deg, var(--brand-secondary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">The Simulator Lab</span>
+                <span class="gradient-text" style="background: linear-gradient(135deg, var(--brand-secondary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" data-i18n="sim_title_2">The Simulator Lab</span>
               </h2>
-              <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;"> Stop passive learning. Immerse your students in gamified, real-world roleplay scenarios where they learn by doing. </p>
+              <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:1.1rem;" data-i18n="sim_desc">Stop passive learning. Immerse your students in gamified, real-world roleplay scenarios where they learn by doing.</p>
               <ul class="feature-list">
-                <li>Hyper-Realistic AI Roleplays</li>
-                <li>Safe "Failure-Friendly" Environment</li>
-                <li>Instant Performance Analytics</li>
+                <li data-i18n="sim_li_1">Hyper-Realistic AI Roleplays</li>
+                <li data-i18n="sim_li_2">Safe "Failure-Friendly" Environment</li>
+                <li data-i18n="sim_li_3">Instant Performance Analytics</li>
               </ul>
-              <a href="https://www.skrmblissai.in/simulatorlab" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black; box-shadow: 0 0 20px rgba(195, 184, 213, 0.3);"> Explore the Lab → </a>
+              <a href="#" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black; box-shadow: 0 0 20px rgba(195, 184, 213, 0.3);" data-i18n="sim_cta">Explore the Lab →</a>
             </div>
           </div>
         </div>
       </div>
       <div class="carousel-controls">
-        <button class="slider-arrow" id="prevBtn">&lt;</button>
-        <button class="slider-arrow" id="nextBtn">&gt;</button>
+        <button class="slider-arrow" id="prevBtn">
+          < </button>
+            <button class="slider-arrow" id="nextBtn">></button>
       </div>
       <div class="slider-dots">
-        <div class="dot active" data-slide="0"></div>
-        <div class="dot" data-slide="1"></div>
+        <div class="dot" data-slide="0"></div>
+        <div class="dot active" data-slide="1"></div>
         <div class="dot" data-slide="2"></div>
       </div>
     </section>
@@ -1182,32 +1028,32 @@
         <div class="service-card">
           <div class="service-icon">💻</div>
           <h3 data-i18n="srv_web">Web Apps</h3>
-          <p>Interactive modern webapps and dashboards tailored to business needs.</p>
+          <p data-i18n="srv_web_desc">Interactive modern webapps and dashboards tailored to business needs.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">🧩</div>
           <h3 data-i18n="srv_tools">Interactive Tools</h3>
-          <p>Simulators, quizzes, and gamified learning experiences.</p>
+          <p data-i18n="srv_tools_desc">Simulators, quizzes, and gamified learning experiences.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">🚀</div>
           <h3 data-i18n="srv_funnels">Funnels</h3>
-          <p>High-converting lead capture pages and email sequences.</p>
+          <p data-i18n="srv_funnels_desc">High-converting lead capture pages and email sequences.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">🎨</div>
           <h3 data-i18n="srv_design">Design</h3>
-          <p>Social templates, branding kits, and marketing collateral.</p>
+          <p data-i18n="srv_design_desc">Social templates, branding kits, and marketing collateral.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">🎓</div>
           <h3 data-i18n="srv_portals">Course Portals</h3>
-          <p>Custom LMS platforms with video hosting and tracking.</p>
+          <p data-i18n="srv_portals_desc">Custom LMS platforms with video hosting and tracking.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">📱</div>
           <h3 data-i18n="srv_mobile">Mobile Solutions</h3>
-          <p>PWA and native mobile app development for creators.</p>
+          <p data-i18n="srv_mobile_desc">PWA and native mobile app development for creators.</p>
         </div>
       </div>
     </section>
@@ -1219,7 +1065,7 @@
         <div class="timeline-item">
           <div class="timeline-dot">1</div>
           <div class="timeline-content">
-            <span class="timeline-step">Discovery</span>
+            <span class="timeline-step" data-i18n="step_1_label">Discovery</span>
             <h3 data-i18n="proc_1_title">Brief & Strategy</h3>
             <p data-i18n="proc_1_desc">We understand your goals and audience through a deep-dive discovery call.</p>
           </div>
@@ -1227,7 +1073,7 @@
         <div class="timeline-item">
           <div class="timeline-dot">2</div>
           <div class="timeline-content">
-            <span class="timeline-step">Planning</span>
+            <span class="timeline-step" data-i18n="step_2_label">Planning</span>
             <h3 data-i18n="proc_2_title">Wireframes & Roadmap</h3>
             <p data-i18n="proc_2_desc">Project mapping so expectations are clear.</p>
           </div>
@@ -1235,7 +1081,7 @@
         <div class="timeline-item">
           <div class="timeline-dot">3</div>
           <div class="timeline-content">
-            <span class="timeline-step">Production</span>
+            <span class="timeline-step" data-i18n="step_3_label">Production</span>
             <h3 data-i18n="proc_3_title">Design & Develop</h3>
             <p data-i18n="proc_3_desc">Coding and design with regular review loops.</p>
           </div>
@@ -1243,7 +1089,7 @@
         <div class="timeline-item">
           <div class="timeline-dot">4</div>
           <div class="timeline-content">
-            <span class="timeline-step">Launch</span>
+            <span class="timeline-step" data-i18n="step_4_label">Launch</span>
             <h3 data-i18n="proc_4_title">Deploy & Support</h3>
             <p data-i18n="proc_4_desc">Handover files and provide ongoing maintenance.</p>
           </div>
@@ -1252,39 +1098,47 @@
     </section>
     <section id="contact" class="contact-section">
       <div class="glass-form-fancy">
-        <h2 style="margin-bottom:0.5rem;">Send a Message</h2>
-        <p style="color:var(--text-muted); margin-bottom:2rem;">We typically reply within 24 hours.</p>
+        <h2 style="margin-bottom:0.5rem;" data-i18n="contact_header">Send a Message</h2>
+        <p style="color:var(--text-muted); margin-bottom:2rem;" data-i18n="contact_sub">We typically reply within 24 hours.</p>
         <form id="contactForm" action="https://formspree.io/f/mrbnakoj" method="POST">
-          <input type="text" name="name" class="fancy-input" placeholder="Your Name" required>
-          <input type="email" name="email" class="fancy-input" placeholder="Your Email" required>
-          <textarea name="message" class="fancy-input" rows="4" placeholder="How can we help?" required></textarea>
+          <input type="text" name="name" class="fancy-input" placeholder="Your Name" required data-i18n-placeholder="ph_name">
+          <input type="email" name="email" class="fancy-input" placeholder="Your Email" required data-i18n-placeholder="ph_email">
+          <textarea name="message" class="fancy-input" rows="4" placeholder="How can we help?" required data-i18n-placeholder="ph_msg"></textarea>
           <label class="fancy-checkbox-label">
             <input type="checkbox" name="consent" required style="width:auto; margin:0;">
-            <span>I agree to be contacted by SKRMBliss.</span>
+            <span data-i18n="consent_text">I agree to be contacted by SKRMBliss.</span>
           </label>
-          <button type="submit" class="btn-primary" style="width:100%;">Send Message 🚀</button>
+          <button type="submit" class="btn-primary" style="width:100%;" data-i18n="btn_send_rocket">Send Message 🚀</button>
           <div id="formStatus" style="margin-top:1rem; color:var(--brand-primary); font-weight:700;"></div>
         </form>
       </div>
-
       <div class="service-card">
-        <h3 style="margin-bottom: 1.5rem; color: #ABCEC9;">Contact Info</h3>
+        <h3 style="margin-bottom: 1.5rem; color: #ABCEC9;" data-i18n="info_title">Contact Info</h3>
         <div class="contact-details-list">
           <div class="contact-item">
             <div class="icon-box">✉️</div>
-            <div class="contact-text"><label>Email Us</label><span>connect@skrmblissai.in</span></div>
+            <div class="contact-text">
+              <label data-i18n="lbl_email">Email Us</label>
+              <span>connect@skrmblissai.in</span>
+            </div>
           </div>
           <div class="contact-item">
             <div class="icon-box">📞</div>
-            <div class="contact-text"><label>Call Us</label><span>+91 82175 81238</span></div>
+            <div class="contact-text">
+              <label data-i18n="lbl_call">Call Us</label>
+              <span>+91 82175 81238</span>
+            </div>
           </div>
           <div class="contact-item">
             <div class="icon-box">🌍</div>
-            <div class="contact-text"><label>Global Presence</label><span>India & Bracknell, UK</span></div>
+            <div class="contact-text">
+              <label data-i18n="lbl_global">Global Presence</label>
+              <span data-i18n="val_location">India & Bracknell, UK</span>
+            </div>
           </div>
         </div>
         <div class="map-wrapper">
-          <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39999.66468792067!2d-0.7788460596395567!3d51.41655848574135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48767eeb766c6d3d%3A0x6b772c6dcb41657!2sBracknell%2C%20UK!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" loading="lazy"></iframe>
+          <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.001690466432!2d77.5945627!3d12.9715987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1710000000000" loading="lazy"></iframe>
         </div>
       </div>
     </section>
@@ -1298,30 +1152,31 @@
         </div>
         <div class="footer-links">
           <h4 data-i18n="nav_services">Services</h4>
-          <a href="#services">Web Apps</a>
-          <a href="#services">Tools</a>
-          <a href="#services">Funnels</a>
+          <a href="#services" data-i18n="srv_web">Web Apps</a>
+          <a href="#services" data-i18n="srv_tools">Tools</a>
+          <a href="#services" data-i18n="srv_funnels">Funnels</a>
         </div>
         <div class="footer-links">
           <h4 data-i18n="nav_company">Company</h4>
-          <a href="#process">Process</a>
-          <a href="#contact">Contact</a>
+          <a href="#process" data-i18n="nav_process">Process</a>
+          <a href="#contact" data-i18n="nav_contact">Contact</a>
         </div>
         <div class="footer-links">
           <h4 data-i18n="nav_social">Social</h4>
           <a href="https://facebook.com/skrmbliss" target="_blank">Facebook</a>
-          <a href="#" target="_blank">Discord</a>
-          <a href="https://wa.me/+918217581238" target="_blank">WhatsApp</a>
+          <a href="#" target="_blank" data-i18n="link_insta">Instagram</a>
+          <a href="https://wa.me/+918217581238" target="_blank" data-i18n="link_wa">WhatsApp</a>
         </div>
       </div>
-      <div style="text-align:center; color:var(--text-muted); border-top:1px solid var(--glass-border); padding-top:2rem;"> &copy; <span id="year"></span> SKRM Bliss AI — Built with Care in Bengaluru. </div>
+      <div style="text-align:center; color:var(--text-muted); border-top:1px solid var(--glass-border); padding-top:2rem;"> © <span id="year"></span> SKRM Bliss AI — <span data-i18n="footer_copy">Built with Care in Bengaluru.</span>
+      </div>
     </div>
   </footer>
   <div id="cookieBanner" class="cookie-banner">
-    <div class="cookie-text"> We use cookies to enhance your experience and analyze traffic. By continuing, you agree to our use of cookies. </div>
+    <div class="cookie-text" data-i18n="cookie_msg">We use cookies to enhance your experience.</div>
     <div class="cookie-btns">
-      <button class="btn-small btn-primary" onclick="acceptCookies()">Accept</button>
-      <button class="btn-small btn-glass" onclick="hideCookieBanner()">Decline</button>
+      <button class="btn-primary" onclick="acceptCookies()" style="padding:6px 12px; font-size:0.8rem;" data-i18n="cookie_ok">Accept</button>
+      <button class="btn-glass" onclick="hideCookieBanner()" style="padding:6px 12px; font-size:0.8rem;" data-i18n="cookie_no">Decline</button>
     </div>
   </div>
   <div class="fab-container">
@@ -1334,14 +1189,15 @@
   </div>
   <div class="modal-overlay" id="bookingModal">
     <div class="modal-content">
-      <button class="close-modal" onclick="closeBooking()" style="float:right; background:none; border:none; color:white; font-size:1.5rem;">&times;</button>
+      <button class="close-modal" onclick="closeBooking()" style="float:right; background:none; border:none; color:white; font-size:1.5rem;">×</button>
       <h2 style="margin-bottom:0.5rem; text-align:center;" data-i18n="book_title">Book a Call</h2>
       <p style="text-align:center; color:var(--text-muted); margin-bottom:1.5rem;" data-i18n="book_subtitle">Select a slot (IST 08:00 AM - 09:00 PM)</p>
       <div id="calendarView">
         <div class="calendar-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <button onclick="changeMonth(-1)" class="btn-glass" style="padding:5px 10px;">&lt;</button>
-          <h3 id="currentMonthYear" style="margin:0;"></h3>
-          <button onclick="changeMonth(1)" class="btn-glass" style="padding:5px 10px;">&gt;</button>
+          <button onclick="changeMonth(-1)" class="btn-glass" style="padding:5px 10px;">
+            < </button>
+              <h3 id="currentMonthYear" style="margin:0;"></h3>
+              <button onclick="changeMonth(1)" class="btn-glass" style="padding:5px 10px;">></button>
         </div>
         <div class="calendar-grid" id="calendarDays"></div>
         <h4 style="margin:10px 0; display:none;" id="slotTitle" data-i18n="book_slots">Available Slots</h4>
@@ -1353,25 +1209,32 @@
 </div>
 <script>
   (function() {
-    // --- 1. SCOPED CONSTANTS & TRANSLATIONS --- 
+    /* =========================================
+       1. TRANSLATION DICTIONARY (FULLY POPULATED)
+       ========================================= */
     const translations = {
       en: {
         nav_services: "Services",
         nav_process: "Process",
         nav_contact: "Contact",
         nav_cta: "Book a Call",
-        hero_title_1: "Build digital experiences",
-        hero_title_2: "that convert",
-        hero_desc: "We create interactive web apps, mobile solutions, learning tools, and marketing funnels for startups, YouTubers, and educators.",
-        btn_explore: "Explore Services",
-        btn_book: "Book 1:1 Call",
-        stat_projects: "Projects",
-        stat_clients: "Clients",
+        nav_social: "Social",
+        nav_company: "Company",
+        hero_line_1: "Technology for",
+        hero_line_2: "Business Growth",
+        hero_line_3: "Inner Balance",
+        hero_sub: "Whether you need to launch a white-label app, master physics, or deepen your spiritual practice, we build the digital tools to get you there.",
+        btn_app: "Build an App",
+        btn_learn: "Start Learning",
+        btn_soul: "Soul Seeking",
+        stat_proj: "Projects",
+        stat_cli: "Clients",
         stat_users: "Users",
-        card_packs_title: "Ready Packs",
-        card_packs_desc: "Mock papers & marketing assets ready to use.",
-        card_fast_title: "Fast Deploy",
-        card_fast_desc: "Launch your MVP in days, not months.",
+        bento_ready: "Ready Packs",
+        bento_ready_desc: "Mock papers & marketing assets ready to use.",
+        bento_fast: "Fast Deploy",
+        bento_fast_desc: "Launch your MVP in days, not months.",
+        // Carousel - Laughter
         feat_badge: "✨ New for Coaches",
         feat_title_1: "Launch Your Own",
         feat_title_2: "AI Laughter App",
@@ -1380,66 +1243,510 @@
         feat_li_2: "24/7 AI Coach for students",
         feat_li_3: "Your Logo & Brand Colors",
         feat_cta: "Claim Your App →",
+        // Carousel - Presence
+        pres_badge: "🧠 Mental Clarity",
+        pres_title_1: "Master Your State",
+        pres_title_2: "The Presence Protocol",
+        pres_desc: "A digital sanctuary for high-performers. Reclaim your focus, dissolve stress, and align your energy daily.",
+        pres_li_1: "Guided Presence Meditations",
+        pres_li_2: "Stress Tracking Dashboard",
+        pres_li_3: "Daily Alignment Rituals",
+        pres_cta: "Start Journey →",
+        // Carousel - Simulator
+        sim_badge: "🧪 Interactive Learning",
+        sim_title_1: "Practice. Fail. Master.",
+        sim_title_2: "The Simulator Lab",
+        sim_desc: "Stop passive learning. Immerse your students in gamified, real-world roleplay scenarios where they learn by doing.",
+        sim_li_1: "Hyper-Realistic AI Roleplays",
+        sim_li_2: "Safe 'Failure-Friendly' Environment",
+        sim_li_3: "Instant Performance Analytics",
+        sim_cta: "Explore the Lab →",
+        // Services
         srv_title: "Our Services",
         srv_sub: "Complete digital growth solutions tailored for you.",
         srv_web: "Web Apps",
+        srv_web_desc: "Interactive modern webapps and dashboards tailored to business needs.",
         srv_tools: "Interactive Tools",
+        srv_tools_desc: "Simulators, quizzes, and gamified learning experiences.",
         srv_funnels: "Funnels",
+        srv_funnels_desc: "High-converting lead capture pages and email sequences.",
         srv_design: "Design",
+        srv_design_desc: "Social templates, branding kits, and marketing collateral.",
         srv_portals: "Course Portals",
+        srv_portals_desc: "Custom LMS platforms with video hosting and tracking.",
         srv_mobile: "Mobile Solutions",
+        srv_mobile_desc: "PWA and native mobile app development for creators.",
+        // Process
         proc_title: "How We Work",
+        step_1_label: "Discovery",
         proc_1_title: "Brief & Strategy",
-        proc_1_desc: "We understand your goals through a discovery call.",
+        proc_1_desc: "We understand your goals and audience through a deep-dive discovery call.",
+        step_2_label: "Planning",
         proc_2_title: "Wireframes & Roadmap",
         proc_2_desc: "Project mapping so expectations are clear.",
+        step_3_label: "Production",
         proc_3_title: "Design & Develop",
         proc_3_desc: "Coding and design with regular review loops.",
+        step_4_label: "Launch",
         proc_4_title: "Deploy & Support",
         proc_4_desc: "Handover files and provide ongoing maintenance.",
-        contact_title: "Let's Build Something",
-        lbl_name: "Name",
-        lbl_email: "Email",
-        lbl_msg: "Message",
-        btn_send: "Send Message",
+        // Contact
+        contact_header: "Send a Message",
+        contact_sub: "We typically reply within 24 hours.",
+        ph_name: "Your Name",
+        ph_email: "Your Email",
+        ph_msg: "How can we help?",
+        consent_text: "I agree to be contacted by SKRMBliss.",
+        btn_send_rocket: "Send Message 🚀",
         info_title: "Contact Info",
-        ready_title: "Ready to start?",
-        ready_desc: "Typical response time: 4-8 hours",
-        footer_desc: "Helping creators build better digital products with tech and design.",
+        lbl_email: "Email Us",
+        lbl_call: "Call Us",
+        lbl_global: "Global Presence",
+        val_location: "India & Bracknell, UK",
+        // Footer & Misc
+        footer_desc: "Helping creators and businesses build better digital products with cutting-edge tech and design.",
+        link_insta: "Instagram",
+        link_wa: "WhatsApp",
+        footer_copy: "Built with Care in Bengaluru.",
+        cookie_msg: "We use cookies to enhance your experience.",
+        cookie_ok: "Accept",
+        cookie_no: "Decline",
         book_title: "Book a Call",
         book_subtitle: "Select a slot (IST 08:00 AM - 09:00 PM)",
         book_slots: "Available Slots",
-        book_confirm: "Confirm Booking",
-        sim_title_1: "Practice. Fail. Master."
+        book_confirm: "Confirm Booking"
       },
       hi: {
         nav_services: "सेवाएं",
+        nav_process: "प्रक्रिया",
         nav_contact: "संपर्क",
         nav_cta: "कॉल बुक करें",
-        hero_title_1: "डिजिटल अनुभव बनाएं",
-        hero_title_2: "जो बदलते हैं"
+        nav_social: "सोशल मीडिया",
+        nav_company: "कंपनी",
+        hero_line_1: "तकनीक जो लाए",
+        hero_line_2: "व्यापार में वृद्धि",
+        hero_line_3: "और आंतरिक संतुलन",
+        hero_sub: "चाहे आपको ऐप बनाना हो, भौतिकी सीखनी हो, या आध्यात्मिक अभ्यास करना हो, हम आपके लिए डिजिटल टूल्स बनाते हैं।",
+        btn_app: "ऐप बनाएं",
+        btn_learn: "सीखना शुरू करें",
+        btn_soul: "आत्म-खोज",
+        stat_proj: "प्रोजेक्ट्स",
+        stat_cli: "ग्राहक",
+        stat_users: "उपयोगकर्ता",
+        bento_ready: "तैयार पैक्स",
+        bento_ready_desc: "मॉक पेपर्स और मार्केटिंग एसेट्स, उपयोग के लिए तैयार।",
+        bento_fast: "फास्ट डिप्लॉय",
+        bento_fast_desc: "महीनों नहीं, दिनों में अपना MVP लॉन्च करें।",
+        // Carousel
+        feat_badge: "✨ कोचों के लिए नया",
+        feat_title_1: "अपना खुद का लॉन्च करें",
+        feat_title_2: "AI लाफ्टर ऐप",
+        feat_desc: "हमारे सिद्ध AI लाफ्टर कोच को अपने ब्रांड के साथ लॉन्च करें। कोई कोडिंग आवश्यक नहीं।",
+        feat_li_1: "PWA रेडी (कोई ऐप स्टोर फीस नहीं)",
+        feat_li_2: "छात्रों के लिए 24/7 AI कोच",
+        feat_li_3: "आपका लोगो और ब्रांड रंग",
+        feat_cta: "अपना ऐप प्राप्त करें →",
+        pres_badge: "🧠 मानसिक स्पष्टता",
+        pres_title_1: "अपनी स्थिति में महारत हासिल करें",
+        pres_title_2: "द प्रेज़ेंस प्रोटोकॉल",
+        pres_desc: "हाई-परफॉर्मर्स के लिए एक डिजिटल अभयारण्य। अपना फोकस पुनः प्राप्त करें और तनाव को दूर करें।",
+        pres_li_1: "गाइडेड प्रेज़ेंस मेडिटेशन",
+        pres_li_2: "स्ट्रेस ट्रैकिंग डैशबोर्ड",
+        pres_li_3: "दैनिक एलाइनमेंट रिचुअल्स",
+        pres_cta: "यात्रा शुरू करें →",
+        sim_badge: "🧪 इंटरैक्टिव लर्निंग",
+        sim_title_1: "अभ्यास। असफलता। महारत।",
+        sim_title_2: "द सिमुलेटर लैब",
+        sim_desc: "पैसिव लर्निंग बंद करें। गेमिफाइड, रियल-वर्ल्ड रोलप्ले सिनेरियो में सीखें।",
+        sim_li_1: "अति-यथार्थवादी AI रोलप्ले",
+        sim_li_2: "सुरक्षित 'विफलता-अनुकूल' वातावरण",
+        sim_li_3: "त्वरित प्रदर्शन विश्लेषण",
+        sim_cta: "लैब एक्सप्लोर करें →",
+        // Services
+        srv_title: "हमारी सेवाएं",
+        srv_sub: "आपके लिए तैयार पूर्ण डिजिटल समाधान।",
+        srv_web: "वेब ऐप्स",
+        srv_web_desc: "व्यावसायिक आवश्यकताओं के अनुरूप इंटरैक्टिव वेब ऐप्स।",
+        srv_tools: "इंटरैक्टिव टूल्स",
+        srv_tools_desc: "सिमुलेटर, क्विज़ और गेमिफाइड लर्निंग अनुभव।",
+        srv_funnels: "फनल्स",
+        srv_funnels_desc: "उच्च-रूपांतरण लीड कैप्चर पेज और ईमेल सीक्वेंस।",
+        srv_design: "डिज़ाइन",
+        srv_design_desc: "सोशल टेम्पलेट्स, ब्रांडिंग किट और मार्केटिंग सामग्री।",
+        srv_portals: "कोर्स पोर्टल्स",
+        srv_portals_desc: "वीडियो होस्टिंग और ट्रैकिंग के साथ कस्टम LMS प्लेटफॉर्म।",
+        srv_mobile: "मोबाइल समाधान",
+        srv_mobile_desc: "क्रिएटर्स के लिए PWA और नेटिव मोबाइल ऐप डेवलपमेंट।",
+        // Process
+        proc_title: "हम कैसे काम करते हैं",
+        step_1_label: "खोज",
+        proc_1_title: "ब्रीफ और रणनीति",
+        proc_1_desc: "हम डिस्कवरी कॉल के माध्यम से आपके लक्ष्यों को समझते हैं।",
+        step_2_label: "योजना",
+        proc_2_title: "वायरफ्रेम्स और रोडमैप",
+        proc_2_desc: "प्रोजेक्ट मैपिंग ताकि उम्मीदें स्पष्ट हों।",
+        step_3_label: "उत्पादन",
+        proc_3_title: "डिज़ाइन और विकास",
+        proc_3_desc: "नियमित समीक्षा लूप के साथ कोडिंग और डिज़ाइन।",
+        step_4_label: "लॉन्च",
+        proc_4_title: "डिप्लॉय और सपोर्ट",
+        proc_4_desc: "फाइल हैंडओवर और निरंतर रखरखाव प्रदान करना।",
+        // Contact
+        contact_header: "संदेश भेजें",
+        contact_sub: "हम आमतौर पर 24 घंटों के भीतर जवाब देते हैं।",
+        ph_name: "आपका नाम",
+        ph_email: "आपका ईमेल",
+        ph_msg: "हम आपकी कैसे मदद कर सकते हैं?",
+        consent_text: "मैं SKRMBliss द्वारा संपर्क किए जाने के लिए सहमत हूं।",
+        btn_send_rocket: "संदेश भेजें 🚀",
+        info_title: "संपर्क जानकारी",
+        lbl_email: "हमें ईमेल करें",
+        lbl_call: "हमें कॉल करें",
+        lbl_global: "वैश्विक उपस्थिति",
+        val_location: "भारत और यूके",
+        // Footer & Misc
+        footer_desc: "लेटेस्ट टेक और डिज़ाइन के साथ बेहतर डिजिटल प्रोडक्ट्स बनाने में मदद करना।",
+        link_insta: "इंस्टाग्राम",
+        link_wa: "व्हाट्सएप",
+        footer_copy: "बेंगलुरु में देखभाल के साथ बनाया गया।",
+        cookie_msg: "हम आपके अनुभव को बढ़ाने के लिए कुकीज़ का उपयोग करते हैं।",
+        cookie_ok: "स्वीकार करें",
+        cookie_no: "अस्वीकार करें",
+        book_title: "कॉल बुक करें",
+        book_subtitle: "एक स्लॉट चुनें (IST 08:00 AM - 09:00 PM)",
+        book_slots: "उपलब्ध स्लॉट्स",
+        book_confirm: "बुकिंग की पुष्टि करें"
+      },
+      fr: {
+        nav_services: "Services",
+        nav_process: "Processus",
+        nav_contact: "Contact",
+        nav_cta: "Réserver",
+        nav_social: "Réseaux Sociaux",
+        nav_company: "Entreprise",
+        hero_line_1: "Technologie pour",
+        hero_line_2: "Croissance",
+        hero_line_3: "et Équilibre",
+        hero_sub: "Que vous ayez besoin de lancer une app en marque blanche, de maîtriser la physique ou d'approfondir votre pratique spirituelle, nous créons les outils pour vous.",
+        btn_app: "Créer une App",
+        btn_learn: "Apprendre",
+        btn_soul: "Quête de l'Âme",
+        stat_proj: "Projets",
+        stat_cli: "Clients",
+        stat_users: "Utilisateurs",
+        bento_ready: "Packs Prêts",
+        bento_ready_desc: "Examens blancs & atouts marketing prêts à l'emploi.",
+        bento_fast: "Déploiement Rapide",
+        bento_fast_desc: "Lancez votre MVP en quelques jours, pas des mois.",
+        // Carousel
+        feat_badge: "✨ Nouveau pour Coachs",
+        feat_title_1: "Lancez Votre Propre",
+        feat_title_2: "App de Rire IA",
+        feat_desc: "Rebrandez notre Coach de Rire IA pour votre audience. Aucun codage requis.",
+        feat_li_1: "Prêt pour PWA (Pas de frais App Store)",
+        feat_li_2: "Coach IA 24/7 pour étudiants",
+        feat_li_3: "Votre Logo & Couleurs",
+        feat_cta: "Réclamer Votre App →",
+        pres_badge: "🧠 Clarté Mentale",
+        pres_title_1: "Maîtrisez Votre État",
+        pres_title_2: "Protocole de Présence",
+        pres_desc: "Un sanctuaire numérique pour les plus performants. Retrouvez votre concentration et dissolvez le stress.",
+        pres_li_1: "Méditations Guidées",
+        pres_li_2: "Suivi du Stress",
+        pres_li_3: "Rituels Quotidiens",
+        pres_cta: "Commencer →",
+        sim_badge: "🧪 Apprentissage Interactif",
+        sim_title_1: "Pratiquer. Échouer. Maîtriser.",
+        sim_title_2: "Le Labo de Simulation",
+        sim_desc: "Arrêtez l'apprentissage passif. Plongez vos étudiants dans des scénarios de jeux de rôle réels.",
+        sim_li_1: "Jeux de Rôle IA Réalistes",
+        sim_li_2: "Environnement Sûr",
+        sim_li_3: "Analyse Instantanée",
+        sim_cta: "Explorer le Labo →",
+        // Services
+        srv_title: "Nos Services",
+        srv_sub: "Solutions de croissance numérique complètes adaptées pour vous.",
+        srv_web: "Apps Web",
+        srv_web_desc: "Webapps modernes interactives et tableaux de bord adaptés aux besoins.",
+        srv_tools: "Outils Interactifs",
+        srv_tools_desc: "Simulateurs, quiz et expériences d'apprentissage gamifiées.",
+        srv_funnels: "Tunnels de Vente",
+        srv_funnels_desc: "Pages de capture de leads à haute conversion et séquences d'emails.",
+        srv_design: "Design",
+        srv_design_desc: "Modèles sociaux, kits de marque et matériel marketing.",
+        srv_portals: "Portails de Cours",
+        srv_portals_desc: "Plateformes LMS personnalisées avec hébergement vidéo.",
+        srv_mobile: "Solutions Mobiles",
+        srv_mobile_desc: "Développement d'apps mobiles PWA et natives pour créateurs.",
+        // Process
+        proc_title: "Notre Processus",
+        step_1_label: "Découverte",
+        proc_1_title: "Brief & Stratégie",
+        proc_1_desc: "Nous comprenons vos objectifs grâce à un appel de découverte.",
+        step_2_label: "Planification",
+        proc_2_title: "Maquettes & Roadmap",
+        proc_2_desc: "Cartographie du projet pour que les attentes soient claires.",
+        step_3_label: "Production",
+        proc_3_title: "Design & Dév",
+        proc_3_desc: "Codage et design avec des boucles de révision régulières.",
+        step_4_label: "Lancement",
+        proc_4_title: "Déploiement",
+        proc_4_desc: "Remise des fichiers et maintenance continue.",
+        // Contact
+        contact_header: "Envoyer un Message",
+        contact_sub: "Nous répondons généralement sous 24 heures.",
+        ph_name: "Votre Nom",
+        ph_email: "Votre Email",
+        ph_msg: "Comment pouvons-nous aider ?",
+        consent_text: "J'accepte d'être contacté par SKRMBliss.",
+        btn_send_rocket: "Envoyer Message 🚀",
+        info_title: "Infos Contact",
+        lbl_email: "Email",
+        lbl_call: "Appel",
+        lbl_global: "Présence Mondiale",
+        val_location: "Inde & Royaume-Uni",
+        // Footer & Misc
+        footer_desc: "Aider les créateurs à construire de meilleurs produits numériques.",
+        link_insta: "Instagram",
+        link_wa: "WhatsApp",
+        footer_copy: "Fait avec Soin à Bengaluru.",
+        cookie_msg: "Nous utilisons des cookies pour améliorer votre expérience.",
+        cookie_ok: "Accepter",
+        cookie_no: "Refuser",
+        book_title: "Réserver un Appel",
+        book_subtitle: "Sélectionnez un créneau (IST 08:00 - 21:00)",
+        book_slots: "Créneaux Disponibles",
+        book_confirm: "Confirmer"
+      },
+      es: {
+        nav_services: "Servicios",
+        nav_process: "Proceso",
+        nav_contact: "Contacto",
+        nav_cta: "Reservar",
+        nav_social: "Redes",
+        nav_company: "Empresa",
+        hero_line_1: "Tecnología para",
+        hero_line_2: "Crecimiento",
+        hero_line_3: "y Equilibrio",
+        hero_sub: "Ya sea que necesites lanzar una app de marca blanca, dominar la física o profundizar tu práctica espiritual, construimos las herramientas para ti.",
+        btn_app: "Crear App",
+        btn_learn: "Aprender",
+        btn_soul: "Búsqueda del Alma",
+        stat_proj: "Proyectos",
+        stat_cli: "Clientes",
+        stat_users: "Usuarios",
+        bento_ready: "Packs Listos",
+        bento_ready_desc: "Exámenes simulados y activos de marketing listos para usar.",
+        bento_fast: "Despliegue Rápido",
+        bento_fast_desc: "Lanza tu MVP en días, no meses.",
+        // Carousel
+        feat_badge: "✨ Nuevo para Coaches",
+        feat_title_1: "Lanza Tu Propia",
+        feat_title_2: "App de Risa IA",
+        feat_desc: "Cambia la marca de nuestro probado Coach de Risa IA para tu audiencia.",
+        feat_li_1: "Listo para PWA (Sin tarifas)",
+        feat_li_2: "Coach IA 24/7",
+        feat_li_3: "Tu Logo y Colores",
+        feat_cta: "Reclamar App →",
+        pres_badge: "🧠 Claridad Mental",
+        pres_title_1: "Domina Tu Estado",
+        pres_title_2: "Protocolo de Presencia",
+        pres_desc: "Un santuario digital para personas de alto rendimiento. Recupera tu enfoque y disuelve el estrés.",
+        pres_li_1: "Meditaciones Guiadas",
+        pres_li_2: "Seguimiento de Estrés",
+        pres_li_3: "Rituales Diarios",
+        pres_cta: "Iniciar Viaje →",
+        sim_badge: "🧪 Aprendizaje Interactivo",
+        sim_title_1: "Practicar. Fallar. Dominar.",
+        sim_title_2: "Laboratorio Simulador",
+        sim_desc: "Deja el aprendizaje pasivo. Sumerge a tus estudiantes en escenarios de rol gamificados.",
+        sim_li_1: "Juegos de Rol IA Realistas",
+        sim_li_2: "Entorno Seguro",
+        sim_li_3: "Análisis Instantáneo",
+        sim_cta: "Explorar Lab →",
+        // Services
+        srv_title: "Nuestros Servicios",
+        srv_sub: "Soluciones de crecimiento digital adaptadas para ti.",
+        srv_web: "Apps Web",
+        srv_web_desc: "Webapps modernas interactivas y paneles adaptados a las necesidades.",
+        srv_tools: "Herramientas Interactivas",
+        srv_tools_desc: "Simuladores, cuestionarios y experiencias gamificadas.",
+        srv_funnels: "Embudos",
+        srv_funnels_desc: "Páginas de captura de leads de alta conversión.",
+        srv_design: "Diseño",
+        srv_design_desc: "Plantillas sociales, kits de marca y material de marketing.",
+        srv_portals: "Portales de Cursos",
+        srv_portals_desc: "Plataformas LMS personalizadas con alojamiento de video.",
+        srv_mobile: "Soluciones Móviles",
+        srv_mobile_desc: "Desarrollo de apps móviles PWA y nativas.",
+        // Process
+        proc_title: "Cómo Trabajamos",
+        step_1_label: "Descubrimiento",
+        proc_1_title: "Brief y Estrategia",
+        proc_1_desc: "Entendemos tus objetivos a través de una llamada profunda.",
+        step_2_label: "Planificación",
+        proc_2_title: "Wireframes y Mapa",
+        proc_2_desc: "Mapeo del proyecto para expectativas claras.",
+        step_3_label: "Producción",
+        proc_3_title: "Diseño y Desarrollo",
+        proc_3_desc: "Codificación y diseño con revisiones regulares.",
+        step_4_label: "Lanzamiento",
+        proc_4_title: "Despliegue y Soporte",
+        proc_4_desc: "Entrega de archivos y mantenimiento continuo.",
+        // Contact
+        contact_header: "Enviar Mensaje",
+        contact_sub: "Respondemos típicamente en 24 horas.",
+        ph_name: "Tu Nombre",
+        ph_email: "Tu Email",
+        ph_msg: "¿Cómo podemos ayudar?",
+        consent_text: "Acepto ser contactado por SKRMBliss.",
+        btn_send_rocket: "Enviar Mensaje 🚀",
+        info_title: "Info de Contacto",
+        lbl_email: "Email",
+        lbl_call: "Llamada",
+        lbl_global: "Presencia Global",
+        val_location: "India y Reino Unido",
+        // Footer & Misc
+        footer_desc: "Ayudando a creadores a construir mejores productos digitales.",
+        link_insta: "Instagram",
+        link_wa: "WhatsApp",
+        footer_copy: "Hecho con Cariño en Bengaluru.",
+        cookie_msg: "Usamos cookies para mejorar tu experiencia.",
+        cookie_ok: "Aceptar",
+        cookie_no: "Rechazar",
+        book_title: "Reservar Llamada",
+        book_subtitle: "Selecciona un horario (IST 08:00 - 21:00)",
+        book_slots: "Horarios Disponibles",
+        book_confirm: "Confirmar"
+      },
+      zh: {
+        nav_services: "服务",
+        nav_process: "流程",
+        nav_contact: "联系",
+        nav_cta: "预约",
+        nav_social: "社交",
+        nav_company: "公司",
+        hero_line_1: "技术助力",
+        hero_line_2: "业务增长",
+        hero_line_3: "与内在平衡",
+        hero_sub: "无论您需要发布白标应用、掌握物理学，还是深化精神修行，我们都能打造助您达成的数字工具。",
+        btn_app: "创建应用",
+        btn_learn: "开始学习",
+        btn_soul: "灵魂探索",
+        stat_proj: "项目",
+        stat_cli: "客户",
+        stat_users: "用户",
+        bento_ready: "就绪包",
+        bento_ready_desc: "即可使用的模拟试卷和营销资产。",
+        bento_fast: "快速部署",
+        bento_fast_desc: "数天内发布您的 MVP，而非数月。",
+        // Carousel
+        feat_badge: "✨ 教练新功能",
+        feat_title_1: "发布您自己的",
+        feat_title_2: "AI 大笑应用",
+        feat_desc: "为您的受众重塑我们经过验证的 AI 大笑教练品牌。",
+        feat_li_1: "PWA 就绪（无商店费用）",
+        feat_li_2: "24/7 AI 教练",
+        feat_li_3: "您的标志和颜色",
+        feat_cta: "领取应用 →",
+        pres_badge: "🧠 心理清晰",
+        pres_title_1: "掌控您的状态",
+        pres_title_2: "临在协议",
+        pres_desc: "高绩效者的数字避难所。恢复专注，消除压力。",
+        pres_li_1: "引导式冥想",
+        pres_li_2: "压力追踪",
+        pres_li_3: "每日调整仪式",
+        pres_cta: "开始旅程 →",
+        sim_badge: "🧪 互动学习",
+        sim_title_1: "练习。失败。精通。",
+        sim_title_2: "模拟实验室",
+        sim_desc: "停止被动学习。让学生沉浸在真实角色扮演场景中。",
+        sim_li_1: "超写实 AI 角色扮演",
+        sim_li_2: "安全环境",
+        sim_li_3: "即时分析",
+        sim_cta: "探索实验室 →",
+        // Services
+        srv_title: "我们的服务",
+        srv_sub: "为您量身定制的完整数字增长解决方案。",
+        srv_web: "Web 应用",
+        srv_web_desc: "专为业务需求定制的现代 Web 应用。",
+        srv_tools: "互动工具",
+        srv_tools_desc: "模拟器、测验和游戏化学习体验。",
+        srv_funnels: "漏斗",
+        srv_funnels_desc: "高转化率的潜在客户捕获页面。",
+        srv_design: "设计",
+        srv_design_desc: "社交模板、品牌套件和营销材料。",
+        srv_portals: "课程门户",
+        srv_portals_desc: "具有视频托管和跟踪功能的自定义 LMS。",
+        srv_mobile: "移动解决方案",
+        srv_mobile_desc: "为创作者提供的 PWA 和原生应用开发。",
+        // Process
+        proc_title: "工作流程",
+        step_1_label: "发现",
+        proc_1_title: "简报与策略",
+        proc_1_desc: "我们通过深入通话了解您的目标。",
+        step_2_label: "规划",
+        proc_2_title: "线框图与路线图",
+        proc_2_desc: "项目映射，确保期望明确。",
+        step_3_label: "生产",
+        proc_3_title: "设计与开发",
+        proc_3_desc: "具有定期审查循环的编码和设计。",
+        step_4_label: "发布",
+        proc_4_title: "部署与支持",
+        proc_4_desc: "移交文件并提供持续维护。",
+        // Contact
+        contact_header: "发送消息",
+        contact_sub: "我们通常在 24 小时内回复。",
+        ph_name: "您的姓名",
+        ph_email: "您的邮箱",
+        ph_msg: "我们能如何提供帮助？",
+        consent_text: "我同意 SKRMBliss 联系我。",
+        btn_send_rocket: "发送消息 🚀",
+        info_title: "联系信息",
+        lbl_email: "邮件",
+        lbl_call: "致电",
+        lbl_global: "全球业务",
+        val_location: "印度 & 英国",
+        // Footer & Misc
+        footer_desc: "利用技术和设计帮助创作者打造更好的产品。",
+        link_insta: "Instagram",
+        link_wa: "WhatsApp",
+        footer_copy: "在班加罗尔精心打造。",
+        cookie_msg: "我们使用 Cookie 来增强您的体验。",
+        cookie_ok: "接受",
+        cookie_no: "拒绝",
+        book_title: "预约通话",
+        book_subtitle: "选择时间段 (IST 08:00 - 21:00)",
+        book_slots: "可用时间段",
+        book_confirm: "确认预约"
       }
     };
     const root = document.getElementById('skrm-bliss-root');
-    // --- 2. CAROUSEL LOGIC WITH DEFAULT MIDDLE START ---
+    // --- 2. CAROUSEL ENGINE (SCROLL LOGIC FIX) ---
+    // --- 2. CAROUSEL LOGIC ---
     const track = root.querySelector('#track');
     const container = root.querySelector('#featureCarousel');
     const prevBtn = root.querySelector('#prevBtn');
     const nextBtn = root.querySelector('#nextBtn');
     const dots = root.querySelectorAll('.dot');
-    // 🔥 CHANGE: Start at Index 1 (Middle Card)
-    let currentSlide = 1;
+    let currentSlide = 1; // Default to Middle
     const totalSlides = 3;
-    // Function to render slide position
+
     function updateCarousel() {
       if (!track) return;
-      // Shift by 100% per slide (0% = Left, -100% = Middle, -200% = Right)
       track.style.transform = `translateX(-${currentSlide * 100}%)`;
       dots.forEach((dot, idx) => dot.classList.toggle('active', idx === currentSlide));
     }
-    // Initialize Default View (Middle Card)
     setTimeout(() => updateCarousel(), 10);
-    // Click Handlers
+    // Manual Hero Buttons
+    window.goToSlide = function(n) {
+      currentSlide = n;
+      updateCarousel();
+      document.getElementById('featureCarousel').scrollIntoView({
+        behavior: 'smooth'
+      });
+    };
+    // Manual Arrows
     if (nextBtn) nextBtn.addEventListener('click', () => {
       currentSlide = (currentSlide === totalSlides - 1) ? 0 : currentSlide + 1;
       updateCarousel();
@@ -1448,75 +1755,57 @@
       currentSlide = (currentSlide === 0) ? totalSlides - 1 : currentSlide - 1;
       updateCarousel();
     });
-    // Touch Swipe Logic
-    let startX = 0,
-      endX = 0;
-    if (container) {
-      container.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
-      container.addEventListener('touchmove', (e) => endX = e.touches[0].clientX);
-      container.addEventListener('touchend', () => {
-        if (!endX) return;
-        if (startX - endX > 50) { // Swipe Left -> Go Right/Next
-          if (currentSlide < totalSlides - 1) {
-            currentSlide++;
-            updateCarousel();
-          }
-        } else if (startX - endX < -50) { // Swipe Right -> Go Left/Prev
-          if (currentSlide > 0) {
-            currentSlide--;
-            updateCarousel();
-          }
-        }
-        startX = 0;
-        endX = 0;
-      });
-    }
-    // 🔥 SMART 3-WAY SCROLL LOGIC 🔥
-    // Middle (1) is default. Scroll Up -> 0. Scroll Down -> 2.
+    // 🔥 STABILIZED SCROLL LOGIC 🔥
     let lastScrollY = window.pageYOffset;
-    let isScrolling = false;
+    let scrollAccumulator = 0; // Accumulates pixel distance
+    let isLocked = false; // Cooldown lock
+    const SCROLL_THRESHOLD = 120; // Pixels required to trigger switch
     window.addEventListener('scroll', () => {
-      if (!container || isScrolling) return;
-      isScrolling = true;
-      setTimeout(() => isScrolling = false, 150); // Debounce
+      if (!container) return;
       const scrollY = window.pageYOffset;
       const rect = container.getBoundingClientRect();
       const viewHeight = window.innerHeight;
-      // Is carousel centered?
-      const isVisible = (rect.top < viewHeight * 0.6) && (rect.bottom > viewHeight * 0.4);
-      if (isVisible) {
-        // SCROLL DOWN -> Move towards Right (Index 2)
-        if (scrollY > lastScrollY) {
-          if (currentSlide === 0) {
-            setTimeout(() => {
-              currentSlide = 1;
-              updateCarousel();
-            }, 200);
-          } else if (currentSlide === 1) {
-            setTimeout(() => {
-              currentSlide = 2;
-              updateCarousel();
-            }, 200);
+      // Calculate delta
+      const delta = scrollY - lastScrollY;
+      lastScrollY = scrollY <= 0 ? 0 : scrollY;
+      // Only run if carousel is center-ish on screen (active)
+      const isVisible = (rect.top < viewHeight * 0.7) && (rect.bottom > viewHeight * 0.3);
+      if (!isVisible || isLocked) {
+        scrollAccumulator = 0; // Reset if out of view or locked
+        return;
+      }
+      // Add to accumulator
+      scrollAccumulator += delta;
+      // Check Threshold
+      if (Math.abs(scrollAccumulator) > SCROLL_THRESHOLD) {
+        // Trigger Switch
+        if (scrollAccumulator > 0) {
+          // Scrolled Down -> Go Right
+          if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+            updateCarousel();
+            activateLock();
           }
-        }
-        // SCROLL UP -> Move towards Left (Index 0)
-        else if (scrollY < lastScrollY) {
-          if (currentSlide === 2) {
-            setTimeout(() => {
-              currentSlide = 1;
-              updateCarousel();
-            }, 200);
-          } else if (currentSlide === 1) {
-            setTimeout(() => {
-              currentSlide = 0;
-              updateCarousel();
-            }, 200);
+        } else {
+          // Scrolled Up -> Go Left
+          if (currentSlide > 0) {
+            currentSlide--;
+            updateCarousel();
+            activateLock();
           }
         }
       }
-      lastScrollY = scrollY <= 0 ? 0 : scrollY;
     });
-    // --- 3. STANDARD FUNCTIONS (Lang, Theme, Form) ---
+
+    function activateLock() {
+      isLocked = true;
+      scrollAccumulator = 0;
+      // 1.2 Second Lock to stabilize the view
+      setTimeout(() => {
+        isLocked = false;
+      }, 1200);
+    }
+    // --- 3. I18N SYSTEM ---
     const langSelect = root.querySelector('#langSelect');
 
     function updateLanguage(lang) {
@@ -1524,6 +1813,13 @@
         const key = el.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
           el.textContent = translations[lang][key];
+        }
+      });
+      // Handle Placeholders
+      root.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang] && translations[lang][key]) {
+          el.placeholder = translations[lang][key];
         }
       });
       localStorage.setItem('skrm_lang', lang);
@@ -1534,6 +1830,7 @@
       langSelect.value = savedLang;
       updateLanguage(savedLang);
     }
+    // --- 4. THEME & UTILS ---
     const themeBtn = root.querySelector('#themeToggle');
     if (themeBtn) {
       themeBtn.addEventListener('click', () => {
@@ -1550,11 +1847,16 @@
       window.hideCookieBanner();
     };
     window.hideCookieBanner = () => cookieBanner?.classList.remove('show');
+    // --- 5. FORM HANDLING ---
     const form = root.querySelector('#contactForm');
     if (form) form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const status = root.querySelector('#formStatus');
       const fd = new FormData(form);
+      const btn = form.querySelector('button[type="submit"]');
+      const origText = btn.textContent;
+      btn.textContent = "Sending...";
+      btn.disabled = true;
       try {
         const res = await fetch(form.action, {
           method: 'POST',
@@ -1564,18 +1866,21 @@
           }
         });
         if (res.ok) {
-          status.textContent = "Sent!";
+          status.textContent = "Sent successfully!";
           form.reset();
         } else fallbackToMailto(fd);
       } catch (e) {
         fallbackToMailto(fd);
+      } finally {
+        btn.textContent = origText;
+        btn.disabled = false;
       }
     });
 
     function fallbackToMailto(fd) {
-      window.location.href = `mailto:connect@skrmblissai.in?subject=Contact&body=${fd.get('message')}`;
+      window.location.href = `mailto:connect@skrmblissai.in?subject=Website Contact&body=${fd.get('message')} - from ${fd.get('email')}`;
     }
-    // --- 4. CALENDAR ---
+    // --- 6. BOOKING CALENDAR ---
     const modal = root.querySelector('#bookingModal');
     const cDays = root.querySelector('#calendarDays');
     const tSlots = root.querySelector('#timeSlots');
