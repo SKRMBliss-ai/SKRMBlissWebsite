@@ -1,4 +1,4 @@
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
 <div id="skrm-bliss-root" data-theme="dark">
   <style>
     /* =========================================
@@ -1009,9 +1009,8 @@
         </div>
       </div>
       <div class="carousel-controls">
-        <button class="slider-arrow" id="prevBtn">
-          < </button>
-            <button class="slider-arrow" id="nextBtn">></button>
+        <button class="slider-arrow" id="prevBtn">&lt;</button>
+        <button class="slider-arrow" id="nextBtn">&gt;</button>
       </div>
       <div class="slider-dots">
         <div class="dot" data-slide="0"></div>
@@ -1194,10 +1193,9 @@
       <p style="text-align:center; color:var(--text-muted); margin-bottom:1.5rem;" data-i18n="book_subtitle">Select a slot (IST 08:00 AM - 09:00 PM)</p>
       <div id="calendarView">
         <div class="calendar-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <button onclick="changeMonth(-1)" class="btn-glass" style="padding:5px 10px;">
-            < </button>
-              <h3 id="currentMonthYear" style="margin:0;"></h3>
-              <button onclick="changeMonth(1)" class="btn-glass" style="padding:5px 10px;">></button>
+          <button onclick="changeMonth(-1)" class="btn-glass" style="padding:5px 10px;">&lt;</button>
+          <h3 id="currentMonthYear" style="margin:0;"></h3>
+          <button onclick="changeMonth(1)" class="btn-glass" style="padding:5px 10px;">&gt;</button>
         </div>
         <div class="calendar-grid" id="calendarDays"></div>
         <h4 style="margin:10px 0; display:none;" id="slotTitle" data-i18n="book_slots">Available Slots</h4>
