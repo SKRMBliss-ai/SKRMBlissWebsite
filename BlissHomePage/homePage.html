@@ -1,4 +1,4 @@
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <div id="skrm-bliss-root" data-theme="dark">
   <style>
     /* =========================================
@@ -88,6 +88,7 @@
     #skrm-bliss-root .glass-form-fancy,
     #skrm-bliss-root .feature-banner,
     #skrm-bliss-root .timeline-content,
+    #skrm-bliss-root .testimonial-card,
     #skrm-bliss-root nav {
       background: var(--glass-surface);
       backdrop-filter: blur(var(--glass-blur));
@@ -108,7 +109,8 @@
     #skrm-bliss-root .service-card:hover,
     #skrm-bliss-root .glass-form-fancy:hover,
     #skrm-bliss-root .feature-banner:hover,
-    #skrm-bliss-root .timeline-content:hover {
+    #skrm-bliss-root .timeline-content:hover,
+    #skrm-bliss-root .testimonial-card:hover {
       animation: none;
       transform: translateY(-6px) scale(1.01);
       box-shadow: 0 0 60px var(--card-surge-color), var(--glass-inset);
@@ -356,7 +358,7 @@
     }
 
     /* =========================================
-       6. CAROUSEL
+       6. CAROUSEL & TESTIMONIALS
        ========================================= */
     #skrm-bliss-root .smart-carousel-wrapper {
       position: relative;
@@ -491,6 +493,61 @@
       background: var(--brand-primary);
       width: 25px;
       border-radius: 10px;
+    }
+
+    /* --- NEW: TESTIMONIAL CAROUSEL STYLES --- */
+    #skrm-bliss-root .testimonial-card {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    #skrm-bliss-root .t-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      color: #000;
+      font-weight: 900;
+      font-size: 1.8rem;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 20px var(--card-glow-pulse);
+    }
+
+    #skrm-bliss-root .t-quote {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    #skrm-bliss-root .t-author {
+      margin-top: 10px;
+    }
+
+    #skrm-bliss-root .t-name {
+      display: block;
+      font-weight: 800;
+      color: var(--brand-primary);
+      font-size: 1.1rem;
+    }
+
+    #skrm-bliss-root .t-role {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    #skrm-bliss-root .stars {
+      color: #FFD700;
+      font-size: 1.2rem;
+      letter-spacing: 4px;
     }
 
     /* =========================================
@@ -742,6 +799,10 @@
       #skrm-bliss-root .timeline::before {
         left: 20px;
       }
+
+      #skrm-bliss-root .t-quote {
+        font-size: 1.1rem;
+      }
     }
 
     /* Extras: Cookie & FAB */
@@ -866,6 +927,26 @@
       background: var(--brand-primary);
       color: black;
     }
+
+    /* --- VIDEO TESTIMONIAL STYLES --- */
+    #skrm-bliss-root .t-video-container {
+      width: 100%;
+      max-width: 500px;
+      /* Constrain width for aesthetics */
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      background: #000;
+    }
+
+    #skrm-bliss-root .t-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16 / 9;
+      /* Standard video ratio */
+    }
   </style>
   <div style="position: absolute; inset: 0; background: radial-gradient(circle at 15% 50%, var(--bg-blob-1) 0%, transparent 50%), radial-gradient(circle at 85% 80%, var(--bg-blob-2) 0%, transparent 50%); pointer-events: none; z-index: 0;"></div>
   <nav>
@@ -959,7 +1040,7 @@
                 <li data-i18n="feat_li_2">24/7 AI Coach for students</li>
                 <li data-i18n="feat_li_3">Your Logo & Brand Colors</li>
               </ul>
-              <a href="#" class="btn-primary" style="display:inline-block; margin-top:1rem;" data-i18n="feat_cta">Claim Your App →</a>
+              <a href="https://www.skrmblissai.in/laughterapp" class="btn-primary" style="display:inline-block; margin-top:1rem;" data-i18n="feat_cta">Claim Your App →</a>
             </div>
           </div>
         </div>
@@ -981,7 +1062,7 @@
                 <li data-i18n="pres_li_2">Stress Tracking Dashboard</li>
                 <li data-i18n="pres_li_3">Daily Alignment Rituals</li>
               </ul>
-              <a href="#" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black;" data-i18n="pres_cta">Start Journey →</a>
+              <a href="https://www.skrmblissai.in/thepresenceprotocol" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black;" data-i18n="pres_cta">Start Journey →</a>
             </div>
           </div>
         </div>
@@ -1003,7 +1084,7 @@
                 <li data-i18n="sim_li_2">Safe "Failure-Friendly" Environment</li>
                 <li data-i18n="sim_li_3">Instant Performance Analytics</li>
               </ul>
-              <a href="#" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black; box-shadow: 0 0 20px rgba(195, 184, 213, 0.3);" data-i18n="sim_cta">Explore the Lab →</a>
+              <a href="https://www.skrmblissai.in/simulatorlab" class="btn-primary" style="display:inline-block; margin-top:1rem; background:var(--brand-secondary); color:black; box-shadow: 0 0 20px rgba(195, 184, 213, 0.3);" data-i18n="sim_cta">Explore the Lab →</a>
             </div>
           </div>
         </div>
@@ -1092,6 +1173,106 @@
             <h3 data-i18n="proc_4_title">Deploy & Support</h3>
             <p data-i18n="proc_4_desc">Handover files and provide ongoing maintenance.</p>
           </div>
+        </div>
+      </div>
+    </section>
+    <section id="testimonials" style="margin-top:8rem;">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="testi_title">What Our Partners Say</h2>
+        <p style="color:var(--text-muted);" data-i18n="testi_sub">Trusted by educators, startups, and creators globally.</p>
+      </div>
+
+      <div id="testimonialCarousel" class="smart-carousel-wrapper" style="margin:2rem 0;">
+        <div class="smart-track" id="testiTrack">
+
+          <div class="smart-slide">
+            <div class="testimonial-card">
+              <div class="t-video-container">
+                <video controls playsinline class="t-video">
+                  <source src="https://res.cloudinary.com/dfopoyt9v/video/upload/v1765519062/ArnavReddySimulator_i5cvej.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <div class="t-quote" data-i18n="testi_video_1">"I used to read chapters and still feel confused. Learning through SKRMbliss.ai simulations things just clicked."</div>
+              <div class="t-author">
+                <span class="t-name">Karthik Reddy</span>
+                <span class="t-role">11th Grade, Vibgyor, Bangalore</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="smart-slide">
+            <div class="testimonial-card">
+              <div class="t-video-container">
+                <video controls playsinline class="t-video">
+                  <source src="https://res.cloudinary.com/dfopoyt9v/video/upload/v1765519417/SimulatorTestimony_u2pga1.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <div class="t-quote" data-i18n="testi_video_2">My Physics Class was actually loud today.They weren't  bored.  They were breaking things in SKRMBliss.ai simulator. Its genius!</div>
+              <div class="t-author">
+                <span class="t-name">David</span>
+                <span class="t-role">Teacher / R & A Acadamcy, Chile</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="smart-slide">
+            <div class="testimonial-card">
+              <div class="t-video-container">
+                <video controls playsinline class="t-video">
+                  <source src="https://res.cloudinary.com/dfopoyt9v/video/upload/v1765519183/YogaInstructorApp_hqyyxx.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <div class="t-quote" data-i18n="testi_video_3">"Add the quote for the third video here."</div>
+              <div class="t-author">
+                <span class="t-name">Paulina</span>
+                <span class="t-role">Yoga Enthusiast / Argentina</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="smart-slide">
+            <div class="testimonial-card">
+              <div class="t-avatar">AL</div>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <div class="t-quote" data-i18n="testi_2">"We launched our MVP in just 5 days using their fast deploy system. The design is stunning and the tech stack is rock solid."</div>
+              <div class="t-author">
+                <span class="t-name">Anita L.</span>
+                <span class="t-role">Founder, EdTech Startup</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="smart-slide">
+            <div class="testimonial-card">
+              <div class="t-avatar">DK</div>
+              <div class="stars">⭐⭐⭐⭐⭐</div>
+              <div class="t-quote" data-i18n="testi_3">"The PhysicsVerse simulator is incredible. My students are finally engaging with complex topics like electromagnetism intuitively."</div>
+              <div class="t-author">
+                <span class="t-name">David K.</span>
+                <span class="t-role">Physics HOD</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="carousel-controls">
+          <button class="slider-arrow" id="testiPrev">&lt;</button>
+          <button class="slider-arrow" id="testiNext">&gt;</button>
+        </div>
+
+        <div class="slider-dots" id="testiDots">
+          <div class="dot active" data-tslide="0"></div>
+          <div class="dot" data-tslide="1"></div>
+          <div class="dot" data-tslide="2"></div>
+          <div class="dot" data-tslide="3"></div>
+          <div class="dot" data-tslide="4"></div>
         </div>
       </div>
     </section>
@@ -1195,7 +1376,7 @@
         <div class="calendar-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
           <button onclick="changeMonth(-1)" class="btn-glass" style="padding:5px 10px;">&lt;</button>
           <h3 id="currentMonthYear" style="margin:0;"></h3>
-          <button onclick="changeMonth(1)" class="btn-glass" style="padding:5px 10px;">&gt;</button>
+          <button onclick="changeMonth(1)" class="btn-glass" style="padding:5px 10px;">&lt;</button>
         </div>
         <div class="calendar-grid" id="calendarDays"></div>
         <h4 style="margin:10px 0; display:none;" id="slotTitle" data-i18n="book_slots">Available Slots</h4>
@@ -1803,6 +1984,35 @@
         isLocked = false;
       }, 1200);
     }
+    // --- 2.1 TESTIMONIAL CAROUSEL LOGIC ---
+    // --- UPDATED TESTIMONIAL CAROUSEL LOGIC ---
+    const tTrack = root.querySelector('#testiTrack');
+    const tPrev = root.querySelector('#testiPrev');
+    const tNext = root.querySelector('#testiNext');
+    const tDots = root.querySelectorAll('[data-tslide]');
+    let tSlide = 0;
+    const totalTestimonials = 5; // Updated from 3 to 4
+    function updateTestiCarousel() {
+      if (!tTrack) return;
+      tTrack.style.transform = `translateX(-${tSlide * 100}%)`;
+      tDots.forEach((dot, idx) => dot.classList.toggle('active', idx === tSlide));
+      // Auto-pause video when sliding away (Optional UX improvement)
+      root.querySelectorAll('video').forEach(v => v.pause());
+    }
+    if (tNext) tNext.addEventListener('click', () => {
+      tSlide = (tSlide === totalTestimonials - 1) ? 0 : tSlide + 1;
+      updateTestiCarousel();
+    });
+    if (tPrev) tPrev.addEventListener('click', () => {
+      tSlide = (tSlide === 0) ? totalTestimonials - 1 : tSlide - 1;
+      updateTestiCarousel();
+    });
+    tDots.forEach((d, idx) => {
+      d.addEventListener('click', () => {
+        tSlide = idx;
+        updateTestiCarousel();
+      });
+    });
     // --- 3. I18N SYSTEM ---
     const langSelect = root.querySelector('#langSelect');
 
